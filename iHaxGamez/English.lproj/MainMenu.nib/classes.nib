@@ -1,0 +1,32 @@
+{
+    IBClasses = (
+        {CLASS = AppAddressData; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = AppAddressDataSource; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = AppController; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {btnRefreshAction = id; btnSearchAction = id; popupProcessListAction = id; }; 
+            CLASS = MainWindowController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {popupProcessList = NSPopUpButton; textSearchCounter = NSTextField; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {FilterStart = id; SearchReset = id; SearchStart = id; }; 
+            CLASS = SearchWindowController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                btnReset = NSButton; 
+                btnSearchFilter = NSButton; 
+                btnSearchOriginal = NSButton; 
+                popupDataType = NSPopUpButton; 
+                tblResults = NSTableView; 
+                textAppTitle = NSTextField; 
+                textFilterValue = NSTextField; 
+                textSearchValue = NSTextField; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}
