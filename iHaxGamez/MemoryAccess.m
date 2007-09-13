@@ -1,5 +1,5 @@
 /*
- iHaxHamez - External process memory search-and-replace tool for MAC OS X
+ iHaxGamez - External process memory search-and-replace tool for MAC OS X
  Copyright (C) <2007>  <Raymond Wilfong>
  
  This program is free software; you can redistribute it and/or modify

@@ -274,11 +274,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
+								<string>1C37FBAC04509CD000000102</string>
+								<string>7A0278D00C97818500B7C7F4</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>3</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -313,8 +316,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -332,14 +333,12 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7AF33F0B0C96FBA000F475AD</string>
+										<string>7A0278D40C97818500B7C7F4</string>
 										<key>history</key>
 										<array>
 											<string>7A906BB80C949F2A0016594B</string>
 											<string>7A906BBB0C949F2A0016594B</string>
 											<string>7A0C22CE0C94CC92000A0B5F</string>
-											<string>7AF10A290C95153A001FCB7C</string>
-											<string>7AF10A400C951C4F001FCB7C</string>
 											<string>7AF10AC70C95461C001FCB7C</string>
 											<string>7AF10AC80C95461C001FCB7C</string>
 											<string>7AF10AC90C95461C001FCB7C</string>
@@ -362,7 +361,9 @@
 											<string>7A3E07E20C96D7FA00F885A7</string>
 											<string>7A3E07E30C96D7FA00F885A7</string>
 											<string>7A3E07E40C96D7FA00F885A7</string>
-											<string>7A3E08220C96D7FA00F885A7</string>
+											<string>7A9C19E90C977043004746DA</string>
+											<string>7A0278D10C97818500B7C7F4</string>
+											<string>7A0278D20C97818500B7C7F4</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -392,6 +393,7 @@
 											<string>7AF10A520C951C4F001FCB7C</string>
 											<string>7AAD51F00C95EC730050B74B</string>
 											<string>7A3E07E70C96D7FA00F885A7</string>
+											<string>7A0278D30C97818500B7C7F4</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -413,6 +415,8 @@
 							<string>444pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -449,9 +453,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7AF33F070C96FB5F00F475AD</string>
+				<string>7A0278D50C97818500B7C7F4</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7AF33F080C96FB5F00F475AD</string>
+				<string>7A0278D60C97818500B7C7F4</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -570,7 +574,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>211221408.44736701</real>
+	<real>211255618.69568199</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
@@ -585,10 +589,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>7AF33F030C96FB4F00F475AD</string>
 		<string>/Users/rayw/Documents/iHaxGamez/iHaxGamez.xcodeproj</string>
-		<string>7AFB52180C94917F0066EBDC</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 55 1253 723 0 0 1280 778 </string>
@@ -1117,7 +1118,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7A0C23490C94E6E5000A0B5F</string>
-				<string>7AAD51EB0C95EB670050B74B</string>
+				<string>7A9C19E70C977035004746DA</string>
 				<string>1C78EAB2065D492600B07095</string>
 				<string>1CD052920623707200166675</string>
 			</array>
