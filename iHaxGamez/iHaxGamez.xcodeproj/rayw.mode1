@@ -275,11 +275,13 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>080E96DDFE201D6D7F000001</string>
+								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>15</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -334,11 +336,9 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7A5ED81C0C99EC2F00BEB6B6</string>
+										<string>7AB4310D0C99FC500029411E</string>
 										<key>history</key>
 										<array>
-											<string>7A5ED7DE0C99EC2F00BEB6B6</string>
-											<string>7A5ED7DF0C99EC2F00BEB6B6</string>
 											<string>7A5ED7E00C99EC2F00BEB6B6</string>
 											<string>7A5ED7E10C99EC2F00BEB6B6</string>
 											<string>7A5ED7E20C99EC2F00BEB6B6</string>
@@ -351,23 +351,21 @@
 											<string>7A5ED7E90C99EC2F00BEB6B6</string>
 											<string>7A5ED7EA0C99EC2F00BEB6B6</string>
 											<string>7A5ED7EB0C99EC2F00BEB6B6</string>
-											<string>7A5ED7EC0C99EC2F00BEB6B6</string>
 											<string>7A5ED7ED0C99EC2F00BEB6B6</string>
 											<string>7A5ED7EE0C99EC2F00BEB6B6</string>
 											<string>7A5ED7F00C99EC2F00BEB6B6</string>
-											<string>7A5ED7F10C99EC2F00BEB6B6</string>
+											<string>7A5ED87E0C99EF5000BEB6B6</string>
+											<string>7A5ED87F0C99EF5000BEB6B6</string>
+											<string>7AB430FF0C99FB1B0029411E</string>
+											<string>7A5ED83A0C99EE2300BEB6B6</string>
 										</array>
 										<key>prevStack</key>
 										<array>
 											<string>7A5ED7F20C99EC2F00BEB6B6</string>
 											<string>7A5ED7F30C99EC2F00BEB6B6</string>
 											<string>7A5ED7F40C99EC2F00BEB6B6</string>
-											<string>7A5ED7F50C99EC2F00BEB6B6</string>
 											<string>7A5ED7F60C99EC2F00BEB6B6</string>
 											<string>7A5ED7F70C99EC2F00BEB6B6</string>
-											<string>7A5ED7F80C99EC2F00BEB6B6</string>
-											<string>7A5ED7F90C99EC2F00BEB6B6</string>
-											<string>7A5ED7FA0C99EC2F00BEB6B6</string>
 											<string>7A5ED7FB0C99EC2F00BEB6B6</string>
 											<string>7A5ED7FC0C99EC2F00BEB6B6</string>
 											<string>7A5ED7FD0C99EC2F00BEB6B6</string>
@@ -375,31 +373,14 @@
 											<string>7A5ED7FF0C99EC2F00BEB6B6</string>
 											<string>7A5ED8000C99EC2F00BEB6B6</string>
 											<string>7A5ED8010C99EC2F00BEB6B6</string>
-											<string>7A5ED8020C99EC2F00BEB6B6</string>
-											<string>7A5ED8030C99EC2F00BEB6B6</string>
-											<string>7A5ED8040C99EC2F00BEB6B6</string>
-											<string>7A5ED8050C99EC2F00BEB6B6</string>
-											<string>7A5ED8060C99EC2F00BEB6B6</string>
 											<string>7A5ED8070C99EC2F00BEB6B6</string>
 											<string>7A5ED8080C99EC2F00BEB6B6</string>
 											<string>7A5ED8090C99EC2F00BEB6B6</string>
 											<string>7A5ED80A0C99EC2F00BEB6B6</string>
 											<string>7A5ED80B0C99EC2F00BEB6B6</string>
 											<string>7A5ED80C0C99EC2F00BEB6B6</string>
-											<string>7A5ED80D0C99EC2F00BEB6B6</string>
-											<string>7A5ED80E0C99EC2F00BEB6B6</string>
-											<string>7A5ED80F0C99EC2F00BEB6B6</string>
-											<string>7A5ED8100C99EC2F00BEB6B6</string>
-											<string>7A5ED8110C99EC2F00BEB6B6</string>
-											<string>7A5ED8120C99EC2F00BEB6B6</string>
-											<string>7A5ED8130C99EC2F00BEB6B6</string>
-											<string>7A5ED8140C99EC2F00BEB6B6</string>
-											<string>7A5ED8150C99EC2F00BEB6B6</string>
-											<string>7A5ED8160C99EC2F00BEB6B6</string>
-											<string>7A5ED8170C99EC2F00BEB6B6</string>
 											<string>7A5ED8180C99EC2F00BEB6B6</string>
-											<string>7A5ED81A0C99EC2F00BEB6B6</string>
-											<string>7A5ED81B0C99EC2F00BEB6B6</string>
+											<string>7AB431000C99FB1B0029411E</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -457,9 +438,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7A5ED81D0C99EC2F00BEB6B6</string>
+				<string>7AB431020C99FB1B0029411E</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7A5ED81E0C99EC2F00BEB6B6</string>
+				<string>7AB431030C99FB1B0029411E</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -578,7 +559,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>211414063.17277801</real>
+	<real>211418192.43493801</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
@@ -593,11 +574,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>7A0C23490C94E6E5000A0B5F</string>
+		<string>1C0AD2B3069F1EA900FABCE6</string>
 		<string>/Users/rayw/Documents/Xcode/iHaxGamez/iHaxGamez.xcodeproj</string>
 		<string>7AFB52180C94917F0066EBDC</string>
-		<string>1C0AD2B3069F1EA900FABCE6</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 55 1253 723 0 0 1280 778 </string>
@@ -679,7 +658,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7AFB52180C94917F0066EBDC</string>
-				<string>7A5ED81F0C99EC2F00BEB6B6</string>
+				<string>7AB431040C99FB1B0029411E</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -1041,9 +1020,9 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C0AD2B3069F1EA900FABCE6</string>
-				<string>7A5ED8200C99EC2F00BEB6B6</string>
+				<string>7AB431050C99FB1B0029411E</string>
 				<string>1CD0528B0623707200166675</string>
-				<string>7A5ED8210C99EC2F00BEB6B6</string>
+				<string>7AB431060C99FB1B0029411E</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.run</string>
@@ -1052,7 +1031,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C0AD2B3069F1EA900FABCE6</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

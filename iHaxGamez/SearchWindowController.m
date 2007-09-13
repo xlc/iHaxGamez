@@ -130,6 +130,8 @@
             // on the length of the original search string!!
             int BufSize;
             Byte *DataBuffer = nil;
+			Byte bVal = 0;
+			short sVal = 0;
             int iVal = 0;
             float fVal = 0.0f;
             double dVal = 0.0;
@@ -137,11 +139,16 @@
             switch(SelectedIndex)
             {
                 case 0: // byte
+                    BufSize = sizeof(Byte);
+                    DataBuffer = (Byte *)&bVal;
+                    break;
                 case 1: // int16
+                    BufSize = sizeof(short);
+                    DataBuffer = (Byte *)&sVal;
+                    break;
                 case 2: // int32
-                    BufSize = (int) pow(2, SelectedIndex);
+                    BufSize = sizeof(int);
                     DataBuffer = (Byte *)&iVal;
-                    DataBuffer += sizeof(int) - BufSize;
                     break;
                 case 3: // float
                     BufSize = sizeof(float);
@@ -152,7 +159,7 @@
                     DataBuffer = (Byte *)&dVal;
                     break;
                 case 5: // ASCII string
-                    BufSize = [[textSearchValue stringValue] length];
+                    BufSize = [[textSearchValue stringValue] length] * sizeof(char);
                     DataBuffer = (Byte *)charVal;
                     break;
                 case 6: // UNICODE string
@@ -184,7 +191,11 @@
                     switch(SelectedIndex)
                     {
                         case 0: // byte
+                            [MyAppAddr setValue:[NSString stringWithFormat:@"%u",bVal]];
+                            break;
                         case 1: // int16
+                            [MyAppAddr setValue:[NSString stringWithFormat:@"%u",sVal]];
+                            break;
                         case 2: // int32
                             [MyAppAddr setValue:[NSString stringWithFormat:@"%u",iVal]];
                             break;
@@ -225,6 +236,8 @@
     Byte *DataBuffer;
     int BufSize;
     uint Address;
+	Byte bVal;
+	short sVal;
     int iVal;
     float fVal;
     double dVal;
@@ -232,12 +245,23 @@
     switch(SelectedIndex)
     {
         case 0: // byte
+            BufSize = sizeof(Byte);
+            bVal = (Byte)[[MyAppAddr value] intValue];
+            DataBuffer = (Byte *)&bVal;
+            Address = [MyAppAddr address];
+            [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
+            break;
         case 1: // int16
+            BufSize = sizeof(short);
+            sVal = (short)[[MyAppAddr value] intValue];
+            DataBuffer = (Byte *)&sVal;
+            Address = [MyAppAddr address];
+            [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
+            break;
         case 2: // int32
-            BufSize = (int) pow(2, SelectedIndex);
+            BufSize = sizeof(int);
             iVal = [[MyAppAddr value] intValue];
             DataBuffer = (Byte *)&iVal;
-            DataBuffer += sizeof(int) - BufSize; // adjust for small ints
             Address = [MyAppAddr address];
             [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
             break;
