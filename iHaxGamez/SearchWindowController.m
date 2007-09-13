@@ -357,7 +357,8 @@
         if (([textSearchValue intValue] == 0) && ([popupDataType indexOfSelectedItem] < 5))
         {
             NSAlert *MyAlert =[NSAlert alertWithMessageText:@"Searching for 0 is a bad idea"
-                                    defaultButton:@"Cancel" alternateButton:@"I Said Do It!"
+                                    defaultButton:@"Cancel"
+									alternateButton:@"I Said Do It!"
                                     otherButton:@""
                                     informativeTextWithFormat:@"There are usually a lot of memory locations set to 0. Searching for 0 will often take a very LONG time. Perhaps you should cancel the search and look for another value."];
             AlertResult = [MyAlert runModal];
@@ -401,6 +402,8 @@
     [progressInd startAnimation:self];
     
 	// allocate the search value holders
+	Byte byteSearchVal;
+	short shortSearchVal;
     int intSearchVal;
     float floatSearchVal;
     double doubleSearchVal;
@@ -418,13 +421,22 @@
     switch(SelectedIndex)
     {
         case 0: // byte
+            searchValSize = sizeof(Byte);
+            byteSearchVal = (Byte) [CurrentSearchField intValue];
+            ValueString = [NSString stringWithFormat:@"%u",byteSearchVal];
+            searchValPointer = (Byte *)&byteSearchVal; // we point to the entry byte of the value we want to compare 
+            break;
         case 1: // int16
+            searchValSize = sizeof(short);
+            shortSearchVal = (short) [CurrentSearchField intValue];
+            ValueString = [NSString stringWithFormat:@"%u",shortSearchVal];
+            searchValPointer = (Byte *)&shortSearchVal; // we point to the entry byte of the value we want to compare 
+            break;
         case 2: // int32
-            searchValSize = (int) pow(2, SelectedIndex);
+            searchValSize = sizeof(int);
             intSearchVal = [CurrentSearchField intValue];
             ValueString = [NSString stringWithFormat:@"%u",intSearchVal];
-            searchValPointer = (Byte *)&intSearchVal;
-            searchValPointer += sizeof(intSearchVal) - searchValSize; // we point to the entry byte of the value we want to compare 
+            searchValPointer = (Byte *)&intSearchVal; // we point to the entry byte of the value we want to compare 
             break;
         case 3: // float
             searchValSize = sizeof(floatSearchVal);
@@ -440,7 +452,7 @@
             break;
         case 5: // ASCII string
             [self adjustFilterStringLength];
-            searchValSize = [[CurrentSearchField stringValue] length];
+            searchValSize = [[CurrentSearchField stringValue] length] * sizeof(char); // sizeof(char) should be 1, but things change...
             [[CurrentSearchField stringValue] getCString:(char *)charSearchVal];
             ValueString = [CurrentSearchField stringValue];
             searchValPointer = (Byte *)charSearchVal;
