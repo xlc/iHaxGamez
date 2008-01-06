@@ -130,39 +130,44 @@
             // on the length of the original search string!!
             int BufSize;
             Byte *DataBuffer = nil;
-			Byte bVal = 0;
-			short sVal = 0;
-            int iVal = 0;
+			int8_t bVal = 0;
+			int16_t sVal = 0;
+            int32_t iVal = 0;
+            int64_t lVal = 0;
             float fVal = 0.0f;
             double dVal = 0.0;
             unichar charVal[[[textSearchValue stringValue] length] + 1];
             switch(SelectedIndex)
             {
                 case 0: // byte
-                    BufSize = sizeof(Byte);
+                    BufSize = sizeof(int8_t);
                     DataBuffer = (Byte *)&bVal;
                     break;
                 case 1: // int16
-                    BufSize = sizeof(short);
+                    BufSize = sizeof(int16_t);
                     DataBuffer = (Byte *)&sVal;
                     break;
                 case 2: // int32
-                    BufSize = sizeof(int);
+                    BufSize = sizeof(int32_t);
                     DataBuffer = (Byte *)&iVal;
                     break;
-                case 3: // float
+				case 3: // int64
+                    BufSize = sizeof(int64_t);
+                    DataBuffer = (Byte *)&lVal;
+                    break;
+                case 4: // float
                     BufSize = sizeof(float);
                     DataBuffer = (Byte *)&fVal;
                     break;
-                case 4: // double
+                case 5: // double
                     BufSize = sizeof(double);
                     DataBuffer = (Byte *)&dVal;
                     break;
-                case 5: // ASCII string
+                case 6: // ASCII string
                     BufSize = [[textSearchValue stringValue] length] * sizeof(char);
                     DataBuffer = (Byte *)charVal;
                     break;
-                case 6: // UNICODE string
+                case 7: // UNICODE string
                 default:
                     BufSize = [[textSearchValue stringValue] length] * sizeof(unichar);
                     DataBuffer = (Byte *)charVal;
@@ -191,24 +196,27 @@
                     switch(SelectedIndex)
                     {
                         case 0: // byte
-                            [MyAppAddr setValue:[NSString stringWithFormat:@"%u",bVal]];
+                            [MyAppAddr setValue:[NSString stringWithFormat:@"%hu",0x00FF & bVal]];
                             break;
                         case 1: // int16
-                            [MyAppAddr setValue:[NSString stringWithFormat:@"%u",sVal]];
+                            [MyAppAddr setValue:[NSString stringWithFormat:@"%hu",sVal]];
                             break;
                         case 2: // int32
                             [MyAppAddr setValue:[NSString stringWithFormat:@"%u",iVal]];
                             break;
-                        case 3: // float
+                        case 3: // int64
+                            [MyAppAddr setValue:[NSString stringWithFormat:@"%qu",lVal]];
+                            break;
+                        case 4: // float
                             [MyAppAddr setValue:[NSString stringWithFormat:@"%f",fVal]];
                             break;
-                        case 4: // double
+                        case 5: // double
                             [MyAppAddr setValue:[NSString stringWithFormat:@"%f",dVal]];
                             break;
-                        case 5: // ASCII string
+                        case 6: // ASCII string
                             [MyAppAddr setValue:[NSString stringWithCString:(char *)charVal length:BufSize]];
                             break;
-                        case 6: // UNICODE string
+                        case 7: // UNICODE string
                         default:
                             [MyAppAddr setValue:[NSString stringWithCharacters:charVal length:BufSize / sizeof(unichar)]];
                             break;
@@ -236,50 +244,54 @@
     Byte *DataBuffer;
     int BufSize;
     uint Address;
-	Byte bVal;
-	short sVal;
-    int iVal;
+	int8_t bVal;
+	int16_t sVal;
+    int32_t iVal;
+    int64_t lVal;
+	long long llVal;
     float fVal;
     double dVal;
     unichar charVal[[[textSearchValue stringValue] length] + 1];
+
+	// this is needed for integer based values - grabs a long long if possible, otherwise zero
+	if (![[NSScanner scannerWithString:[MyAppAddr value]] scanLongLong:&llVal])
+	{
+		llVal = 0;
+	}
+
     switch(SelectedIndex)
     {
         case 0: // byte
-            BufSize = sizeof(Byte);
-            bVal = (Byte)[[MyAppAddr value] intValue];
+            BufSize = sizeof(int8_t);
+            bVal = (int8_t)llVal;
             DataBuffer = (Byte *)&bVal;
-            Address = [MyAppAddr address];
-            [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
             break;
         case 1: // int16
-            BufSize = sizeof(short);
-            sVal = (short)[[MyAppAddr value] intValue];
+            BufSize = sizeof(int16_t);
+            sVal = (int16_t)llVal;
             DataBuffer = (Byte *)&sVal;
-            Address = [MyAppAddr address];
-            [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
             break;
         case 2: // int32
-            BufSize = sizeof(int);
-            iVal = [[MyAppAddr value] intValue];
+            BufSize = sizeof(int32_t);
+            iVal = (int32_t)llVal;
             DataBuffer = (Byte *)&iVal;
-            Address = [MyAppAddr address];
-            [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
             break;
-        case 3: // float
+        case 3: // int64
+            BufSize = sizeof(int64_t);
+            lVal = (int64_t)llVal;
+            DataBuffer = (Byte *)&lVal;
+            break;
+        case 4: // float
             BufSize = sizeof(float);
             fVal = [[MyAppAddr value] floatValue];
             DataBuffer = (Byte *)&fVal;
-            Address = [MyAppAddr address];
-            [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
             break;
-        case 4: // double
+        case 5: // double
             BufSize = sizeof(double);
             dVal = [[MyAppAddr value] doubleValue];
             DataBuffer = (Byte *)&dVal;
-            Address = [MyAppAddr address];
-            [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
             break;
-        case 5: // ASCII string
+        case 6: // ASCII string
             BufSize = [[textSearchValue stringValue] length];
             DataBuffer = (Byte *)charVal;
 
@@ -302,10 +314,9 @@
                 }
             }
 
-            Address = [MyAppAddr address];
-            [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
+            BufSize *= sizeof(char); // sizeof(char) should return 1, but just in case....
             break;
-        case 6: // UNICODE string
+        case 7: // UNICODE string
         default:
             BufSize = [[textSearchValue stringValue] length];
             DataBuffer = (Byte *)charVal;
@@ -329,10 +340,14 @@
                 }
             }
             
-            Address = [MyAppAddr address];
-            [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize * sizeof(unichar)];
+            BufSize *= sizeof(unichar);
             break;
     }
+	
+	// change the data located at Address to the value pointed to by DataBuffer
+    Address = [MyAppAddr address];
+    [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
+
     [progressInd stopAnimation:self];
     [self refreshResults:false];
 }
@@ -426,62 +441,77 @@
     [progressInd startAnimation:self];
     
 	// allocate the search value holders
-	Byte byteSearchVal;
-	short shortSearchVal;
-    int intSearchVal;
+	int8_t byteSearchVal;
+	int16_t shortSearchVal;
+    int32_t intSearchVal;
+    int64_t longSearchVal;
     float floatSearchVal;
     double doubleSearchVal;
     Byte *searchValPointer;
     int searchValSize;
     NSString *ValueString;
-    
+    long long llVal;
+	
     // Just in case we are looking for an ascii or unicode string, set up my buffer the lazy way (as auto instead of malloc)
     // Note: I set this as a unichar string even though I might use only half of its length when looking for a char string
     // Note: Also, the maximum length of the search can not exceed the length of the original string so we base this on textSearchValue
     // rather than CurrentSearchField
     unichar charSearchVal[[[textSearchValue stringValue] length] + 1];
     
+	// this is needed for integer based values - grabs a long long if possible, otherwise zero
+	if (![[NSScanner scannerWithString:[CurrentSearchField stringValue]] scanLongLong:&llVal])
+	{
+		llVal = 0;
+	}
+
+
     int SelectedIndex = [popupDataType indexOfSelectedItem];
     switch(SelectedIndex)
     {
         case 0: // byte
-            searchValSize = sizeof(Byte);
-            byteSearchVal = (Byte) [CurrentSearchField intValue];
-            ValueString = [NSString stringWithFormat:@"%u",byteSearchVal];
+            searchValSize = sizeof(int8_t);
+            byteSearchVal = (int8_t) llVal;
+            ValueString = [NSString stringWithFormat:@"%hu",0x00FF & byteSearchVal];
             searchValPointer = (Byte *)&byteSearchVal; // we point to the entry byte of the value we want to compare 
             break;
         case 1: // int16
-            searchValSize = sizeof(short);
-            shortSearchVal = (short) [CurrentSearchField intValue];
-            ValueString = [NSString stringWithFormat:@"%u",shortSearchVal];
+            searchValSize = sizeof(int16_t);
+            shortSearchVal = (int16_t) llVal;
+            ValueString = [NSString stringWithFormat:@"%hu",shortSearchVal];
             searchValPointer = (Byte *)&shortSearchVal; // we point to the entry byte of the value we want to compare 
             break;
         case 2: // int32
-            searchValSize = sizeof(int);
-            intSearchVal = [CurrentSearchField intValue];
+            searchValSize = sizeof(int32_t);
+            intSearchVal = (int32_t) llVal;
             ValueString = [NSString stringWithFormat:@"%u",intSearchVal];
             searchValPointer = (Byte *)&intSearchVal; // we point to the entry byte of the value we want to compare 
             break;
-        case 3: // float
+        case 3: // int64
+            searchValSize = sizeof(int64_t);
+            longSearchVal = (int64_t) llVal;
+            ValueString = [NSString stringWithFormat:@"%qu",longSearchVal];
+            searchValPointer = (Byte *)&longSearchVal; // we point to the entry byte of the value we want to compare 
+            break;
+        case 4: // float
             searchValSize = sizeof(floatSearchVal);
             floatSearchVal = [CurrentSearchField floatValue];
             ValueString = [NSString stringWithFormat:@"%f",floatSearchVal];
             searchValPointer = (Byte *)&floatSearchVal; // we point to the entry byte of the value we want to compare 
             break;
-        case 4: // double
+        case 5: // double
             searchValSize = sizeof(doubleSearchVal);
             doubleSearchVal = [CurrentSearchField doubleValue];
             ValueString = [NSString stringWithFormat:@"%f",doubleSearchVal];
             searchValPointer = (Byte *)&doubleSearchVal; // we point to the entry byte of the value we want to compare 
             break;
-        case 5: // ASCII string
+        case 6: // ASCII string
             [self adjustFilterStringLength];
             searchValSize = [[CurrentSearchField stringValue] length] * sizeof(char); // sizeof(char) should be 1, but things change...
             [[CurrentSearchField stringValue] getCString:(char *)charSearchVal];
             ValueString = [CurrentSearchField stringValue];
             searchValPointer = (Byte *)charSearchVal;
             break;
-        case 6: // UNICODE string
+        case 7: // UNICODE string
         default: // treat unknowns as UNICODE string
             [self adjustFilterStringLength];
             searchValSize = [[CurrentSearchField stringValue] length] * sizeof(unichar);
