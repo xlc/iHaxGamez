@@ -23,16 +23,16 @@
 
 @interface AppAddressData : NSObject
 {
-    uint address;
+    vm_address_t address;
     NSString *value;
 }
 
 - (id)init;
-- (id)initWithValues:(uint)addr val:(NSString *)val;
+- (id)initWithValues:(vm_address_t)addr val:(NSString *)val;
 - (void)dealloc;
 
-- (uint)address;
-- (void)setAddress:(uint)val;
+- (vm_address_t)address;
+- (void)setAddress:(vm_address_t)val;
 - (NSString *)value;
 - (void)setValue:(NSString *)val;
 

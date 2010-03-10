@@ -24,7 +24,7 @@
 @class SearchWindowController;
 
 
-@interface AppAddressDataSource : NSObject
+@interface AppAddressDataSource : NSObject <NSTableViewDataSource>
 {
     NSMutableArray *appAddresses;
     SearchWindowController* searchWindowController;
@@ -38,10 +38,10 @@
 - (SearchWindowController *)searchWindowController;
 - (void)setSearchWindowController:(SearchWindowController *)SWC;
 
-- (int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
-- (void)addAppAddressDataRec:(int)address val:(NSString *)val;
+- (void)addAppAddressDataRec:(vm_address_t)address val:(NSString *)val;
 - (void)removeAllObjects;
 
 @end

@@ -33,9 +33,9 @@
 - (NSMutableArray *)getFilteredArray:(Byte *)Value ByteSize:(int)Bytes SoughtValueString:(NSString *)ValueString Addresses:(NSMutableArray *)Addrs PrgBar:(NSProgressIndicator *)pBar;
 
 // save record to application addresses
-- (bool)saveDataForAddress:(uint)Address Buffer:(Byte *)DataBuffer BufLength:(int)Bytes;
+- (bool)saveDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(int)Bytes;
 
 // load record from application addresses
-- (bool)loadDataForAddress:(uint)Address Buffer:(Byte *)DataBuffer BufLength:(vm_size_t)Bytes;
+- (bool)loadDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(vm_size_t)Bytes;
 
 @end

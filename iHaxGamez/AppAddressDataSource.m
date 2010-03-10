@@ -68,7 +68,7 @@
     appAddresses = [newAppAddresses retain];
 }
 
-- (int)numberOfRowsInTableView:(NSTableView *)tableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
     return [appAddresses count];
 }
@@ -80,7 +80,7 @@
     if (NSOrderedSame == [identifier caseInsensitiveCompare:@"address"])
     {
         // convert address to hexadecimal
-        return [NSString stringWithFormat:@"0x%X",(uint)[[appAddressData valueForKey:identifier] intValue]];
+        return [NSString stringWithFormat:@"0x%X",(vm_address_t)[[appAddressData valueForKey:identifier] longValue]];
     }
     else
     {
@@ -101,7 +101,7 @@
     }
 }
 
-- (void)addAppAddressDataRec:(int)address val:(NSString *)val
+- (void)addAppAddressDataRec:(vm_address_t)address val:(NSString *)val
 {
     [appAddresses addObject:[[[AppAddressData alloc] initWithValues:address val:val] autorelease]];
 }

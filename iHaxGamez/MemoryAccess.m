@@ -49,8 +49,16 @@
         // Now we need to start grabbing blocks of memory from our slave task and copying it into our memory space for analysis
         vm_address_t SourceAddress = 0;
         vm_size_t SourceSize = 0;
+		
+#ifdef __LP64__
+        vm_region_basic_info_data_64_t SourceInfo;
+		uint64 BarMaxValue = UINT64_MAX;
+#else
         vm_region_basic_info_data_t SourceInfo;
-        mach_msg_type_number_t SourceInfoSize = sizeof(SourceInfo)/sizeof(int);
+		uint BarMaxValue = UINT_MAX;
+#endif
+		
+		mach_msg_type_number_t SourceInfoSize = sizeof(SourceInfo)/sizeof(int);
         mach_port_t ObjectName = MACH_PORT_NULL;
 		
         double PercentDone = 0.0;
@@ -58,10 +66,14 @@
         [pBar setHidden:false];
         [pBar displayIfNeeded];
         
+#ifdef __LP64__
+        while(KERN_SUCCESS == (KernelResult = vm_region_64(MySlaveTask,&SourceAddress,&SourceSize,VM_REGION_BASIC_INFO_64,(vm_region_info_64_t) &SourceInfo,&SourceInfoSize,&ObjectName)))
+#else
         while(KERN_SUCCESS == (KernelResult = vm_region(MySlaveTask,&SourceAddress,&SourceSize,VM_REGION_BASIC_INFO,(vm_region_info_t) &SourceInfo,&SourceInfoSize,&ObjectName)))
+#endif
         {
             // If we get here then we have a block of memory and we know how big it is... let's copy writable blocks and see what we've got!
-            PercentDone = 100.0 * (uint)SourceAddress / (uint)(UINT32_MAX);
+            PercentDone = 100.0 * SourceAddress / BarMaxValue; // bar represents position in total app memory
             if ((PercentDone - [pBar doubleValue]) > 0.25)
             {
                 [pBar setDoubleValue:PercentDone];
@@ -96,26 +108,27 @@
 						{
 							// store the destPosition to reset position without expensive calculation
 							resetDestPosition = destPosition;
-							valuePosition = Value + 1;
-							valueEnd = Value + SearchSize - 1;
+							valuePosition = Value; // we just tested position 0 (first byte) so start pointing there so that we can check to see if we are done with inner loop
+							valueEnd = Value + SearchSize - 1; // we stop when we've checked all bytes in the search value
 							do
 							{
 								if (valueEnd == valuePosition) // success
 								{
-									[AddrList addObject:[[[AppAddressData alloc] initWithValues:(uint)(destPosition - SearchSize + 1) val:ValueString] autorelease]];
+									[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(resetDestPosition) val:ValueString] autorelease]];
 									break;
 								}
-								else
+								else // not yet done testing all bytes
 								{
+									// set indexes so we can test next bytes
 									valuePosition++;
 									destPosition++;
 								}
-							} while (destPosition[0] == valuePosition[0]);	
+							} while (destPosition[0] == valuePosition[0]); // continue ONLY if we still match at this byte position
 							
-							// back where we started
+							// back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
 							destPosition = resetDestPosition;
 						}
-						destPosition++;
+						destPosition++; // start search on the next character in the destination byte array
 					}
 				}
 				NS_HANDLER
@@ -148,32 +161,31 @@
 - (NSMutableArray *)getFilteredArray:(Byte *)Value ByteSize:(int)Bytes SoughtValueString:(NSString *)ValueString Addresses:(NSMutableArray *)Addrs PrgBar:(NSProgressIndicator *)pBar
 {
     AppAddressData *MyAddrRec;
-    uint MyAddrRecAddress;
-    int recCount = [Addrs count];
-	
-    int x;
-    int y;
+    vm_address_t MyAddrRecAddress;
+    NSUInteger recCount = [Addrs count];
+
     bool isMatchingValue;
     vm_size_t ReturnedBufferContentSize;
-    Byte *ReturnedBuffer = nil;
 	
     double PercentDone = 0.0;
     [pBar setDoubleValue:0.0];
     [pBar setHidden:false];
     [pBar displayIfNeeded];
 	
-    ReturnedBuffer = malloc(Bytes);
+    Byte *ReturnedBuffer = malloc(Bytes);
+	NSUInteger x;
     NS_DURING
-    for (x=recCount-1; x>-1 ; x--) // count down so we can remove from object array by index number
+    for (x=recCount; x>0 ; /* Decrementing in body at beginning of use instead of end */ ) // count down so we can remove from object array by index number
     {
         PercentDone = 100.0 * (recCount - x) / recCount;
-        if (PercentDone - [pBar doubleValue] > 1.0)
+        if (PercentDone - [pBar doubleValue] > 0.25)
         {
             [pBar setDoubleValue:PercentDone];
             [pBar displayIfNeeded];
         }
         
         isMatchingValue = false;
+		x--;
         MyAddrRec = [Addrs objectAtIndex:x];
         MyAddrRecAddress = [MyAddrRec address];
         NS_DURING
@@ -183,9 +195,11 @@
 		{
 			if (ReturnedBufferContentSize == Bytes)
 			{
+				NSUInteger y;
 				isMatchingValue = true;
-				for (y=Bytes-1 ; isMatchingValue && (y>-1) ; y--) // compare the bytes (lowest order first for speed gains)
+				for (y=Bytes ; isMatchingValue && (y>0) ; /* Decrementing in body at beginning of use instead of end */ )
 				{
+					y--;
 					isMatchingValue = Value[y] == ReturnedBuffer[y];
 				}
 			}
@@ -216,7 +230,7 @@
     return Addrs;
 }
 
-- (bool)saveDataForAddress:(uint)Address Buffer:(Byte *)DataBuffer BufLength:(int)Bytes
+- (bool)saveDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(int)Bytes
 {
     bool retVal;
 	NS_DURING
@@ -228,7 +242,7 @@
     return retVal;
 }
 
-- (bool)loadDataForAddress:(uint)Address Buffer:(Byte *)DataBuffer BufLength:(vm_size_t)Bytes
+- (bool)loadDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(vm_size_t)Bytes
 {
     bool retVal;
     vm_size_t retBytes = Bytes;

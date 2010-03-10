@@ -29,7 +29,7 @@
     return [self initWithValues:0 val:@""];
 }
 
-- (id)initWithValues:(uint)addr val:(NSString *)val
+- (id)initWithValues:(vm_address_t)addr val:(NSString *)val
 {
     [super init];
     [self setAddress:addr];
@@ -43,12 +43,12 @@
     [super dealloc];
 }
 
-- (uint)address
+- (vm_address_t)address
 {
     return address;
 }
 
-- (void)setAddress:(uint)val
+- (void)setAddress:(vm_address_t)val
 {
     address = val;
 }

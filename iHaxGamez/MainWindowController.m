@@ -100,7 +100,11 @@
     char MyProcNameBuffer[NameBufferLength];
     MyProcessInfo.processInfoLength = sizeof(ProcessInfoRec);
     MyProcessInfo.processName = (StringPtr)&MyProcNameBuffer;
+#if __LP64__
+    MyProcessInfo.processAppRef = NULL;
+#else
     MyProcessInfo.processAppSpec = NULL;
+#endif
     int LoopX;
     pid_t MyPID;
     while (GetNextProcess(&MyPSN) == 0)

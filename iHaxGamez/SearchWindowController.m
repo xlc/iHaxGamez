@@ -118,13 +118,13 @@
 {
     if (Forced || (NSOnState == [btnAutoRefresh state]))
     {
-        int AddrCount = [[appAddressDS appAddresses] count];
+        NSUInteger AddrCount = [[appAddressDS appAddresses] count];
         if ([btnSearchOriginal isHidden])
         {
             [progressInd startAnimation:self];
             
             AppAddressData *MyAppAddr;
-            int SelectedIndex = [popupDataType indexOfSelectedItem];
+            NSInteger SelectedIndex = [popupDataType indexOfSelectedItem];
             
             // Set the buffer size once only. It's not going to change even if we're looking at strings because strings are based
             // on the length of the original search string!!
@@ -174,13 +174,13 @@
                     break;
             }
             
-            int x;
-            uint Address;
+            vm_address_t Address;
             double PercentDone = 0.0;
             [progressBar setDoubleValue:0.0];
             [progressBar setHidden:false];
             [progressBar displayIfNeeded];
             
+			NSUInteger x;
             for (x=0; x<AddrCount ; x++)
             {
                 PercentDone = 100.0 * x / AddrCount;
@@ -243,7 +243,7 @@
 
     Byte *DataBuffer;
     int BufSize;
-    uint Address;
+    vm_address_t Address;
 	int8_t bVal;
 	int16_t sVal;
     int32_t iVal;
@@ -393,7 +393,7 @@
     {
         // save them the trouble of searching for 0 (It takes a LONG time!!!) 
         int AlertResult = NSAlertAlternateReturn;
-        if (([textSearchValue intValue] == 0) && ([popupDataType indexOfSelectedItem] < 5))
+        if (([textSearchValue intValue] == 0) && ([popupDataType indexOfSelectedItem] < 6))
         {
             NSAlert *MyAlert =[NSAlert alertWithMessageText:@"Searching for 0 is a bad idea"
                                     defaultButton:@"Cancel"
