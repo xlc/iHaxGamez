@@ -31,7 +31,7 @@
     BlockEditRequests = false;
 }
 
-- (void)editColumn:(int)columnIndex row:(int)rowIndex withEvent:(NSEvent *)theEvent select:(BOOL)flag
+- (void)editColumn:(NSInteger)columnIndex row:(NSInteger)rowIndex withEvent:(NSEvent *)theEvent select:(BOOL)flag
 {
     if (!BlockEditRequests)
     {

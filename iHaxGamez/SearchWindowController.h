@@ -39,6 +39,7 @@
     IBOutlet NSProgressIndicator *progressBar;
     IBOutlet NSButton *btnAutoRefresh;
     IBOutlet NSButton *btnManualRefresh;
+	IBOutlet NSButton *btnFlashTimesEightMode;
     
     NSString *applicationName;
     AppAddressDataSource *appAddressDS;
@@ -55,7 +56,7 @@
 - (void)windowWillClose:(NSNotification *)aNotification;
 - (void)windowDidBecomeKey:(NSNotification *)aNotification;
 - (void)refreshResults:(bool)Forced;
-- (void)valueChangedAtRow:(int)row;
+- (void)valueChangedAtRow:(NSInteger)row;
 
 - (NSString *)applicationName;
 - (void)setApplicationName:(NSString *)Value;
@@ -68,6 +69,7 @@
 - (IBAction)FilterStart:(id)sender;
 - (IBAction)SearchReset:(id)sender;
 - (IBAction)SearchStart:(id)sender;
+- (IBAction)SearchTypeChanged:(id)sender;
 - (void)setEditMode:(BOOL)isEditMode;
 - (void)searchAndFilter:(bool)isFilterMode;
 - (void)adjustFilterStringLength;

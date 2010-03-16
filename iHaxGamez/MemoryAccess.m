@@ -114,7 +114,7 @@
 							{
 								if (valueEnd == valuePosition) // success
 								{
-									[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(resetDestPosition) val:ValueString] autorelease]];
+									[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString] autorelease]];
 									break;
 								}
 								else // not yet done testing all bytes
@@ -193,7 +193,7 @@
 		if ( (KERN_SUCCESS == vm_read_overwrite(MySlaveTask,MyAddrRecAddress,Bytes,(vm_address_t)ReturnedBuffer,&ReturnedBufferContentSize)) &&
 			(ReturnedBufferContentSize > 0) )
 		{
-			if (ReturnedBufferContentSize == Bytes)
+			if (ReturnedBufferContentSize == (uint)Bytes)
 			{
 				NSUInteger y;
 				isMatchingValue = true;

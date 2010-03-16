@@ -164,12 +164,12 @@
                     DataBuffer = (Byte *)&dVal;
                     break;
                 case 6: // ASCII string
-                    BufSize = [[textSearchValue stringValue] length] * sizeof(char);
+                    BufSize =(int)([[textSearchValue stringValue] length] * sizeof(char));
                     DataBuffer = (Byte *)charVal;
                     break;
                 case 7: // UNICODE string
                 default:
-                    BufSize = [[textSearchValue stringValue] length] * sizeof(unichar);
+                    BufSize = (int)([[textSearchValue stringValue] length] * sizeof(unichar));
                     DataBuffer = (Byte *)charVal;
                     break;
             }
@@ -193,6 +193,15 @@
                 Address = [MyAppAddr address];
                 if ([AttachedMemory loadDataForAddress:Address Buffer:DataBuffer BufLength:BufSize])
                 {
+					if (NSOnState == [btnFlashTimesEightMode state])
+					{
+						bVal /= 8;
+						sVal /= 8;
+						iVal /= 8;
+						lVal /= 8;
+					}
+					
+					
                     switch(SelectedIndex)
                     {
                         case 0: // byte
@@ -234,12 +243,12 @@
     }
 }
 
-- (void)valueChangedAtRow:(int)row
+- (void)valueChangedAtRow:(NSInteger)row
 {
     [progressInd startAnimation:self];
 
     AppAddressData *MyAppAddr = (AppAddressData *)[[appAddressDS appAddresses] objectAtIndex:row];
-    int SelectedIndex = [popupDataType indexOfSelectedItem];
+    int SelectedIndex = (int)[popupDataType indexOfSelectedItem];
 
     Byte *DataBuffer;
     int BufSize;
@@ -292,11 +301,11 @@
             DataBuffer = (Byte *)&dVal;
             break;
         case 6: // ASCII string
-            BufSize = [[textSearchValue stringValue] length];
+            BufSize = (int)([[textSearchValue stringValue] length]);
             DataBuffer = (Byte *)charVal;
 
             // make sure the replacement string is not longer than the original search string
-            if ([[MyAppAddr value] length] > BufSize)
+            if ([[MyAppAddr value] length] > (uint)BufSize)
             {
                 [MyAppAddr setValue:[[MyAppAddr value] substringToIndex:BufSize]];
             }
@@ -308,21 +317,21 @@
             {
                 char *MyCharacterString = (char *)charVal;
                 int x;
-                for (x=[[MyAppAddr value] length]; x<BufSize; x++)
+                for (x=(int)[[MyAppAddr value] length]; x<BufSize; x++)
                 {
                     MyCharacterString[x] = ' ';
                 }
             }
 
-            BufSize *= sizeof(char); // sizeof(char) should return 1, but just in case....
+            BufSize *= (int)sizeof(char); // sizeof(char) should return 1, but just in case....
             break;
         case 7: // UNICODE string
         default:
-            BufSize = [[textSearchValue stringValue] length];
+            BufSize = (int)([[textSearchValue stringValue] length]);
             DataBuffer = (Byte *)charVal;
             
             // make sure the replacement string is not longer than the original search string
-            if ([[MyAppAddr value] length] > BufSize)
+            if ([[MyAppAddr value] length] > (uint)BufSize)
             {
                 [MyAppAddr setValue:[[MyAppAddr value] substringToIndex:BufSize]];
             }
@@ -334,15 +343,23 @@
             {
                 unichar *MyUnicodeString = charVal;
                 int x;
-                for (x=[[MyAppAddr value] length]; x<BufSize; x++)
+                for (x=(int)[[MyAppAddr value] length]; x<BufSize; x++)
                 {
                     MyUnicodeString[x] = ' ';
                 }
             }
             
-            BufSize *= sizeof(unichar);
+            BufSize *= (int)sizeof(unichar);
             break;
     }
+	
+	if (NSOnState == [btnFlashTimesEightMode state])
+	{
+		bVal *= 8;
+		sVal *= 8;
+		iVal *= 8;
+		lVal *= 8;
+	}
 	
 	// change the data located at Address to the value pointed to by DataBuffer
     Address = [MyAppAddr address];
@@ -392,7 +409,7 @@
     else
     {
         // save them the trouble of searching for 0 (It takes a LONG time!!!) 
-        int AlertResult = NSAlertAlternateReturn;
+        NSInteger AlertResult = NSAlertAlternateReturn;
         if (([textSearchValue intValue] == 0) && ([popupDataType indexOfSelectedItem] < 6))
         {
             NSAlert *MyAlert =[NSAlert alertWithMessageText:@"Searching for 0 is a bad idea"
@@ -410,12 +427,19 @@
     }
 }
 
+- (IBAction)SearchTypeChanged:(id)sender
+{
+	[btnFlashTimesEightMode setEnabled:([popupDataType indexOfSelectedItem] < 4)];
+	[btnFlashTimesEightMode setState:[btnFlashTimesEightMode isEnabled] && (NSOnState == [btnFlashTimesEightMode state])];
+}
+
 -(void)setEditMode:(BOOL)isEditMode
 {
     [btnSearchOriginal setHidden:isEditMode];
     [btnReset setHidden:!isEditMode];
     [textSearchValue setEditable:!isEditMode];
     [popupDataType setEnabled:!isEditMode];
+	[btnFlashTimesEightMode setEnabled:!isEditMode];
     [[tblResults tableColumnWithIdentifier:@"value"] setEditable:isEditMode];
     [textFilterValue setEditable:isEditMode];
     [btnSearchFilter setEnabled:isEditMode];
@@ -465,7 +489,7 @@
 	}
 
 
-    int SelectedIndex = [popupDataType indexOfSelectedItem];
+    int SelectedIndex = (int)[popupDataType indexOfSelectedItem];
     switch(SelectedIndex)
     {
         case 0: // byte
@@ -506,7 +530,7 @@
             break;
         case 6: // ASCII string
             [self adjustFilterStringLength];
-            searchValSize = [[CurrentSearchField stringValue] length] * sizeof(char); // sizeof(char) should be 1, but things change...
+            searchValSize = (int)([[CurrentSearchField stringValue] length] * sizeof(char)); // sizeof(char) should be 1, but things change...
             [[CurrentSearchField stringValue] getCString:(char *)charSearchVal];
             ValueString = [CurrentSearchField stringValue];
             searchValPointer = (Byte *)charSearchVal;
@@ -514,13 +538,21 @@
         case 7: // UNICODE string
         default: // treat unknowns as UNICODE string
             [self adjustFilterStringLength];
-            searchValSize = [[CurrentSearchField stringValue] length] * sizeof(unichar);
+            searchValSize = (int)([[CurrentSearchField stringValue] length] * sizeof(unichar));
             [[CurrentSearchField stringValue] getCharacters:(unichar *)charSearchVal];
             ValueString = [CurrentSearchField stringValue];
             searchValPointer = (Byte *)charSearchVal;
             break;
     }
     
+	if (NSOnState == [btnFlashTimesEightMode state])
+	{
+		byteSearchVal *= 8;
+		shortSearchVal *= 8;
+		intSearchVal *= 8;
+		longSearchVal *= 8;
+	}
+	
     if (isFilterMode)
     {
         // remove from appAddressDS where address does not contain filter value
@@ -540,8 +572,8 @@
 - (void)adjustFilterStringLength
 {
     // truncate the textFilterValue string if longer than textSearchValue
-    int searchLength = [[textSearchValue stringValue] length];
-    int filterLength = [[textFilterValue stringValue] length];
+    int searchLength = (int)[[textSearchValue stringValue] length];
+    int filterLength = (int)[[textFilterValue stringValue] length];
     
     if (filterLength > searchLength)
     {

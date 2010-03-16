@@ -143,7 +143,7 @@
 {
     // create an instance of the search dialog and attach that instance to an object array
     NSString *MyTitle = [popupProcessList titleOfSelectedItem];
-    pid_t MyPid = [[popupProcessList itemAtIndex:[popupProcessList indexOfSelectedItem]] tag];
+    pid_t MyPid = (pid_t)[[popupProcessList itemAtIndex:[popupProcessList indexOfSelectedItem]] tag];
     SearchWindowController *MySearchWindow = [[[SearchWindowController alloc] initWithAppName:MyTitle PID:MyPid] autorelease];
     if ([MySearchWindow isWindowLoaded])
     {
