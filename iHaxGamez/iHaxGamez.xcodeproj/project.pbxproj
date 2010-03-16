@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		5B3D6592115045430068C9F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
+		5B3D6593115045430068C9F9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		5B3D6594115045430068C9F9 /* SearchWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8F6F25113CA4D80097B6AE /* SearchWindow.xib */; };
+		5B3D6595115045430068C9F9 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5B8F6FA3113CAAFF0097B6AE /* License.txt */; };
+		5B3D6597115045430068C9F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		5B3D6598115045430068C9F9 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F29113CA5CF0097B6AE /* MainWindowController.m */; };
+		5B3D6599115045430068C9F9 /* MemoryAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F2B113CA5CF0097B6AE /* MemoryAccess.m */; };
+		5B3D659A115045430068C9F9 /* MyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F2D113CA5CF0097B6AE /* MyTableView.m */; };
+		5B3D659B115045430068C9F9 /* SearchWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F2F113CA5CF0097B6AE /* SearchWindowController.m */; };
+		5B3D659C115045430068C9F9 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F24113CA4490097B6AE /* AppController.m */; };
+		5B3D659D115045430068C9F9 /* AppAddressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F22113CA4490097B6AE /* AppAddressDataSource.m */; };
+		5B3D659E115045430068C9F9 /* AppAddressData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F20113CA4490097B6AE /* AppAddressData.m */; };
+		5B3D65A0115045430068C9F9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		5B3D65A1115045430068C9F9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8F6F34113CA61F0097B6AE /* Security.framework */; };
+		5B3D65A2115045430068C9F9 /* SecurityFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8F6F36113CA61F0097B6AE /* SecurityFoundation.framework */; };
 		5B8F6F27113CA4D80097B6AE /* SearchWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8F6F25113CA4D80097B6AE /* SearchWindow.xib */; };
 		5B8F6F30113CA5CF0097B6AE /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F29113CA5CF0097B6AE /* MainWindowController.m */; };
 		5B8F6F31113CA5CF0097B6AE /* MemoryAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F2B113CA5CF0097B6AE /* MemoryAccess.m */; };
@@ -33,6 +48,7 @@
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		5B3D65A6115045430068C9F9 /* iHaxGamez for OSX 10.4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iHaxGamez for OSX 10.4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B8F6F1F113CA4490097B6AE /* AppAddressData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppAddressData.h; sourceTree = "<group>"; };
 		5B8F6F20113CA4490097B6AE /* AppAddressData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppAddressData.m; sourceTree = "<group>"; };
 		5B8F6F21113CA4490097B6AE /* AppAddressDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppAddressDataSource.h; sourceTree = "<group>"; };
@@ -56,6 +72,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5B3D659F115045430068C9F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B3D65A0115045430068C9F9 /* Cocoa.framework in Frameworks */,
+				5B3D65A1115045430068C9F9 /* Security.framework in Frameworks */,
+				5B3D65A2115045430068C9F9 /* SecurityFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC330486D014006FF6A4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -93,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				8D15AC370486D014006FF6A4 /* iHaxGamez.app */,
+				5B3D65A6115045430068C9F9 /* iHaxGamez for OSX 10.4.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,6 +190,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5B3D6590115045430068C9F9 /* iHaxGamez for OSX 10.4 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B3D65A3115045430068C9F9 /* Build configuration list for PBXNativeTarget "iHaxGamez for OSX 10.4" */;
+			buildPhases = (
+				5B3D6591115045430068C9F9 /* Resources */,
+				5B3D6596115045430068C9F9 /* Sources */,
+				5B3D659F115045430068C9F9 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iHaxGamez for OSX 10.4";
+			productInstallPath = "$(HOME)/Applications";
+			productName = iHaxGamez;
+			productReference = 5B3D65A6115045430068C9F9 /* iHaxGamez for OSX 10.4.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8D15AC270486D014006FF6A4 /* iHaxGamez */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "iHaxGamez" */;
@@ -197,11 +242,23 @@
 			projectRoot = "";
 			targets = (
 				8D15AC270486D014006FF6A4 /* iHaxGamez */,
+				5B3D6590115045430068C9F9 /* iHaxGamez for OSX 10.4 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5B3D6591115045430068C9F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B3D6592115045430068C9F9 /* InfoPlist.strings in Resources */,
+				5B3D6593115045430068C9F9 /* MainMenu.xib in Resources */,
+				5B3D6594115045430068C9F9 /* SearchWindow.xib in Resources */,
+				5B3D6595115045430068C9F9 /* License.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC2B0486D014006FF6A4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -216,6 +273,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5B3D6596115045430068C9F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B3D6597115045430068C9F9 /* main.m in Sources */,
+				5B3D6598115045430068C9F9 /* MainWindowController.m in Sources */,
+				5B3D6599115045430068C9F9 /* MemoryAccess.m in Sources */,
+				5B3D659A115045430068C9F9 /* MyTableView.m in Sources */,
+				5B3D659B115045430068C9F9 /* SearchWindowController.m in Sources */,
+				5B3D659C115045430068C9F9 /* AppController.m in Sources */,
+				5B3D659D115045430068C9F9 /* AppAddressDataSource.m in Sources */,
+				5B3D659E115045430068C9F9 /* AppAddressData.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC300486D014006FF6A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -261,6 +333,43 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5B3D65A4115045430068C9F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iHaxGamez_Prefix.pch;
+				GCC_VERSION = 4.0;
+				INFOPLIST_FILE = "iHaxGamez-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = "iHaxGamez for OSX 10.4";
+			};
+			name = Debug;
+		};
+		5B3D65A5115045430068C9F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iHaxGamez_Prefix.pch;
+				GCC_VERSION = 4.0;
+				INFOPLIST_FILE = "iHaxGamez-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = "iHaxGamez for OSX 10.4";
+			};
+			name = Release;
+		};
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -300,14 +409,14 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = "";
+				GCC_VERSION = 4.2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.4;
 			};
 			name = Debug;
 		};
@@ -317,19 +426,28 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_VERSION = "";
+				GCC_VERSION = 4.2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.4;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5B3D65A3115045430068C9F9 /* Build configuration list for PBXNativeTarget "iHaxGamez for OSX 10.4" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B3D65A4115045430068C9F9 /* Debug */,
+				5B3D65A5115045430068C9F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "iHaxGamez" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
