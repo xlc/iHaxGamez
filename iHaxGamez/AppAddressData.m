@@ -60,8 +60,11 @@
 
 - (void)setValue:(NSString *)val
 {
-    [value autorelease];
-    value = [val copy];
+	if (value != val)
+	{
+		[value release];
+		value = [val copy];
+	}
 }
 
 @end
