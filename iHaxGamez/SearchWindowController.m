@@ -59,7 +59,7 @@
 
 - (void)dealloc
 {
-	[applicationName autorelease];
+	[applicationName release];
     [appAddressDS release];
     [AttachedMemory release];
     [super dealloc];
@@ -73,8 +73,11 @@
 
 - (void)setApplicationName:(NSString *)value
 {
-    [applicationName autorelease];
-    applicationName = [value copy];
+	if (applicationName != value)
+	{
+		[applicationName release];
+		applicationName = [value copy];
+	}
 }
 
 - (AppAddressDataSource *)appAddressDS
@@ -84,8 +87,11 @@
 
 - (void)setAppAddressDS:(AppAddressDataSource *)newAppAddressDS
 {
-    [appAddressDS autorelease];
-    appAddressDS = [newAppAddressDS retain];
+	if (appAddressDS != newAppAddressDS)
+	{
+		[appAddressDS release];
+		appAddressDS = [newAppAddressDS retain];
+	}
 }
 
 

@@ -68,8 +68,11 @@
 
 - (void)setSearchWindowArray:(NSMutableArray *)newSearchWindowArray
 {
-    [searchWindowArray autorelease];
-    searchWindowArray = [newSearchWindowArray retain];
+	if (searchWindowArray != newSearchWindowArray)
+	{
+		[searchWindowArray release];
+		searchWindowArray = [newSearchWindowArray retain];
+	}
 }
 
 - (void)awakeFromNib

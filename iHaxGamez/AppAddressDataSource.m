@@ -34,11 +34,7 @@
 
 - (void)dealloc
 {
-    if (searchWindowController != nil)
-    {
-        [searchWindowController release];
-    }
-    
+	[searchWindowController release];
     [appAddresses release];
     [super dealloc];
 }
@@ -50,11 +46,11 @@
 
 - (void)setSearchWindowController:(SearchWindowController *)SWC
 {
-    if (searchWindowController != nil)
+    if (searchWindowController != SWC)
     {
-        [searchWindowController autorelease];
+        [searchWindowController release];
+		searchWindowController = [SWC retain];
     }
-    searchWindowController = [SWC retain];
 }
 
 - (NSMutableArray *)appAddresses
@@ -64,8 +60,11 @@
 
 - (void)setAppAddresses:(NSMutableArray *)newAppAddresses
 {
-    [appAddresses autorelease];
-    appAddresses = [newAppAddresses retain];
+	if (appAddresses != newAppAddresses)
+	{
+		[appAddresses release];
+		appAddresses = [newAppAddresses retain];
+	}
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
