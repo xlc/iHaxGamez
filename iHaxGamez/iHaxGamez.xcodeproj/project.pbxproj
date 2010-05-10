@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		5B26614611980D26000AA8BB /* iHaxGamez.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5B26614511980D26000AA8BB /* iHaxGamez.icns */; };
 		5B8F6F27113CA4D80097B6AE /* SearchWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8F6F25113CA4D80097B6AE /* SearchWindow.xib */; };
 		5B8F6F30113CA5CF0097B6AE /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F29113CA5CF0097B6AE /* MainWindowController.m */; };
 		5B8F6F31113CA5CF0097B6AE /* MemoryAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F2B113CA5CF0097B6AE /* MemoryAccess.m */; };
@@ -33,6 +34,7 @@
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		5B26614511980D26000AA8BB /* iHaxGamez.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iHaxGamez.icns; sourceTree = "<group>"; };
 		5B8F6F1F113CA4490097B6AE /* AppAddressData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppAddressData.h; sourceTree = "<group>"; };
 		5B8F6F20113CA4490097B6AE /* AppAddressData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppAddressData.m; sourceTree = "<group>"; };
 		5B8F6F21113CA4490097B6AE /* AppAddressDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppAddressDataSource.h; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5B26614511980D26000AA8BB /* iHaxGamez.icns */,
 				5B8F6FA3113CAAFF0097B6AE /* License.txt */,
 				5B8F6F25113CA4D80097B6AE /* SearchWindow.xib */,
 				8D15AC360486D014006FF6A4 /* iHaxGamez-Info.plist */,
@@ -210,6 +213,7 @@
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				5B8F6F27113CA4D80097B6AE /* SearchWindow.xib in Resources */,
 				5B8F6FA4113CAAFF0097B6AE /* License.txt in Resources */,
+				5B26614611980D26000AA8BB /* iHaxGamez.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
