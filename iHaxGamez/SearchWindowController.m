@@ -259,13 +259,13 @@
     Byte *DataBuffer;
     int BufSize;
     vm_address_t Address;
-	int8_t bVal;
-	int16_t sVal;
-    int32_t iVal;
-    int64_t lVal;
-	long long llVal;
-    float fVal;
-    double dVal;
+	int8_t bVal=0;
+	int16_t sVal=0;
+    int32_t iVal=0;
+    int64_t lVal=0;
+	long long llVal=0;
+    float fVal=0.0f;
+    double dVal=0.0;
     unichar charVal[[[textSearchValue stringValue] length] + 1];
 
 	// this is needed for integer based values - grabs a long long if possible, otherwise zero
