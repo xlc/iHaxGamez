@@ -471,10 +471,10 @@
     [progressInd startAnimation:self];
     
 	// allocate the search value holders
-	int8_t byteSearchVal;
-	int16_t shortSearchVal;
-    int32_t intSearchVal;
-    int64_t longSearchVal;
+	int8_t byteSearchVal=0;
+	int16_t shortSearchVal=0;
+    int32_t intSearchVal=0;
+    int64_t longSearchVal=0;
     float floatSearchVal;
     double doubleSearchVal;
     Byte *searchValPointer;
