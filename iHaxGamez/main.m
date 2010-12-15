@@ -1,6 +1,6 @@
 /*
  iHaxGamez - External process memory search-and-replace tool for MAC OS X
- Copyright (C) <2007>  <Raymond Wilfong>
+ Copyright (C) <2007>  <Raymond Wilfong and Glenn Hartmann>
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

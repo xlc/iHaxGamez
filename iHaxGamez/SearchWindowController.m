@@ -1,6 +1,6 @@
 /*
  iHaxGamez - External process memory search-and-replace tool for MAC OS X
- Copyright (C) <2007>  <Raymond Wilfong>
+ Copyright (C) <2007>  <Raymond Wilfong and Glenn Hartmann>
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -249,13 +249,12 @@
     }
 }
 
-- (void)valueChangedAtRow:(NSInteger)row
+- (void)changeValueAtRow:(NSInteger)row Value:(NSString*)val
 {
     [progressInd startAnimation:self];
-
-    AppAddressData *MyAppAddr = (AppAddressData *)[[appAddressDS appAddresses] objectAtIndex:row];
+    
     int SelectedIndex = (int)[popupDataType indexOfSelectedItem];
-
+    
     Byte *DataBuffer;
     int BufSize;
     vm_address_t Address;
@@ -267,13 +266,14 @@
     float fVal=0.0f;
     double dVal=0.0;
     unichar charVal[[[textSearchValue stringValue] length] + 1];
-
-	// this is needed for integer based values - grabs a long long if possible, otherwise zero
-	if (![[NSScanner scannerWithString:[MyAppAddr value]] scanLongLong:&llVal])
+    
+    
+    // this is needed for integer based values - grabs a long long if possible, otherwise zero
+	if (![[NSScanner scannerWithString:val] scanLongLong:&llVal])
 	{
 		llVal = 0;
 	}
-
+    
     switch(SelectedIndex)
     {
         case 0: // byte
@@ -298,37 +298,37 @@
             break;
         case 4: // float
             BufSize = sizeof(float);
-            fVal = [[MyAppAddr value] floatValue];
+            fVal = [val floatValue];
             DataBuffer = (Byte *)&fVal;
             break;
         case 5: // double
             BufSize = sizeof(double);
-            dVal = [[MyAppAddr value] doubleValue];
+            dVal = [val doubleValue];
             DataBuffer = (Byte *)&dVal;
             break;
         case 6: // ASCII string
             BufSize = (int)([[textSearchValue stringValue] length]);
             DataBuffer = (Byte *)charVal;
-
+            
             // make sure the replacement string is not longer than the original search string
-            if ([[MyAppAddr value] length] > (uint)BufSize)
+            if ([val length] > (uint)BufSize)
             {
-                [MyAppAddr setValue:[[MyAppAddr value] substringToIndex:BufSize]];
+                val = [val substringToIndex:BufSize];
             }
-                
+            
             // fill the buffer with the characters from the value string
-            [[MyAppAddr value] getCString:(char *)charVal];
-
+            [val getCString:(char *)charVal];
+            
             // pad buffer with trailing spaces so it will be the same size as the original search string
+        {
+            char *MyCharacterString = (char *)charVal;
+            int x;
+            for (x=(int)[val length]; x<BufSize; x++)
             {
-                char *MyCharacterString = (char *)charVal;
-                int x;
-                for (x=(int)[[MyAppAddr value] length]; x<BufSize; x++)
-                {
-                    MyCharacterString[x] = ' ';
-                }
+                MyCharacterString[x] = ' ';
             }
-
+        }
+            
             BufSize *= (int)sizeof(char); // sizeof(char) should return 1, but just in case....
             break;
         case 7: // UNICODE string
@@ -337,23 +337,23 @@
             DataBuffer = (Byte *)charVal;
             
             // make sure the replacement string is not longer than the original search string
-            if ([[MyAppAddr value] length] > (uint)BufSize)
+            if ([val length] > (uint)BufSize)
             {
-                [MyAppAddr setValue:[[MyAppAddr value] substringToIndex:BufSize]];
+                val = [val substringToIndex:BufSize];
             }
             
             // fill the buffer with the characters from the value string
-            [[MyAppAddr value] getCharacters:(unichar *)charVal];
-        
+            [val getCharacters:(unichar *)charVal];
+            
             // pad buffer with trailing spaces so it will be the same size as the original search string
+        {
+            unichar *MyUnicodeString = charVal;
+            int x;
+            for (x=(int)[val length]; x<BufSize; x++)
             {
-                unichar *MyUnicodeString = charVal;
-                int x;
-                for (x=(int)[[MyAppAddr value] length]; x<BufSize; x++)
-                {
-                    MyUnicodeString[x] = ' ';
-                }
+                MyUnicodeString[x] = ' ';
             }
+        }
             
             BufSize *= (int)sizeof(unichar);
             break;
@@ -368,11 +368,16 @@
 	}
 	
 	// change the data located at Address to the value pointed to by DataBuffer
-    Address = [MyAppAddr address];
+    Address = [(AppAddressData *)[[appAddressDS appAddresses] objectAtIndex:row] address];
     [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
-
+    
     [progressInd stopAnimation:self];
     [self refreshResults:false];
+}
+
+- (void)valueChangedAtRow:(NSInteger)row
+{
+    [self changeValueAtRow:row Value:[(AppAddressData *)[[appAddressDS appAddresses] objectAtIndex:row] value]];
 }
 
 - (IBAction)RefreshChecked:(id)sender
@@ -439,6 +444,30 @@
 	[btnFlashTimesEightMode setState:[btnFlashTimesEightMode isEnabled] && (NSOnState == [btnFlashTimesEightMode state])];
 }
 
+- (IBAction)ReplaceAllClicked:(id)sender
+{
+    NSAlert *MyAlert =[NSAlert alertWithMessageText:@"CAUTION"
+                                      defaultButton:@"Cancel"
+									alternateButton:@"I Said Do It!"
+                                        otherButton:@""
+                          informativeTextWithFormat:@"This can easily crash programs and corrupt memory. Only do this if you're SURE you know what you're doing."];
+    NSInteger AlertResult = [MyAlert runModal];
+    
+    if (AlertResult == NSAlertDefaultReturn)
+    {
+        return;
+    }
+
+    NSString *val = [textReplaceAllValue stringValue];
+    NSUInteger AddrCount = [[appAddressDS appAddresses] count];
+    NSUInteger x;
+    for (x=0; x<AddrCount ; x++)
+    {
+        [self changeValueAtRow:x Value:val];
+    }
+    [self refreshResults:true];
+}
+
 -(void)setEditMode:(BOOL)isEditMode
 {
     [btnSearchOriginal setHidden:isEditMode];
@@ -448,7 +477,9 @@
 	[btnFlashTimesEightMode setEnabled:!isEditMode];
     [[tblResults tableColumnWithIdentifier:@"value"] setEditable:isEditMode];
     [textFilterValue setEditable:isEditMode];
+    [textReplaceAllValue setEditable:isEditMode];
     [btnSearchFilter setEnabled:isEditMode];
+    [btnReplaceAll setEnabled:isEditMode];
     [btnManualRefresh setEnabled:isEditMode];
 
     if (isEditMode)

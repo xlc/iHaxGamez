@@ -1,6 +1,6 @@
 /*
  iHaxGamez - External process memory search-and-replace tool for MAC OS X
- Copyright (C) <2007>  <Raymond Wilfong>
+ Copyright (C) <2007>  <Raymond Wilfong and Glenn Hartmann>
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@
     IBOutlet NSTableView *tblResults;
     IBOutlet NSTextField *textAppTitle;
     IBOutlet NSTextField *textFilterValue;
+    IBOutlet NSTextField *textReplaceAllValue;
     IBOutlet NSTextField *textSearchValue;
     IBOutlet NSBox *boxResults;
     IBOutlet NSProgressIndicator *progressInd;
@@ -40,6 +41,7 @@
     IBOutlet NSButton *btnAutoRefresh;
     IBOutlet NSButton *btnManualRefresh;
 	IBOutlet NSButton *btnFlashTimesEightMode;
+    IBOutlet NSButton *btnReplaceAll;
     
     NSString *applicationName;
     AppAddressDataSource *appAddressDS;
@@ -56,6 +58,7 @@
 - (void)windowWillClose:(NSNotification *)aNotification;
 - (void)windowDidBecomeKey:(NSNotification *)aNotification;
 - (void)refreshResults:(bool)Forced;
+- (void)changeValueAtRow:(NSInteger)row Value:(NSString*)val;
 - (void)valueChangedAtRow:(NSInteger)row;
 
 - (NSString *)applicationName;
@@ -70,6 +73,7 @@
 - (IBAction)SearchReset:(id)sender;
 - (IBAction)SearchStart:(id)sender;
 - (IBAction)SearchTypeChanged:(id)sender;
+- (IBAction)ReplaceAllClicked:(id)sender;
 - (void)setEditMode:(BOOL)isEditMode;
 - (void)searchAndFilter:(bool)isFilterMode;
 - (void)adjustFilterStringLength;
