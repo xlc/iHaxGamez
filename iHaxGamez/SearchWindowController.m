@@ -30,6 +30,7 @@
 
 - (id)init
 {
+    relativeIsSelected = true;
     return [self initWithAppName:@"Application Name Not Set" PID:0];
 }
 
@@ -145,35 +146,35 @@
             unichar charVal[[[textSearchValue stringValue] length] + 1];
             switch(SelectedIndex)
             {
-                case 0: // byte
+                case INT1: // byte
                     BufSize = sizeof(int8_t);
                     DataBuffer = (Byte *)&bVal;
                     break;
-                case 1: // int16
+                case INT2: // int16
                     BufSize = sizeof(int16_t);
                     DataBuffer = (Byte *)&sVal;
                     break;
-                case 2: // int32
+                case INT4: // int32
                     BufSize = sizeof(int32_t);
                     DataBuffer = (Byte *)&iVal;
                     break;
-				case 3: // int64
+				case INT8: // int64
                     BufSize = sizeof(int64_t);
                     DataBuffer = (Byte *)&lVal;
                     break;
-                case 4: // float
+                case FLOAT4: // float
                     BufSize = sizeof(float);
                     DataBuffer = (Byte *)&fVal;
                     break;
-                case 5: // double
+                case FLOAT8: // double
                     BufSize = sizeof(double);
                     DataBuffer = (Byte *)&dVal;
                     break;
-                case 6: // ASCII string
+                case STR1: // ASCII string
                     BufSize =(int)([[textSearchValue stringValue] length] * sizeof(char));
                     DataBuffer = (Byte *)charVal;
                     break;
-                case 7: // UNICODE string
+                case STR2: // UNICODE string
                 default:
                     BufSize = (int)([[textSearchValue stringValue] length] * sizeof(unichar));
                     DataBuffer = (Byte *)charVal;
@@ -210,28 +211,28 @@
 					
                     switch(SelectedIndex)
                     {
-                        case 0: // byte
+                        case INT1: // byte
                             [MyAppAddr setValue:[NSString stringWithFormat:@"%hu",0x00FF & bVal]];
                             break;
-                        case 1: // int16
+                        case INT2: // int16
                             [MyAppAddr setValue:[NSString stringWithFormat:@"%hu",sVal]];
                             break;
-                        case 2: // int32
+                        case INT4: // int32
                             [MyAppAddr setValue:[NSString stringWithFormat:@"%u",iVal]];
                             break;
-                        case 3: // int64
+                        case INT8: // int64
                             [MyAppAddr setValue:[NSString stringWithFormat:@"%qu",lVal]];
                             break;
-                        case 4: // float
+                        case FLOAT4: // float
                             [MyAppAddr setValue:[NSString stringWithFormat:@"%f",fVal]];
                             break;
-                        case 5: // double
+                        case FLOAT8: // double
                             [MyAppAddr setValue:[NSString stringWithFormat:@"%f",dVal]];
                             break;
-                        case 6: // ASCII string
+                        case STR1: // ASCII string
                             [MyAppAddr setValue:[NSString stringWithCString:(char *)charVal length:BufSize]];
                             break;
-                        case 7: // UNICODE string
+                        case STR2: // UNICODE string
                         default:
                             [MyAppAddr setValue:[NSString stringWithCharacters:charVal length:BufSize / sizeof(unichar)]];
                             break;
@@ -276,37 +277,37 @@
     
     switch(SelectedIndex)
     {
-        case 0: // byte
+        case INT1: // byte
             BufSize = sizeof(int8_t);
             bVal = (int8_t)llVal;
             DataBuffer = (Byte *)&bVal;
             break;
-        case 1: // int16
+        case INT2: // int16
             BufSize = sizeof(int16_t);
             sVal = (int16_t)llVal;
             DataBuffer = (Byte *)&sVal;
             break;
-        case 2: // int32
+        case INT4: // int32
             BufSize = sizeof(int32_t);
             iVal = (int32_t)llVal;
             DataBuffer = (Byte *)&iVal;
             break;
-        case 3: // int64
+        case INT8: // int64
             BufSize = sizeof(int64_t);
             lVal = (int64_t)llVal;
             DataBuffer = (Byte *)&lVal;
             break;
-        case 4: // float
+        case FLOAT4: // float
             BufSize = sizeof(float);
             fVal = [val floatValue];
             DataBuffer = (Byte *)&fVal;
             break;
-        case 5: // double
+        case FLOAT8: // double
             BufSize = sizeof(double);
             dVal = [val doubleValue];
             DataBuffer = (Byte *)&dVal;
             break;
-        case 6: // ASCII string
+        case STR1: // ASCII string
             BufSize = (int)([[textSearchValue stringValue] length]);
             DataBuffer = (Byte *)charVal;
             
@@ -331,7 +332,7 @@
             
             BufSize *= (int)sizeof(char); // sizeof(char) should return 1, but just in case....
             break;
-        case 7: // UNICODE string
+        case STR2: // UNICODE string
         default:
             BufSize = (int)([[textSearchValue stringValue] length]);
             DataBuffer = (Byte *)charVal;
@@ -444,6 +445,49 @@
 	[btnFlashTimesEightMode setState:[btnFlashTimesEightMode isEnabled] && (NSOnState == [btnFlashTimesEightMode state])];
 }
 
+- (IBAction)RelativeTypeChanged:(id)sender
+{
+    [textRelativeValue setEnabled:((int)[popupRelativeType indexOfSelectedItem] != NONE)];
+    [textRelativeValue setEditable:((int)[popupRelativeType indexOfSelectedItem] != NONE)];
+    //TODO
+}
+
+
+- (IBAction)PopupSearchTypeChanged:(id)sender
+{
+    if(((int)[popupSearchType indexOfSelectedItem] == SANY))
+    {
+        [textSearchValue setEnabled:false];
+        [textSearchValue setEditable:false];
+    }
+    else
+    {
+        [textSearchValue setEnabled:true];
+        [textSearchValue setEditable:true];
+    }
+
+}
+
+- (IBAction)AbsoluteSelected:(id)sender
+{
+    relativeIsSelected = false;
+    [textFilterValue setEnabled:true];
+    [popupRelativeType setEnabled:false];
+    [textRelativeValue setEnabled:false];
+    [textFilterValue setEditable:true];
+    [textRelativeValue setEditable:false];
+}
+
+- (IBAction)RelativeSelected:(id)sender
+{
+    relativeIsSelected = true;
+    [textFilterValue setEnabled:false];
+    [popupRelativeType setEnabled:true];
+    [textRelativeValue setEnabled:((int)[popupRelativeType indexOfSelectedItem] != NONE)];
+    [textFilterValue setEditable:false];
+    [textRelativeValue setEditable:((int)[popupRelativeType indexOfSelectedItem] != NONE)];
+}
+
 - (IBAction)ReplaceAllClicked:(id)sender
 {
     NSAlert *MyAlert =[NSAlert alertWithMessageText:@"CAUTION"
@@ -472,15 +516,26 @@
 {
     [btnSearchOriginal setHidden:isEditMode];
     [btnReset setHidden:!isEditMode];
-    [textSearchValue setEditable:!isEditMode];
+    [textSearchValue setEnabled:!isEditMode];
     [popupDataType setEnabled:!isEditMode];
+    [popupSearchType setEnabled:!isEditMode];
+    [popupCurrentValueType setEnabled:isEditMode];
+    [popupRelativeType setEnabled:(isEditMode && relativeIsSelected)];
 	[btnFlashTimesEightMode setEnabled:!isEditMode];
     [[tblResults tableColumnWithIdentifier:@"value"] setEditable:isEditMode];
-    [textFilterValue setEditable:isEditMode];
+    [textFilterValue setEnabled:(isEditMode && !relativeIsSelected)];
+    [textReplaceAllValue setEnabled:isEditMode];
+    [textRelativeValue setEnabled:(isEditMode && relativeIsSelected &&
+                                    (int)[popupRelativeType indexOfSelectedItem] != NONE)];
+    [textFilterValue setEditable:(isEditMode && !relativeIsSelected)];
     [textReplaceAllValue setEditable:isEditMode];
+    [textRelativeValue setEditable:(isEditMode && relativeIsSelected &&
+                                   (int)[popupRelativeType indexOfSelectedItem] != NONE)];
     [btnSearchFilter setEnabled:isEditMode];
     [btnReplaceAll setEnabled:isEditMode];
     [btnManualRefresh setEnabled:isEditMode];
+    [bcellAbsoluteSearch setEnabled:isEditMode];
+    [bcellRelativeSearch setEnabled:isEditMode];
 
     if (isEditMode)
     {
@@ -529,50 +584,50 @@
     int SelectedIndex = (int)[popupDataType indexOfSelectedItem];
     switch(SelectedIndex)
     {
-        case 0: // byte
+        case INT1: // byte
             searchValSize = sizeof(int8_t);
             byteSearchVal = (int8_t) llVal;
             ValueString = [NSString stringWithFormat:@"%hu",0x00FF & byteSearchVal];
             searchValPointer = (Byte *)&byteSearchVal; // we point to the entry byte of the value we want to compare 
             break;
-        case 1: // int16
+        case INT2: // int16
             searchValSize = sizeof(int16_t);
             shortSearchVal = (int16_t) llVal;
             ValueString = [NSString stringWithFormat:@"%hu",shortSearchVal];
             searchValPointer = (Byte *)&shortSearchVal; // we point to the entry byte of the value we want to compare 
             break;
-        case 2: // int32
+        case INT4: // int32
             searchValSize = sizeof(int32_t);
             intSearchVal = (int32_t) llVal;
             ValueString = [NSString stringWithFormat:@"%u",intSearchVal];
             searchValPointer = (Byte *)&intSearchVal; // we point to the entry byte of the value we want to compare 
             break;
-        case 3: // int64
+        case INT8: // int64
             searchValSize = sizeof(int64_t);
             longSearchVal = (int64_t) llVal;
             ValueString = [NSString stringWithFormat:@"%qu",longSearchVal];
             searchValPointer = (Byte *)&longSearchVal; // we point to the entry byte of the value we want to compare 
             break;
-        case 4: // float
+        case FLOAT4: // float
             searchValSize = sizeof(floatSearchVal);
             floatSearchVal = [CurrentSearchField floatValue];
             ValueString = [NSString stringWithFormat:@"%f",floatSearchVal];
             searchValPointer = (Byte *)&floatSearchVal; // we point to the entry byte of the value we want to compare 
             break;
-        case 5: // double
+        case FLOAT8: // double
             searchValSize = sizeof(doubleSearchVal);
             doubleSearchVal = [CurrentSearchField doubleValue];
             ValueString = [NSString stringWithFormat:@"%f",doubleSearchVal];
             searchValPointer = (Byte *)&doubleSearchVal; // we point to the entry byte of the value we want to compare 
             break;
-        case 6: // ASCII string
+        case STR1: // ASCII string
             [self adjustFilterStringLength];
             searchValSize = (int)([[CurrentSearchField stringValue] length] * sizeof(char)); // sizeof(char) should be 1, but things change...
             [[CurrentSearchField stringValue] getCString:(char *)charSearchVal];
             ValueString = [CurrentSearchField stringValue];
             searchValPointer = (Byte *)charSearchVal;
             break;
-        case 7: // UNICODE string
+        case STR2: // UNICODE string
         default: // treat unknowns as UNICODE string
             [self adjustFilterStringLength];
             searchValSize = (int)([[CurrentSearchField stringValue] length] * sizeof(unichar));

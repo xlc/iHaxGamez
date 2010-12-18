@@ -30,11 +30,17 @@
     IBOutlet NSButton *btnSearchOriginal;
     IBOutlet NSButton *btnSearchFilter;
     IBOutlet NSPopUpButton *popupDataType;
+    IBOutlet NSPopUpButton *popupSearchType;
+    IBOutlet NSPopUpButton *popupCurrentValueType;
+    IBOutlet NSPopUpButton *popupRelativeType;
+    IBOutlet NSButtonCell *bcellAbsoluteSearch;
+    IBOutlet NSButtonCell *bcellRelativeSearch;
     IBOutlet NSTableView *tblResults;
     IBOutlet NSTextField *textAppTitle;
     IBOutlet NSTextField *textFilterValue;
     IBOutlet NSTextField *textReplaceAllValue;
     IBOutlet NSTextField *textSearchValue;
+    IBOutlet NSTextField *textRelativeValue;
     IBOutlet NSBox *boxResults;
     IBOutlet NSProgressIndicator *progressInd;
     IBOutlet NSProgressIndicator *progressBar;
@@ -48,7 +54,18 @@
     pid_t AppPid;
     MemoryAccess *AttachedMemory;
     NSTextField *CurrentSearchField;
+    
+    bool relativeIsSelected;
 }
+
+
+enum DataTypes {INT1, INT2, INT4, INT8, FLOAT4, FLOAT8, STR1, STR2};
+enum SearchTypes {SANY, SEQUALS, SNOTEQUALS, SGREATERTHAN, SLESSTHAN, SGREATEREQUAL,
+    SLESSEQUAL};
+enum CurrentValueTypes {CEQUALS, CNOTEQUALS, CGREATERTHAN, CLESSTHAN, CGREATEREQUAL,
+    CLESSEQUAL};
+enum RelativeTypes {NONE, PLUS, MINUS, TIMES, DIVIDE};
+
 
 - (id)init;
 - (id)initWithAppName:(NSString *)AppName PID:(pid_t)PID;
@@ -73,6 +90,10 @@
 - (IBAction)SearchReset:(id)sender;
 - (IBAction)SearchStart:(id)sender;
 - (IBAction)SearchTypeChanged:(id)sender;
+- (IBAction)RelativeTypeChanged:(id)sender;
+- (IBAction)PopupSearchTypeChanged:(id)sender;
+- (IBAction)AbsoluteSelected:(id)sender;
+- (IBAction)RelativeSelected:(id)sender;
 - (IBAction)ReplaceAllClicked:(id)sender;
 - (void)setEditMode:(BOOL)isEditMode;
 - (void)searchAndFilter:(bool)isFilterMode;
