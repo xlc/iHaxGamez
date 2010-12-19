@@ -29,7 +29,9 @@ void authMe(char * FullPathToMe);
 
 int main(int argc, char *argv[])
 {
-	if (amIWorthy())
+	int uid = getuid();
+	
+	if (amIWorthy() || uid == 0)
 	{
 		printf("Don't forget to flush! ;-) "); // signal back to close caller		
 		fflush(stdout);
