@@ -120,7 +120,7 @@
     [self refreshResults:false];
 }
 
-- (void)refreshResults:(bool)Forced;
+- (void)refreshResults:(bool)Forced
 {
     if (Forced || (NSOnState == [btnAutoRefresh state]))
     {
@@ -246,6 +246,12 @@
             [tblResults reloadData];
             [progressInd stopAnimation:self];
         }
+		
+		if ((NSOnState == [btnAutoRefresh state]))
+		{
+			[NSObject cancelPreviousPerformRequestsWithTarget:self];
+			[self performSelector:@selector(refreshResults:) withObject:nil afterDelay:1];
+		}
     }
 }
 
