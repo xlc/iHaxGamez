@@ -22,6 +22,8 @@
 		5B8F6FA4113CAAFF0097B6AE /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5B8F6FA3113CAAFF0097B6AE /* License.txt */; };
 		6157FB0512BDBB1D00600F76 /* AddressListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6157FB0412BDBB1D00600F76 /* AddressListDataSource.m */; };
 		6157FB2B12BDBC0000600F76 /* AddressListData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6157FB2A12BDBC0000600F76 /* AddressListData.m */; };
+		61CD094512BDEECD00FA98D1 /* AddAddress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61CD094412BDEECD00FA98D1 /* AddAddress.xib */; };
+		61CD094D12BDF0B800FA98D1 /* AddAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61CD094C12BDF0B800FA98D1 /* AddAddressController.m */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
@@ -59,6 +61,9 @@
 		6157FB0412BDBB1D00600F76 /* AddressListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListDataSource.m; sourceTree = "<group>"; };
 		6157FB2912BDBC0000600F76 /* AddressListData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListData.h; sourceTree = "<group>"; };
 		6157FB2A12BDBC0000600F76 /* AddressListData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListData.m; sourceTree = "<group>"; };
+		61CD094412BDEECD00FA98D1 /* AddAddress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAddress.xib; sourceTree = "<group>"; };
+		61CD094B12BDF0B800FA98D1 /* AddAddressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressController.h; sourceTree = "<group>"; };
+		61CD094C12BDF0B800FA98D1 /* AddAddressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressController.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* iHaxGamez-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iHaxGamez-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* iHaxGamez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iHaxGamez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -113,6 +118,7 @@
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
+				61CD094412BDEECD00FA98D1 /* AddAddress.xib */,
 			);
 			name = iHaxGamez;
 			sourceTree = "<group>";
@@ -138,6 +144,8 @@
 				6157FB0412BDBB1D00600F76 /* AddressListDataSource.m */,
 				5B8F6F23113CA4490097B6AE /* AppController.h */,
 				5B8F6F24113CA4490097B6AE /* AppController.m */,
+				61CD094B12BDF0B800FA98D1 /* AddAddressController.h */,
+				61CD094C12BDF0B800FA98D1 /* AddAddressController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -231,6 +239,7 @@
 				5B8F6F27113CA4D80097B6AE /* SearchWindow.xib in Resources */,
 				5B8F6FA4113CAAFF0097B6AE /* License.txt in Resources */,
 				5B26614611980D26000AA8BB /* iHaxGamez.icns in Resources */,
+				61CD094512BDEECD00FA98D1 /* AddAddress.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +260,7 @@
 				5B8F6F92113CAA1B0097B6AE /* AppAddressData.m in Sources */,
 				6157FB0512BDBB1D00600F76 /* AddressListDataSource.m in Sources */,
 				6157FB2B12BDBC0000600F76 /* AddressListData.m in Sources */,
+				61CD094D12BDF0B800FA98D1 /* AddAddressController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

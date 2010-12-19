@@ -149,4 +149,14 @@
     [appAddresses removeAllObjects];
 }
 
+- (void)removeObjectAtIndex:(int)index
+{
+	if (index == -1)
+	{
+		return;
+	}
+	
+	[appAddresses removeObjectAtIndex:index];
+}
+
 @end

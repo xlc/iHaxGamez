@@ -28,6 +28,7 @@
 #import <math.h>
 #import <Security/AuthorizationTags.h>
 #import "MyTableView.h"
+#import "AddAddressController.h"
 
 @implementation SearchWindowController
 
@@ -537,7 +538,16 @@
 		[addressListDS addAppAddressDataRec:[rowData address] val:[rowData value] dataType:(int)[popupDataType indexOfSelectedItem]];
 		[tblAddressList reloadData];
 		[self performSelector:@selector(refreshAddressList) withObject:nil afterDelay:1];
+		return;
 	}
+	
+	[[AddAddressController alloc] initWithValues:self withDS:addressListDS table:tblAddressList];
+}
+
+- (IBAction)RemoveAddress:(id)sender
+{
+	[addressListDS removeObjectAtIndex:[tblAddressList selectedRow]];
+	[tblAddressList reloadData];
 }
 
 - (IBAction)ClearAddressList:(id)sender

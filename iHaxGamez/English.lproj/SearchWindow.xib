@@ -865,7 +865,7 @@
 											<object class="NSButtonCell" key="NSCell" id="15749578">
 												<int key="NSCellFlags">67239424</int>
 												<int key="NSCellFlags2">134217728</int>
-												<string key="NSContents">Add address manually</string>
+												<string key="NSContents">Add Address Manually</string>
 												<reference key="NSSupport" ref="22441796"/>
 												<reference key="NSControlView" ref="735885666"/>
 												<int key="NSButtonFlags">-2038284033</int>
@@ -890,11 +890,32 @@
 												<reference key="NSControlView" ref="901117418"/>
 												<int key="NSButtonFlags">-2038038273</int>
 												<int key="NSButtonFlags2">129</int>
-												<object class="NSFont" key="NSAlternateImage">
+												<object class="NSFont" key="NSAlternateImage" id="619349023">
 													<string key="NSName">LucidaGrande-Bold</string>
 													<double key="NSSize">13</double>
 													<int key="NSfFlags">16</int>
 												</object>
+												<string key="NSAlternateContents"/>
+												<string key="NSKeyEquivalent"/>
+												<int key="NSPeriodicDelay">200</int>
+												<int key="NSPeriodicInterval">25</int>
+											</object>
+										</object>
+										<object class="NSButton" id="1067418300">
+											<reference key="NSNextResponder" ref="396066874"/>
+											<int key="NSvFlags">268</int>
+											<string key="NSFrame">{{-1, 131}, {146, 32}}</string>
+											<reference key="NSSuperview" ref="396066874"/>
+											<bool key="NSEnabled">YES</bool>
+											<object class="NSButtonCell" key="NSCell" id="765776187">
+												<int key="NSCellFlags">67239424</int>
+												<int key="NSCellFlags2">134217728</int>
+												<string key="NSContents">Remove Selected</string>
+												<reference key="NSSupport" ref="22441796"/>
+												<reference key="NSControlView" ref="1067418300"/>
+												<int key="NSButtonFlags">-2038038273</int>
+												<int key="NSButtonFlags2">129</int>
+												<reference key="NSAlternateImage" ref="619349023"/>
 												<string key="NSAlternateContents"/>
 												<string key="NSKeyEquivalent"/>
 												<int key="NSPeriodicDelay">200</int>
@@ -1394,6 +1415,22 @@
 					</object>
 					<int key="connectionID">176</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">btnRemoveSelected</string>
+						<reference key="source" ref="801315138"/>
+						<reference key="destination" ref="1067418300"/>
+					</object>
+					<int key="connectionID">182</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">RemoveAddress:</string>
+						<reference key="source" ref="801315138"/>
+						<reference key="destination" ref="1067418300"/>
+					</object>
+					<int key="connectionID">184</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -1871,6 +1908,7 @@
 							<reference ref="735885666"/>
 							<reference ref="319372844"/>
 							<reference ref="901117418"/>
+							<reference ref="1067418300"/>
 						</array>
 						<reference key="parent" ref="1009577416"/>
 					</object>
@@ -1975,6 +2013,19 @@
 						<reference key="object" ref="34413054"/>
 						<reference key="parent" ref="547608187"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">179</int>
+						<reference key="object" ref="1067418300"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="765776187"/>
+						</array>
+						<reference key="parent" ref="1073659085"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">180</int>
+						<reference key="object" ref="765776187"/>
+						<reference key="parent" ref="1067418300"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -2038,7 +2089,7 @@
 				<string key="145.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="146.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSAffineTransform" key="146.IBViewBoundsToFrameTransform">
-					<bytes key="NSTransformStruct">P4AAAL+AAABDkYAAwyEAAA</bytes>
+					<bytes key="NSTransformStruct">P4AAAL+AAABDhAAAwyEAAA</bytes>
 				</object>
 				<string key="147.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="148.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2050,6 +2101,11 @@
 				<string key="155.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="16.ImportedFromIB2"/>
+				<string key="179.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<object class="NSAffineTransform" key="179.IBViewBoundsToFrameTransform">
+					<bytes key="NSTransformStruct">P4AAAL+AAABDhoAAwxwAAA</bytes>
+				</object>
+				<string key="180.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="21.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="21.ImportedFromIB2"/>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2105,9 +2161,9 @@
 				<boolean value="YES" key="5.ImportedFromIB2"/>
 				<string key="50.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="50.ImportedFromIB2"/>
-				<string key="6.IBEditorWindowLastContentRect">{{504, 213}, {634, 543}}</string>
+				<string key="6.IBEditorWindowLastContentRect">{{388, 213}, {634, 543}}</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="6.IBWindowTemplateEditedContentRect">{{504, 213}, {634, 543}}</string>
+				<string key="6.IBWindowTemplateEditedContentRect">{{388, 213}, {634, 543}}</string>
 				<boolean value="YES" key="6.ImportedFromIB2"/>
 				<boolean value="YES" key="6.windowTemplate.hasMinSize"/>
 				<string key="6.windowTemplate.minSize">{634, 361}</string>
@@ -2138,7 +2194,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">178</int>
+			<int key="maxID">184</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2175,6 +2231,7 @@
 						<string key="FilterStart:">id</string>
 						<string key="RefreshChecked:">id</string>
 						<string key="RefreshClicked:">id</string>
+						<string key="RemoveAddress:">id</string>
 						<string key="ReplaceAllClicked:">id</string>
 						<string key="SearchReset:">id</string>
 						<string key="SearchStart:">id</string>
@@ -2201,6 +2258,10 @@
 							<string key="name">RefreshClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="RemoveAddress:">
+							<string key="name">RemoveAddress:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="ReplaceAllClicked:">
 							<string key="name">ReplaceAllClicked:</string>
 							<string key="candidateClassName">id</string>
@@ -2225,6 +2286,7 @@
 						<string key="btnClear">NSButton</string>
 						<string key="btnFlashTimesEightMode">NSButton</string>
 						<string key="btnManualRefresh">NSButton</string>
+						<string key="btnRemoveSelected">NSButton</string>
 						<string key="btnReplaceAll">NSButton</string>
 						<string key="btnReset">NSButton</string>
 						<string key="btnSearchFilter">NSButton</string>
@@ -2262,6 +2324,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="btnManualRefresh">
 							<string key="name">btnManualRefresh</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnRemoveSelected">
+							<string key="name">btnRemoveSelected</string>
 							<string key="candidateClassName">NSButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="btnReplaceAll">

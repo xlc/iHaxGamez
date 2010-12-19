@@ -47,5 +47,6 @@
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 - (void)addAppAddressDataRec:(vm_address_t)address val:(NSString *)val dataType:(int)type;
 - (void)removeAllObjects;
+- (void)removeObjectAtIndex:(int)index;
 
 @end

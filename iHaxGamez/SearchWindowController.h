@@ -46,6 +46,7 @@
 	IBOutlet NSButton *btnClear;
 	IBOutlet NSButton *btnAddAddress;
 	IBOutlet NSTableView *tblAddressList;
+	IBOutlet NSButton *btnRemoveSelected;
     
     NSString *applicationName;
     AppAddressDataSource *appAddressDS;
@@ -76,6 +77,7 @@
 - (AddressListDataSource *)addressListDS;
 - (void)setAddressListDS:(AddressListDataSource *)newAddressListDS;
 
+- (IBAction)RemoveAddress:(id)sender;
 - (IBAction)AddAddress:(id)sender;
 - (IBAction)ClearAddressList:(id)sender;
 - (IBAction)RefreshChecked:(id)sender;
