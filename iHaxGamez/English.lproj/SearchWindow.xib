@@ -890,7 +890,7 @@
 												<reference key="NSControlView" ref="901117418"/>
 												<int key="NSButtonFlags">-2038038273</int>
 												<int key="NSButtonFlags2">129</int>
-												<object class="NSFont" key="NSAlternateImage" id="619349023">
+												<object class="NSFont" key="NSAlternateImage" id="1069024986">
 													<string key="NSName">LucidaGrande-Bold</string>
 													<double key="NSSize">13</double>
 													<int key="NSfFlags">16</int>
@@ -901,21 +901,21 @@
 												<int key="NSPeriodicInterval">25</int>
 											</object>
 										</object>
-										<object class="NSButton" id="1067418300">
+										<object class="NSButton" id="527771876">
 											<reference key="NSNextResponder" ref="396066874"/>
 											<int key="NSvFlags">268</int>
 											<string key="NSFrame">{{-1, 131}, {146, 32}}</string>
 											<reference key="NSSuperview" ref="396066874"/>
 											<bool key="NSEnabled">YES</bool>
-											<object class="NSButtonCell" key="NSCell" id="765776187">
+											<object class="NSButtonCell" key="NSCell" id="85435267">
 												<int key="NSCellFlags">67239424</int>
 												<int key="NSCellFlags2">134217728</int>
 												<string key="NSContents">Remove Selected</string>
 												<reference key="NSSupport" ref="22441796"/>
-												<reference key="NSControlView" ref="1067418300"/>
+												<reference key="NSControlView" ref="527771876"/>
 												<int key="NSButtonFlags">-2038038273</int>
 												<int key="NSButtonFlags2">129</int>
-												<reference key="NSAlternateImage" ref="619349023"/>
+												<reference key="NSAlternateImage" ref="1069024986"/>
 												<string key="NSAlternateContents"/>
 												<string key="NSKeyEquivalent"/>
 												<int key="NSPeriodicDelay">200</int>
@@ -1419,7 +1419,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">btnRemoveSelected</string>
 						<reference key="source" ref="801315138"/>
-						<reference key="destination" ref="1067418300"/>
+						<reference key="destination" ref="527771876"/>
 					</object>
 					<int key="connectionID">182</int>
 				</object>
@@ -1427,7 +1427,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">RemoveAddress:</string>
 						<reference key="source" ref="801315138"/>
-						<reference key="destination" ref="1067418300"/>
+						<reference key="destination" ref="527771876"/>
 					</object>
 					<int key="connectionID">184</int>
 				</object>
@@ -1908,7 +1908,7 @@
 							<reference ref="735885666"/>
 							<reference ref="319372844"/>
 							<reference ref="901117418"/>
-							<reference ref="1067418300"/>
+							<reference ref="527771876"/>
 						</array>
 						<reference key="parent" ref="1009577416"/>
 					</object>
@@ -2015,16 +2015,16 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">179</int>
-						<reference key="object" ref="1067418300"/>
+						<reference key="object" ref="527771876"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="765776187"/>
+							<reference ref="85435267"/>
 						</array>
 						<reference key="parent" ref="1073659085"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">180</int>
-						<reference key="object" ref="765776187"/>
-						<reference key="parent" ref="1067418300"/>
+						<reference key="object" ref="85435267"/>
+						<reference key="parent" ref="527771876"/>
 					</object>
 				</array>
 			</object>
