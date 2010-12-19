@@ -1,0 +1,12 @@
+//
+// Prefix header for all source files of the 'iHaxGamez' target in the 'iHaxGamez' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
+
+#if defined MAC_OS_X_VERSION_10_4 && MAC_OS_X_VERSION_10_4 == MAC_OS_X_VERSION_MAX_ALLOWED
+	#define NSInteger int32_t
+	#define NSUInteger uint32_t
+#endif
