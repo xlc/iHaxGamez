@@ -37,7 +37,171 @@
     return self;
 }
 
-- (NSMutableArray *)getSearchArray:(Byte *)Value ByteSize:(int)Bytes SoughtValueString:(NSString *)ValueString PrgBar:(NSProgressIndicator *)pBar;
+- (void) getSearchArray64:(vm_size_t)ReturnedBufferContentSize ReturnedBuffer:(Byte *)ReturnedBuffer ValueString:(NSString *)ValueString SourceAddress:(vm_address_t)SourceAddress AddrList:(NSMutableArray *)AddrList Value:(Byte *)Value SearchSize:(uint)SearchSize
+{
+	const int comparisonSize = sizeof(int64_t);
+	Byte* valuePosition;
+	Byte* valueEnd;
+	Byte* resetDestPosition;
+	Byte* endDestPosition = ReturnedBuffer + ReturnedBufferContentSize - SearchSize;
+	Byte* destPosition = ReturnedBuffer;
+	while(destPosition <= endDestPosition)
+	{
+		// speed processing by skipping all these calcs when we have no match
+		// NOTE: "No match" happens more often than "match"
+		// NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
+		if (*(int64_t*)destPosition == *(int64_t*)Value)
+		{
+			// store the destPosition to reset position without expensive calculation
+			resetDestPosition = destPosition;
+			valuePosition = Value; // we just tested position 0 (first byte/int/int64_t) so start pointing there so that we can check to see if we are done with inner loop
+			valueEnd = Value + SearchSize - comparisonSize; // we stop when we've checked all bytes in the search value
+			do
+			{
+				if (valueEnd == valuePosition) // success
+				{
+					[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString] autorelease]];
+					break;
+				}
+				else // not yet done testing all bytes
+				{
+					// set indexes so we can test next bytes
+					valuePosition+=comparisonSize;
+					destPosition++;
+				}
+			} while (*(int64_t*)destPosition == *(int64_t*)valuePosition);
+			
+			// back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
+			destPosition = resetDestPosition;
+		}
+		destPosition++; // start search on the next character in the destination byte array
+	}
+}
+
+- (void) getSearchArray32:(vm_size_t)ReturnedBufferContentSize ReturnedBuffer:(Byte *)ReturnedBuffer ValueString:(NSString *)ValueString SourceAddress:(vm_address_t)SourceAddress AddrList:(NSMutableArray *)AddrList Value:(Byte *)Value SearchSize:(uint)SearchSize
+{
+	const int comparisonSize = sizeof(int32_t);
+	Byte* valuePosition;
+	Byte* valueEnd;
+	Byte* resetDestPosition;
+	Byte* endDestPosition = ReturnedBuffer + ReturnedBufferContentSize - SearchSize;
+	Byte* destPosition = ReturnedBuffer;
+	while(destPosition <= endDestPosition)
+	{
+		// speed processing by skipping all these calcs when we have no match
+		// NOTE: "No match" happens more often than "match"
+		// NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
+		if (*(int32_t*)destPosition == *(int32_t*)Value)
+		{
+			// store the destPosition to reset position without expensive calculation
+			resetDestPosition = destPosition;
+			valuePosition = Value; // we just tested position 0 (first byte/int/int64_t) so start pointing there so that we can check to see if we are done with inner loop
+			valueEnd = Value + SearchSize - comparisonSize; // we stop when we've checked all bytes in the search value
+			do
+			{
+				if (valueEnd == valuePosition) // success
+				{
+					[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString] autorelease]];
+					break;
+				}
+				else // not yet done testing all bytes
+				{
+					// set indexes so we can test next bytes
+					valuePosition+=comparisonSize;
+					destPosition++;
+				}
+			} while (*(int32_t*)destPosition == *(int32_t*)valuePosition);
+			
+			// back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
+			destPosition = resetDestPosition;
+		}
+		destPosition++; // start search on the next character in the destination byte array
+	}
+}
+
+- (void) getSearchArray16:(vm_size_t)ReturnedBufferContentSize ReturnedBuffer:(Byte *)ReturnedBuffer ValueString:(NSString *)ValueString SourceAddress:(vm_address_t)SourceAddress AddrList:(NSMutableArray *)AddrList Value:(Byte *)Value SearchSize:(uint)SearchSize
+{
+	const int comparisonSize = sizeof(int16_t);
+	Byte* valuePosition;
+	Byte* valueEnd;
+	Byte* resetDestPosition;
+	Byte* endDestPosition = ReturnedBuffer + ReturnedBufferContentSize - SearchSize;
+	Byte* destPosition = ReturnedBuffer;
+	while(destPosition <= endDestPosition)
+	{
+		// speed processing by skipping all these calcs when we have no match
+		// NOTE: "No match" happens more often than "match"
+		// NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
+		if (*(int16_t*)destPosition == *(int16_t*)Value)
+		{
+			// store the destPosition to reset position without expensive calculation
+			resetDestPosition = destPosition;
+			valuePosition = Value; // we just tested position 0 (first byte/int/int64_t) so start pointing there so that we can check to see if we are done with inner loop
+			valueEnd = Value + SearchSize - comparisonSize; // we stop when we've checked all bytes in the search value
+			do
+			{
+				if (valueEnd == valuePosition) // success
+				{
+					[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString] autorelease]];
+					break;
+				}
+				else // not yet done testing all bytes
+				{
+					// set indexes so we can test next bytes
+					valuePosition+=comparisonSize;
+					destPosition++;
+				}
+			} while (*(int16_t*)destPosition == *(int16_t*)valuePosition);
+			
+			// back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
+			destPosition = resetDestPosition;
+		}
+		destPosition++; // start search on the next character in the destination byte array
+	}
+}
+
+- (void) getSearchArray8:(vm_size_t)ReturnedBufferContentSize ReturnedBuffer:(Byte *)ReturnedBuffer ValueString:(NSString *)ValueString SourceAddress:(vm_address_t)SourceAddress AddrList:(NSMutableArray *)AddrList Value:(Byte *)Value SearchSize:(uint)SearchSize
+{
+	const int comparisonSize = sizeof(int8_t);
+	Byte* valuePosition;
+	Byte* valueEnd;
+	Byte* resetDestPosition;
+	Byte* endDestPosition = ReturnedBuffer + ReturnedBufferContentSize - SearchSize;
+	Byte* destPosition = ReturnedBuffer;
+	while(destPosition <= endDestPosition)
+	{
+		// speed processing by skipping all these calcs when we have no match
+		// NOTE: "No match" happens more often than "match"
+		// NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
+		if (*(int8_t*)destPosition == *(int8_t*)Value)
+		{
+			// store the destPosition to reset position without expensive calculation
+			resetDestPosition = destPosition;
+			valuePosition = Value; // we just tested position 0 (first byte/int/int64_t) so start pointing there so that we can check to see if we are done with inner loop
+			valueEnd = Value + SearchSize - comparisonSize; // we stop when we've checked all bytes in the search value
+			do
+			{
+				if (valueEnd == valuePosition) // success
+				{
+					[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString] autorelease]];
+					break;
+				}
+				else // not yet done testing all bytes
+				{
+					// set indexes so we can test next bytes
+					valuePosition+=comparisonSize;
+					destPosition++;
+				}
+			} while (*(int8_t*)destPosition == *(int8_t*)valuePosition);
+			
+			// back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
+			destPosition = resetDestPosition;
+		}
+		destPosition++; // start search on the next character in the destination byte array
+	}
+}
+
+- (NSMutableArray *)getSearchArray:(Byte *)Value ByteSize:(int)Bytes SoughtValueString:(NSString *)ValueString PrgBar:(NSProgressIndicator *)pBar
 {
     NSMutableArray *AddrList = [[NSMutableArray alloc] initWithCapacity:1000];
 	
@@ -93,43 +257,25 @@
 					uint SearchSize = Bytes;
 					
 					// Note: we cannot assume memory alignment so each address could be the start of our multi-byte value
-					
+					// Note: instead of always comparing bytes, use long and int or short when possible (ie: SearchSize % sizeof(long) == 0, or SearchSize % sizeof(int) == 0 respectively)    
 					// incrementing addresses instead of calculating offsets for speed
-					Byte* valuePosition;
-					Byte* valueEnd;
-					Byte* resetDestPosition;
-					Byte* endDestPosition = ReturnedBuffer + ReturnedBufferContentSize - SearchSize;
-					Byte* destPosition = ReturnedBuffer;
-					while(destPosition <= endDestPosition)
+					if (0 == SearchSize % (int)sizeof(int64_t))
 					{
-						// speed processing by skipping all these calcs when we have no match
-						// NOTE: No match happens more often then match
-						if (destPosition[0] == Value[0])
-						{
-							// store the destPosition to reset position without expensive calculation
-							resetDestPosition = destPosition;
-							valuePosition = Value; // we just tested position 0 (first byte) so start pointing there so that we can check to see if we are done with inner loop
-							valueEnd = Value + SearchSize - 1; // we stop when we've checked all bytes in the search value
-							do
-							{
-								if (valueEnd == valuePosition) // success
-								{
-									[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString] autorelease]];
-									break;
-								}
-								else // not yet done testing all bytes
-								{
-									// set indexes so we can test next bytes
-									valuePosition++;
-									destPosition++;
-								}
-							} while (destPosition[0] == valuePosition[0]); // continue ONLY if we still match at this byte position
-							
-							// back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
-							destPosition = resetDestPosition;
-						}
-						destPosition++; // start search on the next character in the destination byte array
+						[self getSearchArray64: ReturnedBufferContentSize ReturnedBuffer: ReturnedBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
 					}
+					else if (0 == SearchSize % (int)sizeof(int32_t))
+					{
+						[self getSearchArray32: ReturnedBufferContentSize ReturnedBuffer: ReturnedBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
+					}
+					else if (0 == SearchSize % (int)sizeof(int16_t))
+					{
+						[self getSearchArray16: ReturnedBufferContentSize ReturnedBuffer: ReturnedBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
+					}
+					else
+					{
+						[self getSearchArray8: ReturnedBufferContentSize ReturnedBuffer: ReturnedBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
+					}
+					
 				}
 				NS_HANDLER
 				NS_ENDHANDLER
