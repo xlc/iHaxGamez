@@ -34,17 +34,9 @@
     SearchWindowController* searchWindowController;
 }
 
-- (id)init;
-- (void)dealloc;
+@property (nonatomic, strong) NSMutableArray *appAddresses;
+@property (nonatomic, strong) SearchWindowController *searchWindowController;
 
-- (NSMutableArray *)appAddresses;
-- (void)setAppAddresses:(NSMutableArray *)newAppAddresses;
-- (SearchWindowController *)searchWindowController;
-- (void)setSearchWindowController:(SearchWindowController *)SWC;
-
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 - (void)addAppAddressDataRec:(vm_address_t)address val:(NSString *)val;
 - (void)removeAllObjects;
 

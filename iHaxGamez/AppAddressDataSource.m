@@ -25,46 +25,14 @@
 
 @implementation AppAddressDataSource
 
+@synthesize appAddresses, searchWindowController;
+
 - (id)init
 {
+    self = [super init];
     [self setAppAddresses:[NSMutableArray arrayWithCapacity:1000]];
     searchWindowController = nil;
     return self;
-}
-
-- (void)dealloc
-{
-	[searchWindowController release];
-    [appAddresses release];
-    [super dealloc];
-}
-
-- (SearchWindowController *)searchWindowController
-{
-    return searchWindowController;
-}
-
-- (void)setSearchWindowController:(SearchWindowController *)SWC
-{
-    if (searchWindowController != SWC)
-    {
-        [searchWindowController release];
-		searchWindowController = [SWC retain];
-    }
-}
-
-- (NSMutableArray *)appAddresses
-{
-    return appAddresses;
-}
-
-- (void)setAppAddresses:(NSMutableArray *)newAppAddresses
-{
-	if (appAddresses != newAppAddresses)
-	{
-		[appAddresses release];
-		appAddresses = [newAppAddresses retain];
-	}
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
@@ -78,7 +46,7 @@
     AppAddressData *appAddressData = [appAddresses objectAtIndex:row];
     if (NSOrderedSame == [identifier caseInsensitiveCompare:@"address"])
     {
-        // convert address to hexadecimal
+            // convert address to hexadecimal
         return [NSString stringWithFormat:@"0x%qX",(vm_address_t)[[appAddressData valueForKey:identifier] longValue]];
     }
     else
@@ -92,8 +60,8 @@
     NSString *identifier = [tableColumn identifier];
     AppAddressData *appAddressData = [appAddresses objectAtIndex:row];
     [appAddressData setValue:object forKey:identifier];
-
-    // tell the window controller to save the data to the connected application
+    
+        // tell the window controller to save the data to the connected application
     if (searchWindowController != nil)
     {
         [searchWindowController valueChangedAtRow:row];
@@ -102,7 +70,7 @@
 
 - (void)addAppAddressDataRec:(vm_address_t)address val:(NSString *)val
 {
-    [appAddresses addObject:[[[AppAddressData alloc] initWithValues:address val:val] autorelease]];
+    [appAddresses addObject:[[AppAddressData alloc] initWithValues:address val:val]];
 }
 
 - (void)removeAllObjects

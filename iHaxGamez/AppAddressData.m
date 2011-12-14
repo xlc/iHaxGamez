@@ -24,6 +24,8 @@
 
 @implementation AppAddressData
 
+@synthesize address, value;
+
 - (id)init
 {
     return [self initWithValues:0 val:@""];
@@ -31,40 +33,10 @@
 
 - (id)initWithValues:(vm_address_t)addr val:(NSString *)val
 {
-    [super init];
+    self = [super init];
     [self setAddress:addr];
     [self setValue:val];
     return self;
-}
-
-- (void)dealloc
-{
-    [value release];
-    [super dealloc];
-}
-
-- (vm_address_t)address
-{
-    return address;
-}
-
-- (void)setAddress:(vm_address_t)val
-{
-    address = val;
-}
-
-- (NSString *)value
-{
-    return value;
-}
-
-- (void)setValue:(NSString *)val
-{
-	if (value != val)
-	{
-		[value release];
-		value = [val copy];
-	}
 }
 
 @end

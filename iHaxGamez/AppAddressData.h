@@ -27,13 +27,9 @@
     NSString *value;
 }
 
-- (id)init;
-- (id)initWithValues:(vm_address_t)addr val:(NSString *)val;
-- (void)dealloc;
+@property (nonatomic) vm_address_t address;
+@property (nonatomic, strong) NSString *value;
 
-- (vm_address_t)address;
-- (void)setAddress:(vm_address_t)val;
-- (NSString *)value;
-- (void)setValue:(NSString *)val;
+- (id)initWithValues:(vm_address_t)addr val:(NSString *)val;
 
 @end

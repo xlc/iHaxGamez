@@ -21,22 +21,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MainWindowController : NSObject
+@interface MainWindowController : NSObject <NSWindowDelegate>
 {
     IBOutlet NSPopUpButton *popupProcessList;
     IBOutlet NSTextField *textSearchCounter;
     NSMutableArray *searchWindowArray;
     ProcessSerialNumber CurrentAppPSN;
 }
-- (id)init;
-- (void)dealloc;
 
-- (void)windowDidBecomeKey:(NSNotification *)aNotification;
+@property (nonatomic, strong) NSMutableArray *searchWindowArray;
 
-- (NSMutableArray *)searchWindowArray;
-- (void)setSearchWindowArray:(NSMutableArray *)newSearchWindowArray;
-
-- (void)awakeFromNib;
 - (void)resetProcessList;
 - (IBAction)btnRefreshAction:(id)sender;
 - (IBAction)btnSearchAction:(id)sender;
@@ -44,7 +38,7 @@
 
 - (void)updateSearchWindowCount;
 
-// used to clean searchWindowArray when a search window closes
+    // used to clean searchWindowArray when a search window closes
 - (void)SearchWindowClosed:(NSNotification *)notification;
 
 @end

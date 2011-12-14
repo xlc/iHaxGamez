@@ -25,8 +25,11 @@
 #import "MemoryAccess.h"
 #import <math.h>
 #import <Security/AuthorizationTags.h>
+#import <AudioToolbox/AudioServices.h>
 
 @implementation SearchWindowController
+
+@synthesize applicationName, appAddressDS;
 
 - (id)init
 {
@@ -34,85 +37,38 @@
 }
 
 - (id)initWithAppName:(NSString *)AppName PID:(pid_t)PID
-{
-    [super init];    
+{   
     self = [self initWithWindowNibName:@"SearchWindow"];
-
-    AppPid = PID;
-    
     if (self)
     {
+        AppPid = PID;
         [self setApplicationName:AppName];
         [self showWindow:self];
         
-        [self setAppAddressDS:[[[AppAddressDataSource alloc] init] autorelease]];
+        [self setAppAddressDS:[[AppAddressDataSource alloc] init]];
         [appAddressDS setSearchWindowController:self];
         [tblResults setDataSource:appAddressDS];
-
+        
         CurrentSearchField = textSearchValue;
-        // initialize our search with the PID of our desired process
+            // initialize our search with the PID of our desired process
         AttachedMemory = [[MemoryAccess alloc] initWithPID:AppPid];
     }
     
     return self;
 }
 
-- (void)dealloc
-{
-	[applicationName release];
-    [appAddressDS release];
-    [AttachedMemory release];
-    [super dealloc];
-}
-
-
-- (NSString *)applicationName
-{
-    return applicationName;
-}
-
-- (void)setApplicationName:(NSString *)value
-{
-	if (applicationName != value)
-	{
-		[applicationName release];
-		applicationName = [value copy];
-	}
-}
-
-- (AppAddressDataSource *)appAddressDS
-{
-    return appAddressDS;
-}
-
-- (void)setAppAddressDS:(AppAddressDataSource *)newAppAddressDS
-{
-	if (appAddressDS != newAppAddressDS)
-	{
-		[appAddressDS release];
-		appAddressDS = [newAppAddressDS retain];
-	}
-}
-
-
-
 - (void)windowDidLoad
-{
+{    
     [textAppTitle setStringValue:[self applicationName]];
     [[self window] makeKeyAndOrderFront:self];
     [btnReset setFrame:[btnSearchOriginal frame]]; // reset button re-position
-
-    // When editing the window in Interface builder, I can't see the indicator if it's not displayed when stopped
-    // so here is where I alter some settings to make it invisible again.
+    
+        // When editing the window in Interface builder, I can't see the indicator if it's not displayed when stopped
+        // so here is where I alter some settings to make it invisible again.
     [progressInd setDisplayedWhenStopped:false];
     [progressInd setHidden:false];
-
+    
     [self setEditMode:false];
-}
-
-- (void)windowWillClose:(NSNotification *)aNotification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)aNotification
@@ -132,8 +88,8 @@
             AppAddressData *MyAppAddr;
             NSInteger SelectedIndex = [popupDataType indexOfSelectedItem];
             
-            // Set the buffer size once only. It's not going to change even if we're looking at strings because strings are based
-            // on the length of the original search string!!
+                // Set the buffer size once only. It's not going to change even if we're looking at strings because strings are based
+                // on the length of the original search string!!
             int BufSize;
             Byte *DataBuffer = nil;
 			int8_t bVal = 0;
@@ -229,7 +185,8 @@
                             [MyAppAddr setValue:[NSString stringWithFormat:@"%f",dVal]];
                             break;
                         case 6: // ASCII string
-                            [MyAppAddr setValue:[NSString stringWithCString:(char *)charVal length:BufSize]];
+                            charVal[[[textSearchValue stringValue] length]] = '\0';
+                            [MyAppAddr setValue:[NSString stringWithCString:(char *)charVal encoding:NSASCIIStringEncoding]];
                             break;
                         case 7: // UNICODE string
                         default:
@@ -274,7 +231,7 @@
     unichar charVal[[[textSearchValue stringValue] length] + 1];
     
     
-    // this is needed for integer based values - grabs a long long if possible, otherwise zero
+        // this is needed for integer based values - grabs a long long if possible, otherwise zero
 	if (![[NSScanner scannerWithString:val] scanLongLong:&llVal])
 	{
 		llVal = 0;
@@ -316,16 +273,16 @@
             BufSize = (int)([[textSearchValue stringValue] length]);
             DataBuffer = (Byte *)charVal;
             
-            // make sure the replacement string is not longer than the original search string
+                // make sure the replacement string is not longer than the original search string
             if ([val length] > (uint)BufSize)
             {
                 val = [val substringToIndex:BufSize];
             }
             
-            // fill the buffer with the characters from the value string
-            [val getCString:(char *)charVal];
+                // fill the buffer with the characters from the value string
+            [val getCString:(char *)charVal maxLength:sizeof(charVal)/sizeof(char) encoding:NSASCIIStringEncoding];
             
-            // pad buffer with trailing spaces so it will be the same size as the original search string
+                // pad buffer with trailing spaces so it will be the same size as the original search string
         {
             char *MyCharacterString = (char *)charVal;
             int x;
@@ -342,16 +299,16 @@
             BufSize = (int)([[textSearchValue stringValue] length]);
             DataBuffer = (Byte *)charVal;
             
-            // make sure the replacement string is not longer than the original search string
+                // make sure the replacement string is not longer than the original search string
             if ([val length] > (uint)BufSize)
             {
                 val = [val substringToIndex:BufSize];
             }
             
-            // fill the buffer with the characters from the value string
+                // fill the buffer with the characters from the value string
             [val getCharacters:(unichar *)charVal];
             
-            // pad buffer with trailing spaces so it will be the same size as the original search string
+                // pad buffer with trailing spaces so it will be the same size as the original search string
         {
             unichar *MyUnicodeString = charVal;
             int x;
@@ -373,7 +330,7 @@
 		lVal *= 8;
 	}
 	
-	// change the data located at Address to the value pointed to by DataBuffer
+        // change the data located at Address to the value pointed to by DataBuffer
     Address = [(AppAddressData *)[[appAddressDS appAddresses] objectAtIndex:row] address];
     [AttachedMemory saveDataForAddress:Address Buffer:DataBuffer BufLength:BufSize];
     
@@ -403,7 +360,7 @@
 {
     if ([[textFilterValue stringValue] length] == 0 )
     {
-        AlertSoundPlay();
+        AudioServicesPlayAlertSound(kSystemSoundID_UserPreferredAlert);
     }
     else
     {
@@ -421,19 +378,19 @@
 {
     if ([[textSearchValue stringValue] length] == 0 )
     {
-        AlertSoundPlay();
+        AudioServicesPlayAlertSound(kSystemSoundID_UserPreferredAlert);
     }
     else
     {
-        // save them the trouble of searching for 0 (It takes a LONG time!!!) 
+            // save them the trouble of searching for 0 (It takes a LONG time!!!) 
         NSInteger AlertResult = NSAlertAlternateReturn;
         if (([textSearchValue intValue] == 0) && ([popupDataType indexOfSelectedItem] < 6))
         {
             NSAlert *MyAlert =[NSAlert alertWithMessageText:@"Searching for 0 is a bad idea"
-                                    defaultButton:@"Cancel"
-									alternateButton:@"I Said Do It!"
-                                    otherButton:@""
-                                    informativeTextWithFormat:@"There are usually a lot of memory locations set to 0. Searching for 0 will often take a very LONG time. Perhaps you should cancel the search and look for another value."];
+                                              defaultButton:@"Cancel"
+                                            alternateButton:@"I Said Do It!"
+                                                otherButton:@""
+                                  informativeTextWithFormat:@"There are usually a lot of memory locations set to 0. Searching for 0 will often take a very LONG time. Perhaps you should cancel the search and look for another value."];
             AlertResult = [MyAlert runModal];
         }
         if (AlertResult != NSAlertDefaultReturn)
@@ -463,7 +420,7 @@
     {
         return;
     }
-
+    
     NSString *val = [textReplaceAllValue stringValue];
     NSUInteger AddrCount = [[appAddressDS appAddresses] count];
     NSUInteger x;
@@ -487,7 +444,7 @@
     [btnSearchFilter setEnabled:isEditMode];
     [btnReplaceAll setEnabled:isEditMode];
     [btnManualRefresh setEnabled:isEditMode];
-
+    
     if (isEditMode)
     {
         CurrentSearchField = textFilterValue;
@@ -498,7 +455,7 @@
         CurrentSearchField = textSearchValue;
         [textFilterValue setStringValue:@""];
     }
-
+    
     [appAddressDS removeAllObjects];
     [tblResults reloadData];
 }
@@ -507,7 +464,7 @@
 {
     [progressInd startAnimation:self];
     
-	// allocate the search value holders
+        // allocate the search value holders
 	int8_t byteSearchVal=0;
 	int16_t shortSearchVal=0;
     int32_t intSearchVal=0;
@@ -519,19 +476,19 @@
     NSString *ValueString;
     long long llVal;
 	
-    // Just in case we are looking for an ascii or unicode string, set up my buffer the lazy way (as auto instead of malloc)
-    // Note: I set this as a unichar string even though I might use only half of its length when looking for a char string
-    // Note: Also, the maximum length of the search can not exceed the length of the original string so we base this on textSearchValue
-    // rather than CurrentSearchField
+        // Just in case we are looking for an ascii or unicode string, set up my buffer the lazy way (as auto instead of malloc)
+        // Note: I set this as a unichar string even though I might use only half of its length when looking for a char string
+        // Note: Also, the maximum length of the search can not exceed the length of the original string so we base this on textSearchValue
+        // rather than CurrentSearchField
     unichar charSearchVal[[[textSearchValue stringValue] length] + 1];
     
-	// this is needed for integer based values - grabs a long long if possible, otherwise zero
+        // this is needed for integer based values - grabs a long long if possible, otherwise zero
 	if (![[NSScanner scannerWithString:[CurrentSearchField stringValue]] scanLongLong:&llVal])
 	{
 		llVal = 0;
 	}
-
-
+    
+    
     int SelectedIndex = (int)[popupDataType indexOfSelectedItem];
     switch(SelectedIndex)
     {
@@ -574,7 +531,7 @@
         case 6: // ASCII string
             [self adjustFilterStringLength];
             searchValSize = (int)([[CurrentSearchField stringValue] length] * sizeof(char)); // sizeof(char) should be 1, but things change...
-            [[CurrentSearchField stringValue] getCString:(char *)charSearchVal];
+            [[CurrentSearchField stringValue] getCString:(char *)charSearchVal maxLength:searchValSize+1 encoding:NSASCIIStringEncoding];
             ValueString = [CurrentSearchField stringValue];
             searchValPointer = (Byte *)charSearchVal;
             break;
@@ -582,7 +539,7 @@
         default: // treat unknowns as UNICODE string
             [self adjustFilterStringLength];
             searchValSize = (int)([[CurrentSearchField stringValue] length] * sizeof(unichar));
-            [[CurrentSearchField stringValue] getCharacters:(unichar *)charSearchVal];
+            [[CurrentSearchField stringValue] getCharacters:(unichar *)charSearchVal range:NSMakeRange(0, [[CurrentSearchField stringValue] length])];
             ValueString = [CurrentSearchField stringValue];
             searchValPointer = (Byte *)charSearchVal;
             break;
@@ -598,15 +555,15 @@
 	
     if (isFilterMode)
     {
-        // remove from appAddressDS where address does not contain filter value
+            // remove from appAddressDS where address does not contain filter value
         [appAddressDS setAppAddresses:[AttachedMemory getFilteredArray:searchValPointer ByteSize:searchValSize SoughtValueString:ValueString Addresses:[appAddressDS appAddresses] PrgBar:progressBar]];         
     }
     else
     {
-        // Fill the appAddressDS with an array of addresses that contain the sought value
+            // Fill the appAddressDS with an array of addresses that contain the sought value
         [appAddressDS setAppAddresses:[AttachedMemory getSearchArray:searchValPointer ByteSize:searchValSize SoughtValueString:ValueString PrgBar:progressBar]];         
     }
-
+    
     [boxResults setTitle:[NSString stringWithFormat:@"Search Results: (%u Found)",(uint)[appAddressDS numberOfRowsInTableView:nil]]];
     [tblResults reloadData];
     [progressInd stopAnimation:self];
@@ -614,7 +571,7 @@
 
 - (void)adjustFilterStringLength
 {
-    // truncate the textFilterValue string if longer than textSearchValue
+        // truncate the textFilterValue string if longer than textSearchValue
     int searchLength = (int)[[textSearchValue stringValue] length];
     int filterLength = (int)[[textFilterValue stringValue] length];
     

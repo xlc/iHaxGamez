@@ -32,7 +32,7 @@
 
 - (id)initWithPID:(pid_t)PID
 {
-    [super init];
+    self = [super init];
     AppPid = PID;
     return self;
 }
@@ -60,7 +60,7 @@
 			{
 				if (valueEnd == valuePosition) // success
 				{
-					[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString] autorelease]];
+					[AddrList addObject:[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString]];
 					break;
 				}
 				else // not yet done testing all bytes
@@ -101,7 +101,7 @@
 			{
 				if (valueEnd == valuePosition) // success
 				{
-					[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString] autorelease]];
+					[AddrList addObject:[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString]];
 					break;
 				}
 				else // not yet done testing all bytes
@@ -142,7 +142,7 @@
 			{
 				if (valueEnd == valuePosition) // success
 				{
-					[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString] autorelease]];
+					[AddrList addObject:[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString]];
 					break;
 				}
 				else // not yet done testing all bytes
@@ -183,7 +183,7 @@
 			{
 				if (valueEnd == valuePosition) // success
 				{
-					[AddrList addObject:[[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString] autorelease]];
+					[AddrList addObject:[[AppAddressData alloc] initWithValues:(vm_address_t)(SourceAddress + (resetDestPosition - ReturnedBuffer)) val:ValueString]];
 					break;
 				}
 				else // not yet done testing all bytes
@@ -301,7 +301,7 @@
 		[MyAlert runModal];
 	}
 	
-    return [AddrList autorelease];
+    return AddrList;
 }
 
 - (NSMutableArray *)getFilteredArray:(Byte *)Value ByteSize:(int)Bytes SoughtValueString:(NSString *)ValueString Addresses:(NSMutableArray *)Addrs PrgBar:(NSProgressIndicator *)pBar

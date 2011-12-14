@@ -50,22 +50,14 @@
     NSTextField *CurrentSearchField;
 }
 
-- (id)init;
-- (id)initWithAppName:(NSString *)AppName PID:(pid_t)PID;
-- (void)dealloc;
+@property (nonatomic, strong) NSString *applicationName;
+@property (nonatomic, strong) AppAddressDataSource *appAddressDS;
 
-- (void)windowDidLoad;
-- (void)windowWillClose:(NSNotification *)aNotification;
-- (void)windowDidBecomeKey:(NSNotification *)aNotification;
+- (id)initWithAppName:(NSString *)AppName PID:(pid_t)PID;
+
 - (void)refreshResults:(bool)Forced;
 - (void)changeValueAtRow:(NSInteger)row Value:(NSString*)val;
 - (void)valueChangedAtRow:(NSInteger)row;
-
-- (NSString *)applicationName;
-- (void)setApplicationName:(NSString *)Value;
-
-- (AppAddressDataSource *)appAddressDS;
-- (void)setAppAddressDS:(AppAddressDataSource *)newAppAddressDS;
 
 - (IBAction)RefreshChecked:(id)sender;
 - (IBAction)RefreshClicked:(id)sender;
