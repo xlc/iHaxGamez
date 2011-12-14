@@ -26,5 +26,6 @@
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication;
+- (IBAction)showPreferences:(NSMenuItem *)sender;
 
 @end

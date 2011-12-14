@@ -28,4 +28,8 @@
     return YES;
 }
 
+- (IBAction)showPreferences:(NSMenuItem *)sender {
+    
+}
+
 @end

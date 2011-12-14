@@ -151,9 +151,9 @@
 				5B26614511980D26000AA8BB /* iHaxGamez.icns */,
 				5B8F6FA3113CAAFF0097B6AE /* License.txt */,
 				5B8F6F25113CA4D80097B6AE /* SearchWindow.xib */,
+				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 				8D15AC360486D014006FF6A4 /* iHaxGamez-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
-				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";

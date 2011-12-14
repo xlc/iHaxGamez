@@ -41,13 +41,6 @@
     return self;
 }
 
-- (void)windowWillClose:(NSNotification *)notification {
-    NSArray *array = [searchWindowArray copy];
-    for (NSWindowController *controller in array) {
-        [controller close];
-    }
-}
-
 - (void)windowDidBecomeKey:(NSNotification *)aNotification
 {
         // List is already activated by awakeFromNib when this fires for the first time, so save a few milliseconds.
