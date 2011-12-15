@@ -22,13 +22,22 @@
 #import "MainWindowController.h"
 #import "SearchWindowController.h"
 
+static MainWindowController *sharedController;
+
 @implementation MainWindowController
 
 @synthesize searchWindowArray;
 
-- (id)init
++ (void)showWindow {
+    if (!sharedController) {
+        sharedController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindowController"];
+    }
+    [sharedController showWindow:nil];
+}
+
+- (id)initWithWindowNibName:(NSString *)windowNibName
 {
-    self = [super init];
+    self = [super initWithWindowNibName:windowNibName];
     [self setSearchWindowArray:[NSMutableArray arrayWithCapacity:5]];
     
         // get current process info so we won't list it in our process list

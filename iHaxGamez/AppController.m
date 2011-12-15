@@ -20,16 +20,24 @@
  */
 
 #import "AppController.h"
+#import "PreferencesWindowController.h"
+#import "ConfigManager.h"
+#import "MainWindowController.h"
 
 @implementation AppController
 
-- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication
-{
-    return YES;
+- (void)applicationDidFinishLaunching:(NSNotification *)notification {
+    [ConfigManager installHotKeys];
+    [MainWindowController showWindow];
 }
 
+
 - (IBAction)showPreferences:(NSMenuItem *)sender {
-    
+    [PreferencesWindowController showWindow];
+}
+
+- (IBAction)showMainWindow:(NSMenuItem *)sender {
+    [MainWindowController showWindow];
 }
 
 @end

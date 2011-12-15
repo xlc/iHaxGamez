@@ -21,11 +21,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppController : NSObject
-{
-}
+@interface AppController : NSObject <NSApplicationDelegate>
 
-- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication;
 - (IBAction)showPreferences:(NSMenuItem *)sender;
+- (IBAction)showMainWindow:(NSMenuItem *)sender;
 
 @end

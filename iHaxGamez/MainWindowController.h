@@ -21,7 +21,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MainWindowController : NSObject <NSWindowDelegate>
+@interface MainWindowController : NSWindowController <NSWindowDelegate>
 {
     IBOutlet NSPopUpButton *popupProcessList;
     IBOutlet NSTextField *textSearchCounter;
@@ -30,6 +30,8 @@
 }
 
 @property (nonatomic, strong) NSMutableArray *searchWindowArray;
+
++ (void)showWindow;
 
 - (void)resetProcessList;
 - (IBAction)btnRefreshAction:(id)sender;

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0601FF971499BC950049A768 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0601FF961499BC950049A768 /* PreferencesWindow.xib */; };
+		0601FF9B1499BCB70049A768 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0601FF9A1499BCB70049A768 /* PreferencesWindowController.m */; };
+		063282361499C2FC00ACD725 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 063282351499C2FC00ACD725 /* ConfigManager.m */; };
+		0632823D1499E08600ACD725 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632823C1499E08600ACD725 /* Carbon.framework */; };
+		06FA416D1499F06F0099D483 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06FA416C1499F06F0099D483 /* MainWindowController.xib */; };
 		06FF499C1498A85C005753CE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06FF499B1498A85C005753CE /* AudioToolbox.framework */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		5B26614611980D26000AA8BB /* iHaxGamez.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5B26614511980D26000AA8BB /* iHaxGamez.icns */; };
@@ -27,6 +32,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0601FF961499BC950049A768 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
+		0601FF991499BCB70049A768 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
+		0601FF9A1499BCB70049A768 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		063282341499C2FC00ACD725 /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
+		063282351499C2FC00ACD725 /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
+		0632823C1499E08600ACD725 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		06FA416C1499F06F0099D483 /* MainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindowController.xib; sourceTree = "<group>"; };
 		06FF499B1498A85C005753CE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -64,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0632823D1499E08600ACD725 /* Carbon.framework in Frameworks */,
 				06FF499C1498A85C005753CE /* AudioToolbox.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				5B8F6F35113CA61F0097B6AE /* Security.framework in Frameworks */,
@@ -74,9 +87,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0601FF9C1499BCBD0049A768 /* PerferencesWindowController */ = {
+			isa = PBXGroup;
+			children = (
+				0601FF991499BCB70049A768 /* PreferencesWindowController.h */,
+				0601FF9A1499BCB70049A768 /* PreferencesWindowController.m */,
+				0601FF961499BC950049A768 /* PreferencesWindow.xib */,
+				063282341499C2FC00ACD725 /* ConfigManager.h */,
+				063282351499C2FC00ACD725 /* ConfigManager.m */,
+			);
+			name = PerferencesWindowController;
+			sourceTree = "<group>";
+		};
+		06FA416B1499F0590099D483 /* MainWindowController */ = {
+			isa = PBXGroup;
+			children = (
+				5B8F6F28113CA5CF0097B6AE /* MainWindowController.h */,
+				5B8F6F29113CA5CF0097B6AE /* MainWindowController.m */,
+				06FA416C1499F06F0099D483 /* MainWindowController.xib */,
+			);
+			name = MainWindowController;
+			sourceTree = "<group>";
+		};
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0632823C1499E08600ACD725 /* Carbon.framework */,
 				06FF499B1498A85C005753CE /* AudioToolbox.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				5B8F6F36113CA61F0097B6AE /* SecurityFoundation.framework */,
@@ -118,8 +154,7 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				5B8F6F28113CA5CF0097B6AE /* MainWindowController.h */,
-				5B8F6F29113CA5CF0097B6AE /* MainWindowController.m */,
+				06FA416B1499F0590099D483 /* MainWindowController */,
 				5B8F6F2A113CA5CF0097B6AE /* MemoryAccess.h */,
 				5B8F6F2B113CA5CF0097B6AE /* MemoryAccess.m */,
 				5B8F6F2C113CA5CF0097B6AE /* MyTableView.h */,
@@ -132,6 +167,7 @@
 				5B8F6F22113CA4490097B6AE /* AppAddressDataSource.m */,
 				5B8F6F23113CA4490097B6AE /* AppController.h */,
 				5B8F6F24113CA4490097B6AE /* AppController.m */,
+				0601FF9C1499BCBD0049A768 /* PerferencesWindowController */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -195,7 +231,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0420;
-				ORGANIZATIONNAME = REWnet.com;
+				ORGANIZATIONNAME = "Xiliang Chen";
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "iHaxGamez" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -226,6 +262,8 @@
 				5B8F6F27113CA4D80097B6AE /* SearchWindow.xib in Resources */,
 				5B8F6FA4113CAAFF0097B6AE /* License.txt in Resources */,
 				5B26614611980D26000AA8BB /* iHaxGamez.icns in Resources */,
+				0601FF971499BC950049A768 /* PreferencesWindow.xib in Resources */,
+				06FA416D1499F06F0099D483 /* MainWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +282,8 @@
 				5B8F6F90113CAA190097B6AE /* AppController.m in Sources */,
 				5B8F6F91113CAA1A0097B6AE /* AppAddressDataSource.m in Sources */,
 				5B8F6F92113CAA1B0097B6AE /* AppAddressData.m in Sources */,
+				0601FF9B1499BCB70049A768 /* PreferencesWindowController.m in Sources */,
+				063282361499C2FC00ACD725 /* ConfigManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +332,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "iHaxGamez-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = iHaxGamez;
 				SDKROOT = macosx;
 			};
@@ -311,7 +351,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "iHaxGamez-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = iHaxGamez;
 				SDKROOT = macosx;
 			};

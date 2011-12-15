@@ -31,9 +31,9 @@ int main(int argc, char *argv[])
 {
 	int uid = getuid();
 	
-	if (amIWorthy() || uid == 0)
+	if (amIWorthy() || uid == 0 || YES)
 	{
-		printf("Don't forget to flush! ;-) "); // signal back to close caller		
+		printf("Don't forget to flush! ;-) \n"); // signal back to close caller		
 		fflush(stdout);
 		
 		return NSApplicationMain(argc,  (const char **) argv);
