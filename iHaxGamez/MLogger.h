@@ -49,7 +49,7 @@ extern const char * const _MLogLevelName[];
 #ifdef DEBUG
 int _MIsInDebugger(void);
 
-#define MASSSERT(e, msg, ...) \
+#define MASSERT(e, msg, ...) \
 do { \
 if (!(e)) { \
 MELOG(@"fail assertion: '%s', %@", #e, [NSString stringWithFormat:msg, ##__VA_ARGS__]); \
@@ -64,7 +64,7 @@ if (_MIsInDebugger()) raise(SIGTRAP); \
 } while (0)
 
 #else
-#define MASSSERT(e, msg, ...) \
+#define MASSERT(e, msg, ...) \
 do { \
 if (!(e)) { \
 MELOG(@"fail assertion: '%s', %@", #e, [NSString stringWithFormat:msg, ##__VA_ARGS__]); \
@@ -73,7 +73,7 @@ MELOG(@"fail assertion: '%s', %@", #e, [NSString stringWithFormat:msg, ##__VA_AR
 #define MFAIL(msg, ...) MELog(msg, ##__VA_ARGS__)
 #endif
 
-#define MASSSERT_SOFT(e) do { \
+#define MASSERT_SOFT(e) do { \
 if (!(e)) { \
 MWLOG(@"fail soft assertion: '%s'", #e); \
 } \
