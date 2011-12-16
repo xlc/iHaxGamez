@@ -3,10 +3,7 @@
 //
 
 #ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-#endif
-
-#if defined MAC_OS_X_VERSION_10_4 && MAC_OS_X_VERSION_10_4 == MAC_OS_X_VERSION_MAX_ALLOWED
-	#define NSInteger int32_t
-	#define NSUInteger uint32_t
+#   import <Foundation/Foundation.h>
+#   import <Cocoa/Cocoa.h>
+#   import "MLogger.h"
 #endif
