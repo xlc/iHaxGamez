@@ -12,6 +12,7 @@
 		063282361499C2FC00ACD725 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 063282351499C2FC00ACD725 /* ConfigManager.m */; };
 		0632823D1499E08600ACD725 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632823C1499E08600ACD725 /* Carbon.framework */; };
 		06FA416D1499F06F0099D483 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06FA416C1499F06F0099D483 /* MainWindowController.xib */; };
+		06FA41A8149B2EF80099D483 /* MLogger.c in Sources */ = {isa = PBXBuildFile; fileRef = 06FA41A7149B2EF80099D483 /* MLogger.c */; };
 		06FF499C1498A85C005753CE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06FF499B1498A85C005753CE /* AudioToolbox.framework */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		5B26614611980D26000AA8BB /* iHaxGamez.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5B26614511980D26000AA8BB /* iHaxGamez.icns */; };
@@ -39,6 +40,8 @@
 		063282351499C2FC00ACD725 /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
 		0632823C1499E08600ACD725 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		06FA416C1499F06F0099D483 /* MainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindowController.xib; sourceTree = "<group>"; };
+		06FA4170149B17900099D483 /* MLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLogger.h; sourceTree = "<group>"; };
+		06FA41A7149B2EF80099D483 /* MLogger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MLogger.c; sourceTree = "<group>"; };
 		06FF499B1498A85C005753CE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -109,6 +112,31 @@
 			name = MainWindowController;
 			sourceTree = "<group>";
 		};
+		06FA41A9149B43D40099D483 /* SearchWindowController */ = {
+			isa = PBXGroup;
+			children = (
+				5B8F6F2E113CA5CF0097B6AE /* SearchWindowController.h */,
+				5B8F6F2F113CA5CF0097B6AE /* SearchWindowController.m */,
+				5B8F6F25113CA4D80097B6AE /* SearchWindow.xib */,
+				5B8F6F2C113CA5CF0097B6AE /* MyTableView.h */,
+				5B8F6F2D113CA5CF0097B6AE /* MyTableView.m */,
+				5B8F6F1F113CA4490097B6AE /* AppAddressData.h */,
+				5B8F6F20113CA4490097B6AE /* AppAddressData.m */,
+				5B8F6F21113CA4490097B6AE /* AppAddressDataSource.h */,
+				5B8F6F22113CA4490097B6AE /* AppAddressDataSource.m */,
+			);
+			name = SearchWindowController;
+			sourceTree = "<group>";
+		};
+		06FA41AA149B43F60099D483 /* MemoryAccess */ = {
+			isa = PBXGroup;
+			children = (
+				5B8F6F2A113CA5CF0097B6AE /* MemoryAccess.h */,
+				5B8F6F2B113CA5CF0097B6AE /* MemoryAccess.m */,
+			);
+			name = MemoryAccess;
+			sourceTree = "<group>";
+		};
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,19 +183,11 @@
 			isa = PBXGroup;
 			children = (
 				06FA416B1499F0590099D483 /* MainWindowController */,
-				5B8F6F2A113CA5CF0097B6AE /* MemoryAccess.h */,
-				5B8F6F2B113CA5CF0097B6AE /* MemoryAccess.m */,
-				5B8F6F2C113CA5CF0097B6AE /* MyTableView.h */,
-				5B8F6F2D113CA5CF0097B6AE /* MyTableView.m */,
-				5B8F6F2E113CA5CF0097B6AE /* SearchWindowController.h */,
-				5B8F6F2F113CA5CF0097B6AE /* SearchWindowController.m */,
-				5B8F6F1F113CA4490097B6AE /* AppAddressData.h */,
-				5B8F6F20113CA4490097B6AE /* AppAddressData.m */,
-				5B8F6F21113CA4490097B6AE /* AppAddressDataSource.h */,
-				5B8F6F22113CA4490097B6AE /* AppAddressDataSource.m */,
+				06FA41A9149B43D40099D483 /* SearchWindowController */,
+				0601FF9C1499BCBD0049A768 /* PerferencesWindowController */,
+				06FA41AA149B43F60099D483 /* MemoryAccess */,
 				5B8F6F23113CA4490097B6AE /* AppController.h */,
 				5B8F6F24113CA4490097B6AE /* AppController.m */,
-				0601FF9C1499BCBD0049A768 /* PerferencesWindowController */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -177,6 +197,8 @@
 			children = (
 				2564AD2C0F5327BB00F57823 /* iHaxGamez_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+				06FA4170149B17900099D483 /* MLogger.h */,
+				06FA41A7149B2EF80099D483 /* MLogger.c */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -186,7 +208,6 @@
 			children = (
 				5B26614511980D26000AA8BB /* iHaxGamez.icns */,
 				5B8F6FA3113CAAFF0097B6AE /* License.txt */,
-				5B8F6F25113CA4D80097B6AE /* SearchWindow.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 				8D15AC360486D014006FF6A4 /* iHaxGamez-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
@@ -284,6 +305,7 @@
 				5B8F6F92113CAA1B0097B6AE /* AppAddressData.m in Sources */,
 				0601FF9B1499BCB70049A768 /* PreferencesWindowController.m in Sources */,
 				063282361499C2FC00ACD725 /* ConfigManager.m in Sources */,
+				06FA41A8149B2EF80099D483 /* MLogger.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +347,6 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iHaxGamez_Prefix.pch;
@@ -333,6 +354,7 @@
 				INFOPLIST_FILE = "iHaxGamez-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_NAME = iHaxGamez;
 				SDKROOT = macosx;
 			};
@@ -344,7 +366,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iHaxGamez_Prefix.pch;
@@ -352,6 +373,7 @@
 				INFOPLIST_FILE = "iHaxGamez-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_CFLAGS = "";
 				PRODUCT_NAME = iHaxGamez;
 				SDKROOT = macosx;
 			};

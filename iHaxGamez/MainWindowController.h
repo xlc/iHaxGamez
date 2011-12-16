@@ -25,22 +25,15 @@
 {
     IBOutlet NSPopUpButton *popupProcessList;
     IBOutlet NSTextField *textSearchCounter;
-    NSMutableArray *searchWindowArray;
-    ProcessSerialNumber CurrentAppPSN;
+    
+    NSMutableDictionary *_searchWindowControllers;
 }
 
-@property (nonatomic, strong) NSMutableArray *searchWindowArray;
-
-+ (void)showWindow;
++ (MainWindowController *)sharedController;
 
 - (void)resetProcessList;
 - (IBAction)btnRefreshAction:(id)sender;
 - (IBAction)btnSearchAction:(id)sender;
-- (IBAction)popupProcessListAction:(id)sender;
-
-- (void)updateSearchWindowCount;
-
-    // used to clean searchWindowArray when a search window closes
-- (void)SearchWindowClosed:(NSNotification *)notification;
+- (void)openSearchWindowForProcess:(ProcessSerialNumber)psn;
 
 @end

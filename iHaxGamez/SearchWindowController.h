@@ -24,8 +24,7 @@
 @class AppAddressDataSource;
 @class MemoryAccess;
 
-@interface SearchWindowController : NSWindowController
-{
+@interface SearchWindowController : NSWindowController {
     IBOutlet NSButton *btnReset;
     IBOutlet NSButton *btnSearchOriginal;
     IBOutlet NSButton *btnSearchFilter;
@@ -52,6 +51,7 @@
 
 @property (nonatomic, strong) NSString *applicationName;
 @property (nonatomic, strong) AppAddressDataSource *appAddressDS;
+@property (nonatomic) pid_t appPID;
 
 - (id)initWithAppName:(NSString *)AppName PID:(pid_t)PID;
 

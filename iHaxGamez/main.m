@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 {
 	int uid = getuid();
 	
-	if (amIWorthy() || uid == 0 || YES)
+	if (amIWorthy() || uid == 0)
 	{
 		printf("Don't forget to flush! ;-) \n"); // signal back to close caller		
 		fflush(stdout);

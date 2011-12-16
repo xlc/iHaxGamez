@@ -8,6 +8,7 @@
 
 #import "ConfigManager.h"
 
+#import "MainWindowController.h"
 #import "SearchWindowController.h"
 
 static NSMutableArray *hotKeyConfigs;
@@ -58,10 +59,12 @@ OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,
 }
 
 + (void)openSearchWindow {
-    [[[SearchWindowController alloc] init] showWindow:self];
     ProcessSerialNumber PSN;
-    GetCurrentProcess(&PSN);
-    SetFrontProcess(&PSN);
+    MASSERT_SOFT(GetFrontProcess(&PSN) == 0);
+    [[MainWindowController sharedController] openSearchWindowForProcess:PSN];
+    ProcessSerialNumber myPSN;
+    MASSERT_SOFT(GetCurrentProcess(&myPSN) == 0);
+    MASSERT_SOFT(SetFrontProcess(&myPSN) == 0);
 }
 
 @end
@@ -70,14 +73,6 @@ OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,
 
 @synthesize enabled = _enabled, modifiers = _modifiers, key = _key;
 @synthesize name, selector;
-
-- (id)initWithName:(NSString *)name_ {
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
 
 - (void)setName:(NSString *)name_ {
     name = name_;

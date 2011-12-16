@@ -30,6 +30,7 @@
 @implementation SearchWindowController
 
 @synthesize applicationName, appAddressDS;
+@synthesize appPID = AppPid;
 
 - (id)init
 {
@@ -43,7 +44,6 @@
     {
         AppPid = PID;
         [self setApplicationName:AppName];
-        [self showWindow:self];
         
         [self setAppAddressDS:[[AppAddressDataSource alloc] init]];
         [appAddressDS setSearchWindowController:self];
@@ -67,6 +67,7 @@
         // so here is where I alter some settings to make it invisible again.
     [progressInd setDisplayedWhenStopped:false];
     [progressInd setHidden:false];
+    [tblResults setDataSource:appAddressDS];
     
     [self setEditMode:false];
 }

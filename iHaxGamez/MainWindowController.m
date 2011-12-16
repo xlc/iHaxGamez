@@ -24,28 +24,28 @@
 
 static MainWindowController *sharedController;
 
+@interface MainWindowController ()
+
+- (void)updateSearchWindowCount;
+- (void)openSearchWindowWithTitle:(NSString *)title pid:(pid_t)pid;
+
+@end
+
 @implementation MainWindowController
 
-@synthesize searchWindowArray;
-
-+ (void)showWindow {
++ (MainWindowController *)sharedController {
     if (!sharedController) {
         sharedController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindowController"];
     }
-    [sharedController showWindow:nil];
+    return sharedController;
 }
 
 - (id)initWithWindowNibName:(NSString *)windowNibName
 {
     self = [super initWithWindowNibName:windowNibName];
-    [self setSearchWindowArray:[NSMutableArray arrayWithCapacity:5]];
-    
-        // get current process info so we won't list it in our process list
-        // NOTE: Searching this process would cause problems - finding a value would
-        // allocate memory which would be found/allocated/found/ and so on....
-    CurrentAppPSN.highLongOfPSN = 0L;
-    CurrentAppPSN.lowLongOfPSN = 0L;
-    GetCurrentProcess(&CurrentAppPSN);
+    if (self) {
+        _searchWindowControllers = [NSMutableDictionary dictionary];
+    }
     
     return self;
 }
@@ -71,6 +71,30 @@ static MainWindowController *sharedController;
     [self resetProcessList];
 }
 
+- (void)openSearchWindowForProcess:(ProcessSerialNumber)psn {
+    pid_t pid;
+    GetProcessPID(&psn, &pid);
+    
+    SearchWindowController *controller = [_searchWindowControllers objectForKey:[NSNumber numberWithInt:pid]];
+    if (controller) {
+        [controller showWindow:nil];
+    } else if (pid != getpid()) {
+        CFStringRef name;
+        if (CopyProcessName(&psn, &name) == 0) {
+            NSString *title = [NSString stringWithFormat:@"%@ (%u)", name, pid];
+            [self openSearchWindowWithTitle:title pid:pid];
+        }
+    }
+}
+
+- (void)openSearchWindowWithTitle:(NSString *)title pid:(pid_t)pid {
+    SearchWindowController *searchWindowController = [[SearchWindowController alloc] initWithAppName:title PID:pid];
+    searchWindowController.window.delegate = self;
+    [searchWindowController showWindow:nil];
+    [_searchWindowControllers setObject:searchWindowController forKey:[NSNumber numberWithInt:pid]];
+    [self updateSearchWindowCount];
+}
+
 - (void)resetProcessList
 {
         // remember the PID of the selected process
@@ -89,37 +113,23 @@ static MainWindowController *sharedController;
     MyPSN.highLongOfPSN = 0;
     MyPSN.lowLongOfPSN = kNoProcess;
     
-    ProcessInfoRec MyProcessInfo;
-    const int NameBufferLength = 1024;
-    char MyProcNameBuffer[NameBufferLength];
-    MyProcessInfo.processInfoLength = sizeof(ProcessInfoRec);
-    MyProcessInfo.processName = (StringPtr)&MyProcNameBuffer;
-#if __LP64__
-    MyProcessInfo.processAppRef = NULL;
-#else
-    MyProcessInfo.processAppSpec = NULL;
-#endif
-    int LoopX;
-    pid_t MyPID;
+    pid_t pid;
+    pid_t appPID = getpid();
+    CFStringRef name = nil;
+    
     while (GetNextProcess(&MyPSN) == 0)
-    {
-        if ((MyPSN.lowLongOfPSN != CurrentAppPSN.lowLongOfPSN) || (MyPSN.highLongOfPSN != CurrentAppPSN.highLongOfPSN))
-        {
-                // clear the string
-            for (LoopX=0; LoopX<NameBufferLength ; LoopX++)
+    {   
+            // get the process information
+        if (GetProcessPID(&MyPSN,&pid) == 0) {
+            if (pid == appPID)
+                continue;
+            if (CopyProcessName(&MyPSN, &name) == 0)
             {
-                MyProcNameBuffer[LoopX] = (char)0;
-            }
-            
-                // get the process information
-            if (GetProcessInformation(&MyPSN,&MyProcessInfo) == 0)
-            {
-                GetProcessPID(&MyPSN,&MyPID);
                     // Add string and set PID into Tag - we take the string from the second character because first "char" holds string length
                     // We show the PID in the Title because there might be > 1 processes for the same program name
-                [popupProcessList addItemWithTitle:[NSString stringWithFormat:@"%s (%u)",MyProcessInfo.processName + 1,MyPID]];
-                [[popupProcessList lastItem] setTag:MyPID];
-                if (PrevSelectedPid == MyPID)
+                [popupProcessList addItemWithTitle:[NSString stringWithFormat:@"%@ (%u)", name, pid]];
+                [[popupProcessList lastItem] setTag:pid];
+                if (PrevSelectedPid == pid)
                 {
                     [popupProcessList selectItem:[popupProcessList lastItem]];
                 }
@@ -138,41 +148,27 @@ static MainWindowController *sharedController;
         // create an instance of the search dialog and attach that instance to an object array
     NSString *MyTitle = [popupProcessList titleOfSelectedItem];
     pid_t MyPid = (pid_t)[[popupProcessList itemAtIndex:[popupProcessList indexOfSelectedItem]] tag];
-    SearchWindowController *MySearchWindow = [[SearchWindowController alloc] initWithAppName:MyTitle PID:MyPid];
-    if ([MySearchWindow isWindowLoaded])
-    {
-        [searchWindowArray addObject:MySearchWindow]; // this will retain the WindowController for us
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SearchWindowClosed:) name:NSWindowWillCloseNotification object:[MySearchWindow window]];
-    }
-    
-    [self updateSearchWindowCount];
-}
-
-- (IBAction)popupProcessListAction:(id)sender
-{
-        //    [btnSearch setTitle:[NSString stringWithFormat:@"%s - %d",[[popupProcessList title] cString],[popupProcessList selectedTag]]];
+    [self openSearchWindowWithTitle:MyTitle pid:MyPid];
 }
 
 - (void)updateSearchWindowCount
 {
         //I put this in for testing, but I figured it didn't hurt anything to leave it in 
-    [textSearchCounter setStringValue:[NSString stringWithFormat:@"Currently maintaining %u searches",[searchWindowArray count]]];
+    [textSearchCounter setStringValue:[NSString stringWithFormat:@"Currently maintaining %u searches",[_searchWindowControllers count]]];
 }
 
-    // used to clean searchWindowArray when a search window closes
-- (void)SearchWindowClosed:(NSNotification *)notification
-{
-        // Find windowController in array, remove it as per documentation - when Window has no Document, autorelease it.
-        // Since removing from array sends release, we retain and autorelease it so that it doesn't go away until end of current
-        // event loop.
-    SearchWindowController *MyWindowController = [(NSWindow *)[notification object] windowController];
-    if (NSNotFound != [searchWindowArray indexOfObjectIdenticalTo:MyWindowController])
-    {
-        [searchWindowArray removeObjectIdenticalTo:MyWindowController];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowWillCloseNotification object:MyWindowController];
-    }
+#pragma mark - NSWindowDelegate
+
+- (void)windowWillClose:(NSNotification *)notification {
+    SearchWindowController *controller = [(NSWindow *)[notification object] windowController];
+    
+    [_searchWindowControllers removeObjectForKey:[NSNumber numberWithInt:controller.appPID]];
     
     [self updateSearchWindowCount];
+}
+
+- (BOOL)windowShouldClose:(id)sender {
+    return YES; // TODO ask user to conform close window or just hide it
 }
 
 @end

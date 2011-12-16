@@ -26,9 +26,9 @@
 
 @implementation AppController
 
-- (void)applicationDidFinishLaunching:(NSNotification *)notification {
+- (void)applicationDidFinishLaunching:(NSNotification *)notification {    
     [ConfigManager installHotKeys];
-    [MainWindowController showWindow];
+    [[MainWindowController sharedController] showWindow:nil];
 }
 
 
@@ -37,7 +37,7 @@
 }
 
 - (IBAction)showMainWindow:(NSMenuItem *)sender {
-    [MainWindowController showWindow];
+    [[MainWindowController sharedController] showWindow:nil];
 }
 
 @end
