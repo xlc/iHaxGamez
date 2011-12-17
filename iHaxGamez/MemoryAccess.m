@@ -20,9 +20,12 @@
  */
 
 #import "MemoryAccess.h"
+
+#import <mach/vm_types.h>
+#import <mach/mach_types.h>
+
 #import "AppAddressData.h"
-#import <mach/vm_map.h>
-#import <mach/mach_traps.h>
+#import "PrivilegedHelperConnection.h"
 
 @implementation MemoryAccess
 - (id)init
@@ -47,12 +50,12 @@
 	Byte* destPosition = ReturnedBuffer;
 	while(destPosition <= endDestPosition)
 	{
-		// speed processing by skipping all these calcs when we have no match
-		// NOTE: "No match" happens more often than "match"
-		// NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
+            // speed processing by skipping all these calcs when we have no match
+            // NOTE: "No match" happens more often than "match"
+            // NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
 		if (*(int64_t*)destPosition == *(int64_t*)Value)
 		{
-			// store the destPosition to reset position without expensive calculation
+                // store the destPosition to reset position without expensive calculation
 			resetDestPosition = destPosition;
 			valuePosition = Value; // we just tested position 0 (first byte/int/int64_t) so start pointing there so that we can check to see if we are done with inner loop
 			valueEnd = Value + SearchSize - comparisonSize; // we stop when we've checked all bytes in the search value
@@ -65,13 +68,13 @@
 				}
 				else // not yet done testing all bytes
 				{
-					// set indexes so we can test next bytes
+                        // set indexes so we can test next bytes
 					valuePosition+=comparisonSize;
 					destPosition++;
 				}
 			} while (*(int64_t*)destPosition == *(int64_t*)valuePosition);
 			
-			// back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
+                // back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
 			destPosition = resetDestPosition;
 		}
 		destPosition++; // start search on the next character in the destination byte array
@@ -88,12 +91,12 @@
 	Byte* destPosition = ReturnedBuffer;
 	while(destPosition <= endDestPosition)
 	{
-		// speed processing by skipping all these calcs when we have no match
-		// NOTE: "No match" happens more often than "match"
-		// NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
+            // speed processing by skipping all these calcs when we have no match
+            // NOTE: "No match" happens more often than "match"
+            // NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
 		if (*(int32_t*)destPosition == *(int32_t*)Value)
 		{
-			// store the destPosition to reset position without expensive calculation
+                // store the destPosition to reset position without expensive calculation
 			resetDestPosition = destPosition;
 			valuePosition = Value; // we just tested position 0 (first byte/int/int64_t) so start pointing there so that we can check to see if we are done with inner loop
 			valueEnd = Value + SearchSize - comparisonSize; // we stop when we've checked all bytes in the search value
@@ -106,13 +109,13 @@
 				}
 				else // not yet done testing all bytes
 				{
-					// set indexes so we can test next bytes
+                        // set indexes so we can test next bytes
 					valuePosition+=comparisonSize;
 					destPosition++;
 				}
 			} while (*(int32_t*)destPosition == *(int32_t*)valuePosition);
 			
-			// back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
+                // back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
 			destPosition = resetDestPosition;
 		}
 		destPosition++; // start search on the next character in the destination byte array
@@ -129,12 +132,12 @@
 	Byte* destPosition = ReturnedBuffer;
 	while(destPosition <= endDestPosition)
 	{
-		// speed processing by skipping all these calcs when we have no match
-		// NOTE: "No match" happens more often than "match"
-		// NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
+            // speed processing by skipping all these calcs when we have no match
+            // NOTE: "No match" happens more often than "match"
+            // NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
 		if (*(int16_t*)destPosition == *(int16_t*)Value)
 		{
-			// store the destPosition to reset position without expensive calculation
+                // store the destPosition to reset position without expensive calculation
 			resetDestPosition = destPosition;
 			valuePosition = Value; // we just tested position 0 (first byte/int/int64_t) so start pointing there so that we can check to see if we are done with inner loop
 			valueEnd = Value + SearchSize - comparisonSize; // we stop when we've checked all bytes in the search value
@@ -147,13 +150,13 @@
 				}
 				else // not yet done testing all bytes
 				{
-					// set indexes so we can test next bytes
+                        // set indexes so we can test next bytes
 					valuePosition+=comparisonSize;
 					destPosition++;
 				}
 			} while (*(int16_t*)destPosition == *(int16_t*)valuePosition);
 			
-			// back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
+                // back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
 			destPosition = resetDestPosition;
 		}
 		destPosition++; // start search on the next character in the destination byte array
@@ -170,12 +173,12 @@
 	Byte* destPosition = ReturnedBuffer;
 	while(destPosition <= endDestPosition)
 	{
-		// speed processing by skipping all these calcs when we have no match
-		// NOTE: "No match" happens more often than "match"
-		// NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
+            // speed processing by skipping all these calcs when we have no match
+            // NOTE: "No match" happens more often than "match"
+            // NOTE: check isIntMode first because 99% of the time it will be an integer that is being sought
 		if (*(int8_t*)destPosition == *(int8_t*)Value)
 		{
-			// store the destPosition to reset position without expensive calculation
+                // store the destPosition to reset position without expensive calculation
 			resetDestPosition = destPosition;
 			valuePosition = Value; // we just tested position 0 (first byte/int/int64_t) so start pointing there so that we can check to see if we are done with inner loop
 			valueEnd = Value + SearchSize - comparisonSize; // we stop when we've checked all bytes in the search value
@@ -188,13 +191,13 @@
 				}
 				else // not yet done testing all bytes
 				{
-					// set indexes so we can test next bytes
+                        // set indexes so we can test next bytes
 					valuePosition+=comparisonSize;
 					destPosition++;
 				}
 			} while (*(int8_t*)destPosition == *(int8_t*)valuePosition);
 			
-			// back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
+                // back where we started -- testing is complete for now (we may OR may not have found a match, but we dont care any more)
 			destPosition = resetDestPosition;
 		}
 		destPosition++; // start search on the next character in the destination byte array
@@ -205,93 +208,67 @@
 {
     NSMutableArray *AddrList = [[NSMutableArray alloc] initWithCapacity:1000];
 	
-    // First we need a Task based on our pid
-    kern_return_t KernelResult = task_for_pid(current_task(), AppPid, &MySlaveTask);
-    if (KERN_SUCCESS == KernelResult)
-	{
+        // First we need a Task based on our pid
+    kern_return_t KernelResult;
         // Cool! we have a task...
         // Now we need to start grabbing blocks of memory from our slave task and copying it into our memory space for analysis
-        vm_address_t SourceAddress = 0;
-        vm_size_t SourceSize = 0;
-		
-#ifdef __LP64__
-        vm_region_basic_info_data_64_t SourceInfo;
-		uint64 BarMaxValue = UINT64_MAX;
-#else
-        vm_region_basic_info_data_t SourceInfo;
-		uint BarMaxValue = UINT_MAX;
-#endif
-		
-		mach_msg_type_number_t SourceInfoSize = sizeof(SourceInfo)/sizeof(int);
-        mach_port_t ObjectName = MACH_PORT_NULL;
-		
-        double PercentDone = 0.0;
-        [pBar setDoubleValue:0.0];
-        [pBar setHidden:false];
-        [pBar displayIfNeeded];
-        
-#ifdef __LP64__
-        while(KERN_SUCCESS == (KernelResult = vm_region_64(MySlaveTask,&SourceAddress,&SourceSize,VM_REGION_BASIC_INFO_64,(vm_region_info_64_t) &SourceInfo,&SourceInfoSize,&ObjectName)))
-#else
-        while(KERN_SUCCESS == (KernelResult = vm_region(MySlaveTask,&SourceAddress,&SourceSize,VM_REGION_BASIC_INFO,(vm_region_info_t) &SourceInfo,&SourceInfoSize,&ObjectName)))
-#endif
-        {
+    mach_vm_address_t SourceAddress = 0;
+    mach_vm_size_t SourceSize = 0;
+    
+    uint64 BarMaxValue = UINT64_MAX;
+    
+    double PercentDone = 0.0;
+    [pBar setDoubleValue:0.0];
+    [pBar setHidden:false];
+    [pBar displayIfNeeded];
+    
+    while(KERN_SUCCESS == (KernelResult = helper_vm_region(AppPid, &SourceAddress, &SourceSize)))
+    {
             // If we get here then we have a block of memory and we know how big it is... let's copy writable blocks and see what we've got!
-            PercentDone = 100.0 * SourceAddress / BarMaxValue; // bar represents position in total app memory
-            if ((PercentDone - [pBar doubleValue]) > 0.25)
-            {
-                [pBar setDoubleValue:PercentDone];
-                [pBar displayIfNeeded];
-            }
-            
-			
-            if ((SourceInfo.protection & VM_PROT_WRITE) && (SourceInfo.protection & VM_PROT_READ))
-            {
-				Byte *ReturnedBuffer = nil;
-				NS_DURING
-                ReturnedBuffer = malloc(SourceSize);
-                vm_size_t ReturnedBufferContentSize = SourceSize;
-                if ( (KERN_SUCCESS == vm_read_overwrite(MySlaveTask,SourceAddress,SourceSize,(vm_address_t)ReturnedBuffer,&ReturnedBufferContentSize)) &&
-					(ReturnedBufferContentSize > 0) )
-                {
-					uint SearchSize = Bytes;
-					
-					// Note: we cannot assume memory alignment so each address could be the start of our multi-byte value
-					// Note: instead of always comparing bytes, use long and int or short when possible (ie: SearchSize % sizeof(long) == 0, or SearchSize % sizeof(int) == 0 respectively)    
-					// incrementing addresses instead of calculating offsets for speed
-					if (0 == SearchSize % (int)sizeof(int64_t))
-					{
-						[self getSearchArray64: ReturnedBufferContentSize ReturnedBuffer: ReturnedBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
-					}
-					else if (0 == SearchSize % (int)sizeof(int32_t))
-					{
-						[self getSearchArray32: ReturnedBufferContentSize ReturnedBuffer: ReturnedBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
-					}
-					else if (0 == SearchSize % (int)sizeof(int16_t))
-					{
-						[self getSearchArray16: ReturnedBufferContentSize ReturnedBuffer: ReturnedBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
-					}
-					else
-					{
-						[self getSearchArray8: ReturnedBufferContentSize ReturnedBuffer: ReturnedBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
-					}
-					
-				}
-				NS_HANDLER
-				NS_ENDHANDLER
-                if (ReturnedBuffer != nil)
-                {
-                    free(ReturnedBuffer);
-                    ReturnedBuffer = nil;
-                }
-            }
-            
-            // reset some values to search some more
-            SourceAddress += SourceSize;
+        PercentDone = 100.0 * SourceAddress / BarMaxValue; // bar represents position in total app memory
+        if ((PercentDone - [pBar doubleValue]) > 0.25)
+        {
+            [pBar setDoubleValue:PercentDone];
+            [pBar displayIfNeeded];
         }
-        [pBar setHidden:true];
+        
+        
+        Byte *readBuffer = 0;
+        mach_msg_type_number_t bufferSize;
+        
+        if (KERN_SUCCESS == helper_vm_read(AppPid, SourceAddress, SourceSize, &readBuffer, &bufferSize))
+        {
+            uint SearchSize = Bytes;
+                // Note: we cannot assume memory alignment so each address could be the start of our multi-byte value
+                // Note: instead of always comparing bytes, use long and int or short when possible (ie: SearchSize % sizeof(long) == 0, or SearchSize % sizeof(int) == 0 respectively)    
+                // incrementing addresses instead of calculating offsets for speed
+            if (0 == SearchSize % (int)sizeof(int64_t))
+            {
+                [self getSearchArray64: bufferSize ReturnedBuffer: readBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
+            }
+            else if (0 == SearchSize % (int)sizeof(int32_t))
+            {
+                [self getSearchArray32: bufferSize ReturnedBuffer: readBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
+            }
+            else if (0 == SearchSize % (int)sizeof(int16_t))
+            {
+                [self getSearchArray16: bufferSize ReturnedBuffer: readBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
+            }
+            else
+            {
+                [self getSearchArray8: bufferSize ReturnedBuffer: readBuffer ValueString: ValueString SourceAddress: SourceAddress AddrList: AddrList Value: Value SearchSize: SearchSize];
+            }
+            
+        }
+        
+        if (readBuffer)
+            helper_vm_free(readBuffer, bufferSize);
+        
+            // reset some values to search some more
+        SourceAddress += SourceSize;
     }
-	else
+    [pBar setHidden:true];
+#if 0
 	{
 		NSAlert *MyAlert = [NSAlert alertWithMessageText:@"The external process could not be accessed."
 										   defaultButton:nil
@@ -300,27 +277,26 @@
 							   informativeTextWithFormat:@"You may not have rights to access this process, or this process may have ended."];
 		[MyAlert runModal];
 	}
+#endif
 	
     return AddrList;
 }
 
-- (NSMutableArray *)getFilteredArray:(Byte *)Value ByteSize:(int)Bytes SoughtValueString:(NSString *)ValueString Addresses:(NSMutableArray *)Addrs PrgBar:(NSProgressIndicator *)pBar
+- (NSMutableArray *)getFilteredArray:(Byte *)Value ByteSize:(size_t)Bytes SoughtValueString:(NSString *)ValueString Addresses:(NSMutableArray *)Addrs PrgBar:(NSProgressIndicator *)pBar
 {
     AppAddressData *MyAddrRec;
     vm_address_t MyAddrRecAddress;
     NSUInteger recCount = [Addrs count];
-
+    
     bool isMatchingValue;
-    vm_size_t ReturnedBufferContentSize;
 	
     double PercentDone = 0.0;
     [pBar setDoubleValue:0.0];
     [pBar setHidden:false];
     [pBar displayIfNeeded];
 	
-    Byte *ReturnedBuffer = malloc(Bytes);
 	NSUInteger x;
-    NS_DURING
+    
     for (x=recCount; x>0 ; /* Decrementing in body at beginning of use instead of end */ ) // count down so we can remove from object array by index number
     {
         PercentDone = 100.0 * (recCount - x) / recCount;
@@ -331,74 +307,61 @@
         }
         
         isMatchingValue = false;
-		x--;
+        x--;
         MyAddrRec = [Addrs objectAtIndex:x];
         MyAddrRecAddress = [MyAddrRec address];
-        NS_DURING
-		ReturnedBufferContentSize = Bytes;
-		if ( (KERN_SUCCESS == vm_read_overwrite(MySlaveTask,MyAddrRecAddress,Bytes,(vm_address_t)ReturnedBuffer,&ReturnedBufferContentSize)) &&
-			(ReturnedBufferContentSize > 0) )
-		{
-			if (ReturnedBufferContentSize == (uint)Bytes)
-			{
-				NSUInteger y;
-				isMatchingValue = true;
-				for (y=Bytes ; isMatchingValue && (y>0) ; /* Decrementing in body at beginning of use instead of end */ )
-				{
-					y--;
-					isMatchingValue = Value[y] == ReturnedBuffer[y];
-				}
-			}
-		}
-		NS_HANDLER
-		isMatchingValue = false;
-		NS_ENDHANDLER
-		// check for match here -- removes record if any errors occurred along the way
-		if (isMatchingValue)
-		{
-			[MyAddrRec setValue:ValueString];
-		}
-		else
-		{
-			[Addrs removeObjectAtIndex:x];
-		}
-	}
-    NS_HANDLER
-    NS_ENDHANDLER
-    [pBar setHidden:true];
-	
-    if (ReturnedBuffer != nil)
-    {
-        free(ReturnedBuffer);
-        ReturnedBuffer = nil;
+        Byte *buffer;
+        mach_msg_type_number_t bufferSize;
+        @try {
+            if ( (KERN_SUCCESS == helper_vm_read(AppPid, MyAddrRecAddress, Bytes, &buffer, &bufferSize)) &&
+                (bufferSize == Bytes) )
+            {
+                NSUInteger y;
+                isMatchingValue = true;
+                for (y=Bytes ; isMatchingValue && (y>0) ; /* Decrementing in body at beginning of use instead of end */ )
+                {
+                    y--;
+                    isMatchingValue = Value[y] == ((Byte *)buffer)[y];
+                }
+                
+            }
+        } @catch (NSException *exception) {
+            isMatchingValue = NO;
+        } @finally {
+            helper_vm_free(buffer, bufferSize);
+        }
+            // check for match here -- removes record if any errors occurred along the way
+        if (isMatchingValue)
+        {
+            [MyAddrRec setValue:ValueString];
+        }
+        else
+        {
+            [Addrs removeObjectAtIndex:x];
+        }
     }
+    
+    [pBar setHidden:true];
 	
     return Addrs;
 }
 
 - (bool)saveDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(int)Bytes
-{
-    bool retVal;
-	NS_DURING
-    retVal = (KERN_SUCCESS == vm_write(MySlaveTask,Address,(vm_offset_t)DataBuffer,Bytes));
-	NS_HANDLER
-    retVal = false;
-	NS_ENDHANDLER
-	
-    return retVal;
+{	    
+    return helper_vm_write(AppPid, Address, DataBuffer, Bytes) == KERN_SUCCESS;
 }
 
 - (bool)loadDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(vm_size_t)Bytes
 {
-    bool retVal;
-    vm_size_t retBytes = Bytes;
-	NS_DURING
-    retVal = ( (KERN_SUCCESS == vm_read_overwrite(MySlaveTask,Address,Bytes,(vm_address_t)DataBuffer,&retBytes)) && (retBytes == Bytes) );
-	NS_HANDLER
-    retVal = false;
-	NS_ENDHANDLER
-    
-    return retVal;
+    Byte *buffer;
+    mach_msg_type_number_t bufferSize;
+	kern_return_t kr = helper_vm_read(AppPid, Address, Bytes, &buffer, &bufferSize);
+    if (kr == KERN_SUCCESS && bufferSize == Bytes) {
+        memcpy(DataBuffer, (Byte *)buffer, bufferSize);
+        helper_vm_free(buffer, bufferSize);
+        return YES;
+    }
+    return NO;
 }
 
 @end

@@ -94,15 +94,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		06C9B17D149C0C710076AE15 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		06C9B19F149C34E80076AE15 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -142,6 +133,7 @@
 		06C9B19A149C312F0076AE15 /* PrivilegedHelperConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivilegedHelperConnection.h; sourceTree = "<group>"; };
 		06C9B19B149C312F0076AE15 /* PrivilegedHelperConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivilegedHelperConnection.m; sourceTree = "<group>"; };
 		06C9B19D149C32EC0076AE15 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		06F2D7C5149C92EC00FDF516 /* FortunateSonIPCTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FortunateSonIPCTypes.h; sourceTree = "<group>"; };
 		06FA416C1499F06F0099D483 /* MainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindowController.xib; sourceTree = "<group>"; };
 		06FA4170149B17900099D483 /* MLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLogger.h; sourceTree = "<group>"; };
 		06FA41A7149B2EF80099D483 /* MLogger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MLogger.c; sourceTree = "<group>"; };
@@ -221,6 +213,7 @@
 				06C9B18D149C0D3B0076AE15 /* FortunateSon-Info.plist */,
 				06C9B18E149C0D3B0076AE15 /* FortunateSon-Launchd.plist */,
 				06C9B18F149C0D3B0076AE15 /* FortunateSon.defs */,
+				06F2D7C5149C92EC00FDF516 /* FortunateSonIPCTypes.h */,
 				06C9B191149C0D3B0076AE15 /* FortunateSonServerImpl.c */,
 				06C9B192149C0D3B0076AE15 /* main.cpp */,
 			);
@@ -386,7 +379,6 @@
 			buildPhases = (
 				06C9B17B149C0C710076AE15 /* Sources */,
 				06C9B17C149C0C710076AE15 /* Frameworks */,
-				06C9B17D149C0C710076AE15 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -601,6 +593,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "helper_subprocess/FortunateSon-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SDKROOT)/usr/lib/system\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -631,6 +627,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "helper_subprocess/FortunateSon-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SDKROOT)/usr/lib/system\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -737,6 +737,7 @@
 				06C9B188149C0C710076AE15 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "iHaxGamez" */ = {
 			isa = XCConfigurationList;

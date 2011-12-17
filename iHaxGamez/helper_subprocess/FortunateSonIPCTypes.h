@@ -1,0 +1,1 @@
+typedef unsigned char *VarData_t;

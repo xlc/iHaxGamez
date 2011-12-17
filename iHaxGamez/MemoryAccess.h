@@ -25,12 +25,11 @@
 @interface MemoryAccess : NSObject
 {
     pid_t AppPid;
-    mach_port_t MySlaveTask;
 }
-- (id)init;
+
 - (id)initWithPID:(pid_t)PID;
 - (NSMutableArray *)getSearchArray:(Byte *)Value ByteSize:(int)Bytes SoughtValueString:(NSString *)ValueString PrgBar:(NSProgressIndicator *)pBar;
-- (NSMutableArray *)getFilteredArray:(Byte *)Value ByteSize:(int)Bytes SoughtValueString:(NSString *)ValueString Addresses:(NSMutableArray *)Addrs PrgBar:(NSProgressIndicator *)pBar;
+- (NSMutableArray *)getFilteredArray:(Byte *)Value ByteSize:(size_t)Bytes SoughtValueString:(NSString *)ValueString Addresses:(NSMutableArray *)Addrs PrgBar:(NSProgressIndicator *)pBar;
 
 // save record to application addresses
 - (bool)saveDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(int)Bytes;

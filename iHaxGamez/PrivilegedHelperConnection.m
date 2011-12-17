@@ -13,8 +13,15 @@
 #import "FortunateSon.h"
 #import <ServiceManagement/ServiceManagement.h>
 #import <Security/Authorization.h>
+#import <mach/mach_vm.h>
 
 static PrivilegedHelperConnection *sharedConnection;
+
+@interface PrivilegedHelperConnection ()
+
+- (BOOL)getMachPort:(mach_port_t *)port;
+
+@end
 
 @implementation PrivilegedHelperConnection
 
@@ -123,13 +130,45 @@ static PrivilegedHelperConnection *sharedConnection;
 	return ! err;
 }
 
+- (BOOL)getMachPort:(mach_port_t *)port {
+    if (![self connectIfNecessary]) return NO;
+    *port = [childReceiveMachPort machPort];
+    return YES;
+}
+
+#pragma mark -
+
 - (BOOL)sayHello {
     if (! [self connectIfNecessary]) return NO;
     int result = -1;
     kern_return_t kr = _GratefulFatherSayHey([childReceiveMachPort machPort], &result);
-    NSLog(@"result %d", result);
     MASSERT_SOFT(kr == KERN_SUCCESS);
     return kr == KERN_SUCCESS;
 }
 
 @end
+
+kern_return_t helper_vm_region(pid_t pid, mach_vm_address_t *address, mach_vm_size_t *size) {
+    mach_port_t port;
+    if (![[PrivilegedHelperConnection sharedConnection] getMachPort:&port]) return KERN_FAILURE;
+    return _GratefulFatherVMRegion(port, pid, address, size);
+}
+
+kern_return_t helper_vm_read(pid_t pid, mach_vm_address_t address, size_t size, Byte **data, mach_msg_type_number_t *dataSize) {
+    mach_port_t port;
+    if (![[PrivilegedHelperConnection sharedConnection] getMachPort:&port]) return KERN_FAILURE;
+    kern_return_t kr = _GratefulFatherVMRead(port, pid, address, size, data, dataSize);
+    return kr;    
+}
+
+kern_return_t helper_vm_write(pid_t pid, mach_vm_address_t address, Byte *data, mach_msg_type_number_t size) {
+    mach_port_t port;
+    if (![[PrivilegedHelperConnection sharedConnection] getMachPort:&port]) return KERN_FAILURE;
+    kern_return_t kr;
+    kr = _GratefulFatherVMWrite(port, pid, address, data, size);
+    return kr;
+}
+
+void helper_vm_free(Byte *data, size_t size) {
+    MASSERT_SOFT(mach_vm_deallocate(mach_task_self(), (vm_offset_t)data, size) == KERN_SUCCESS);
+}

@@ -3,9 +3,12 @@
 #include <mach/std_types.defs>
 #include <mach/mach_types.defs>
 
+import "FortunateSonIPCTypes.h";
+
 subsystem iHaxGamezHelper 1600;
 
 type mach_msg_type_number_t = uint32_t;
+type VarData_t = ^ array [] of uint8_t;
 
 userprefix _GratefulFather;
 serverprefix _FortunateSon;
@@ -25,12 +28,10 @@ routine VMRead(
     in pid : int;
     in address : mach_vm_address_t;
     in size : mach_vm_size_t;
-    out data : vm_offset_t;
-    out dataCnt : mach_msg_type_number_t);
+    out data : VarData_t);
 
 routine VMWrite(
     server: mach_port_t;
     in pid : int;
     in address : mach_vm_address_t;
-    in data : vm_offset_t;
-    in dataCnt : mach_msg_type_number_t);
+    in data : VarData_t);
