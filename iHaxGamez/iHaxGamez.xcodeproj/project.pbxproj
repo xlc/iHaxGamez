@@ -11,7 +11,6 @@
 		0601FF9B1499BCB70049A768 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0601FF9A1499BCB70049A768 /* PreferencesWindowController.m */; };
 		063282361499C2FC00ACD725 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 063282351499C2FC00ACD725 /* ConfigManager.m */; };
 		0632823D1499E08600ACD725 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632823C1499E08600ACD725 /* Carbon.framework */; };
-		06C9B159149C09EE0076AE15 /* HexFiend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 06FA41BE149B50990099D483 /* HexFiend.framework */; };
 		06C9B193149C0D3B0076AE15 /* FortunateSon.defs in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B18F149C0D3B0076AE15 /* FortunateSon.defs */; settings = {ATTRIBUTES = (Server, ); }; };
 		06C9B194149C0D3B0076AE15 /* FortunateSonServerImpl.c in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B191149C0D3B0076AE15 /* FortunateSonServerImpl.c */; };
 		06C9B195149C0D3B0076AE15 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B192149C0D3B0076AE15 /* main.cpp */; };
@@ -21,7 +20,6 @@
 		06C9B1A0149C34FB0076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper in CopyFiles */ = {isa = PBXBuildFile; fileRef = 06C9B17F149C0C710076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper */; };
 		06FA416D1499F06F0099D483 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06FA416C1499F06F0099D483 /* MainWindowController.xib */; };
 		06FA41A8149B2EF80099D483 /* MLogger.c in Sources */ = {isa = PBXBuildFile; fileRef = 06FA41A7149B2EF80099D483 /* MLogger.c */; };
-		06FA41CA149B512F0099D483 /* HexFiend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06FA41BE149B50990099D483 /* HexFiend.framework */; };
 		06FF499C1498A85C005753CE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06FF499B1498A85C005753CE /* AudioToolbox.framework */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		5B26614611980D26000AA8BB /* iHaxGamez.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5B26614511980D26000AA8BB /* iHaxGamez.icns */; };
@@ -42,54 +40,47 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		06C9B1A1149C35030076AE15 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 06C9B17E149C0C710076AE15;
-			remoteInfo = FortunateSon;
-		};
-		06FA41BB149B50990099D483 /* PBXContainerItemProxy */ = {
+		069094DC149C99E2009B1C58 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8D1107320486CEB800E47090;
 			remoteInfo = HexFiend_2;
 		};
-		06FA41BD149B50990099D483 /* PBXContainerItemProxy */ = {
+		069094DE149C99E2009B1C58 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D01E7BB80CDC530C00943F9E;
 			remoteInfo = HexFiend_Framework;
 		};
-		06FA41BF149B50990099D483 /* PBXContainerItemProxy */ = {
+		069094E0149C99E2009B1C58 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D047E3151022CEFE00EF307B;
 			remoteInfo = "FortunateSon (PrivilegedHelper)";
 		};
-		06FA41C1149B50990099D483 /* PBXContainerItemProxy */ = {
+		069094E2149C99E2009B1C58 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D06D60100FA69B26002376EE;
 			remoteInfo = Test_BTree;
 		};
-		06FA41C3149B50990099D483 /* PBXContainerItemProxy */ = {
+		069094E4149C99E2009B1C58 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D00C15E50FF091FF006D021F;
 			remoteInfo = HexFiendling;
 		};
-		06FA41C5149B51160099D483 /* PBXContainerItemProxy */ = {
+		06C9B1A1149C35030076AE15 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D01E7BB70CDC530C00943F9E;
-			remoteInfo = HexFiend_Framework;
+			remoteGlobalIDString = 06C9B17E149C0C710076AE15;
+			remoteInfo = FortunateSon;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -110,7 +101,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				06C9B159149C09EE0076AE15 /* HexFiend.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +127,7 @@
 		06FA416C1499F06F0099D483 /* MainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindowController.xib; sourceTree = "<group>"; };
 		06FA4170149B17900099D483 /* MLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLogger.h; sourceTree = "<group>"; };
 		06FA41A7149B2EF80099D483 /* MLogger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MLogger.c; sourceTree = "<group>"; };
-		06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HexFiend_2.xcodeproj; path = ../lib/HexFind/HexFiend_2.xcodeproj; sourceTree = "<group>"; };
+		06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HexFiend_2.xcodeproj; path = ../lib/HexFiend/HexFiend_2.xcodeproj; sourceTree = "<group>"; };
 		06FF499B1498A85C005753CE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -188,7 +178,6 @@
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				5B8F6F35113CA61F0097B6AE /* Security.framework in Frameworks */,
 				5B8F6F37113CA61F0097B6AE /* SecurityFoundation.framework in Frameworks */,
-				06FA41CA149B512F0099D483 /* HexFiend.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +194,18 @@
 				063282351499C2FC00ACD725 /* ConfigManager.m */,
 			);
 			name = PerferencesWindowController;
+			sourceTree = "<group>";
+		};
+		069094D4149C99E2009B1C58 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				069094DD149C99E2009B1C58 /* Hex Fiend.app */,
+				069094DF149C99E2009B1C58 /* HexFiend.framework */,
+				069094E1149C99E2009B1C58 /* com.ridiculousfish.HexFiend.PrivilegedHelper */,
+				069094E3149C99E2009B1C58 /* Test_BTree */,
+				069094E5149C99E2009B1C58 /* HexFiendling.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		06C9B18C149C0D3B0076AE15 /* PrivilegedHelper */ = {
@@ -264,18 +265,6 @@
 				5B8F6F2B113CA5CF0097B6AE /* MemoryAccess.m */,
 			);
 			name = MemoryAccess;
-			sourceTree = "<group>";
-		};
-		06FA41AC149B50980099D483 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				06FA41BC149B50990099D483 /* Hex Fiend.app */,
-				06FA41BE149B50990099D483 /* HexFiend.framework */,
-				06FA41C0149B50990099D483 /* com.ridiculousfish.HexFiend.PrivilegedHelper */,
-				06FA41C2149B50990099D483 /* Test_BTree */,
-				06FA41C4149B50990099D483 /* HexFiendling.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
@@ -402,7 +391,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				06FA41C6149B51160099D483 /* PBXTargetDependency */,
 				06C9B1A2149C35030076AE15 /* PBXTargetDependency */,
 			);
 			name = iHaxGamez;
@@ -434,7 +422,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 06FA41AC149B50980099D483 /* Products */;
+					ProductGroup = 069094D4149C99E2009B1C58 /* Products */;
 					ProjectRef = 06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */;
 				},
 			);
@@ -447,39 +435,39 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		06FA41BC149B50990099D483 /* Hex Fiend.app */ = {
+		069094DD149C99E2009B1C58 /* Hex Fiend.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "Hex Fiend.app";
-			remoteRef = 06FA41BB149B50990099D483 /* PBXContainerItemProxy */;
+			remoteRef = 069094DC149C99E2009B1C58 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		06FA41BE149B50990099D483 /* HexFiend.framework */ = {
+		069094DF149C99E2009B1C58 /* HexFiend.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = HexFiend.framework;
-			remoteRef = 06FA41BD149B50990099D483 /* PBXContainerItemProxy */;
+			remoteRef = 069094DE149C99E2009B1C58 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		06FA41C0149B50990099D483 /* com.ridiculousfish.HexFiend.PrivilegedHelper */ = {
+		069094E1149C99E2009B1C58 /* com.ridiculousfish.HexFiend.PrivilegedHelper */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = com.ridiculousfish.HexFiend.PrivilegedHelper;
-			remoteRef = 06FA41BF149B50990099D483 /* PBXContainerItemProxy */;
+			remoteRef = 069094E0149C99E2009B1C58 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		06FA41C2149B50990099D483 /* Test_BTree */ = {
+		069094E3149C99E2009B1C58 /* Test_BTree */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = Test_BTree;
-			remoteRef = 06FA41C1149B50990099D483 /* PBXContainerItemProxy */;
+			remoteRef = 069094E2149C99E2009B1C58 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		06FA41C4149B50990099D483 /* HexFiendling.app */ = {
+		069094E5149C99E2009B1C58 /* HexFiendling.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = HexFiendling.app;
-			remoteRef = 06FA41C3149B50990099D483 /* PBXContainerItemProxy */;
+			remoteRef = 069094E4149C99E2009B1C58 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -539,11 +527,6 @@
 			isa = PBXTargetDependency;
 			target = 06C9B17E149C0C710076AE15 /* FortunateSon */;
 			targetProxy = 06C9B1A1149C35030076AE15 /* PBXContainerItemProxy */;
-		};
-		06FA41C6149B51160099D483 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = HexFiend_Framework;
-			targetProxy = 06FA41C5149B51160099D483 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -610,7 +593,7 @@
 				);
 				PRODUCT_NAME = com.github.xlc.iHaxGamez.PrivilegedHelper;
 				PROVISIONING_PROFILE = "";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFind/framework/sources";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFiend/framework/sources";
 			};
 			name = Debug;
 		};
@@ -644,7 +627,7 @@
 				);
 				PRODUCT_NAME = com.github.xlc.iHaxGamez.PrivilegedHelper;
 				PROVISIONING_PROFILE = "";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFind/framework/sources";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFiend/framework/sources";
 			};
 			name = Release;
 		};
@@ -668,7 +651,7 @@
 				PRODUCT_NAME = iHaxGamez;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFind/framework/sources";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFiend/framework/sources";
 			};
 			name = Debug;
 		};
@@ -690,7 +673,7 @@
 				PRODUCT_NAME = iHaxGamez;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFind/framework/sources";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFiend/framework/sources";
 			};
 			name = Release;
 		};
