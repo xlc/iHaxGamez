@@ -28,5 +28,10 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SMPrivilegedExecutables</key>
+	<dict>
+		<key>com.github.xlc.iHaxGamez.PrivilegedHelper</key>
+		<string>certificate leaf[subject.CN] = &quot;iHaxGamez&quot;</string>
+	</dict>
 </dict>
 </plist>

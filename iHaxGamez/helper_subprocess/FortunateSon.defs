@@ -1,0 +1,36 @@
+// Helper tool interface for privileged operations
+
+#include <mach/std_types.defs>
+#include <mach/mach_types.defs>
+
+subsystem iHaxGamezHelper 1600;
+
+type mach_msg_type_number_t = uint32_t;
+
+userprefix _GratefulFather;
+serverprefix _FortunateSon;
+
+routine SayHey(
+    server: mach_port_t;
+    out result : int);
+
+routine VMRegion(
+    server: mach_port_t;
+    in pid : int;
+    inout address : mach_vm_address_t;
+    out size : mach_vm_size_t);
+
+routine VMRead(
+    server: mach_port_t;
+    in pid : int;
+    in address : mach_vm_address_t;
+    in size : mach_vm_size_t;
+    out data : vm_offset_t;
+    out dataCnt : mach_msg_type_number_t);
+
+routine VMWrite(
+    server: mach_port_t;
+    in pid : int;
+    in address : mach_vm_address_t;
+    in data : vm_offset_t;
+    in dataCnt : mach_msg_type_number_t);

@@ -12,6 +12,13 @@
 		063282361499C2FC00ACD725 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 063282351499C2FC00ACD725 /* ConfigManager.m */; };
 		0632823D1499E08600ACD725 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632823C1499E08600ACD725 /* Carbon.framework */; };
 		06C9B159149C09EE0076AE15 /* HexFiend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 06FA41BE149B50990099D483 /* HexFiend.framework */; };
+		06C9B193149C0D3B0076AE15 /* FortunateSon.defs in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B18F149C0D3B0076AE15 /* FortunateSon.defs */; settings = {ATTRIBUTES = (Server, ); }; };
+		06C9B194149C0D3B0076AE15 /* FortunateSonServerImpl.c in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B191149C0D3B0076AE15 /* FortunateSonServerImpl.c */; };
+		06C9B195149C0D3B0076AE15 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B192149C0D3B0076AE15 /* main.cpp */; };
+		06C9B197149C10E60076AE15 /* FortunateSon.defs in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B18F149C0D3B0076AE15 /* FortunateSon.defs */; };
+		06C9B19C149C312F0076AE15 /* PrivilegedHelperConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B19B149C312F0076AE15 /* PrivilegedHelperConnection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		06C9B19E149C32EC0076AE15 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06C9B19D149C32EC0076AE15 /* ServiceManagement.framework */; };
+		06C9B1A0149C34FB0076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper in CopyFiles */ = {isa = PBXBuildFile; fileRef = 06C9B17F149C0C710076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper */; };
 		06FA416D1499F06F0099D483 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06FA416C1499F06F0099D483 /* MainWindowController.xib */; };
 		06FA41A8149B2EF80099D483 /* MLogger.c in Sources */ = {isa = PBXBuildFile; fileRef = 06FA41A7149B2EF80099D483 /* MLogger.c */; };
 		06FA41CA149B512F0099D483 /* HexFiend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06FA41BE149B50990099D483 /* HexFiend.framework */; };
@@ -35,6 +42,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		06C9B1A1149C35030076AE15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 06C9B17E149C0C710076AE15;
+			remoteInfo = FortunateSon;
+		};
 		06FA41BB149B50990099D483 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */;
@@ -80,6 +94,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		06C9B17D149C0C710076AE15 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		06C9B19F149C34E80076AE15 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchServices;
+			dstSubfolderSpec = 1;
+			files = (
+				06C9B1A0149C34FB0076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		06FA41C9149B51210099D483 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -99,6 +132,16 @@
 		063282341499C2FC00ACD725 /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
 		063282351499C2FC00ACD725 /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
 		0632823C1499E08600ACD725 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		06C9B17F149C0C710076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.github.xlc.iHaxGamez.PrivilegedHelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		06C9B18D149C0D3B0076AE15 /* FortunateSon-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FortunateSon-Info.plist"; sourceTree = "<group>"; };
+		06C9B18E149C0D3B0076AE15 /* FortunateSon-Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FortunateSon-Launchd.plist"; sourceTree = "<group>"; };
+		06C9B18F149C0D3B0076AE15 /* FortunateSon.defs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.mig; path = FortunateSon.defs; sourceTree = "<group>"; };
+		06C9B191149C0D3B0076AE15 /* FortunateSonServerImpl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = FortunateSonServerImpl.c; sourceTree = "<group>"; };
+		06C9B192149C0D3B0076AE15 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		06C9B199149C11EC0076AE15 /* HelperProcessSharedCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelperProcessSharedCode.h; sourceTree = "<group>"; };
+		06C9B19A149C312F0076AE15 /* PrivilegedHelperConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivilegedHelperConnection.h; sourceTree = "<group>"; };
+		06C9B19B149C312F0076AE15 /* PrivilegedHelperConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivilegedHelperConnection.m; sourceTree = "<group>"; };
+		06C9B19D149C32EC0076AE15 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		06FA416C1499F06F0099D483 /* MainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindowController.xib; sourceTree = "<group>"; };
 		06FA4170149B17900099D483 /* MLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLogger.h; sourceTree = "<group>"; };
 		06FA41A7149B2EF80099D483 /* MLogger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MLogger.c; sourceTree = "<group>"; };
@@ -136,10 +179,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		06C9B17C149C0C710076AE15 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC330486D014006FF6A4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06C9B19E149C32EC0076AE15 /* ServiceManagement.framework in Frameworks */,
 				0632823D1499E08600ACD725 /* Carbon.framework in Frameworks */,
 				06FF499C1498A85C005753CE /* AudioToolbox.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
@@ -162,6 +213,29 @@
 				063282351499C2FC00ACD725 /* ConfigManager.m */,
 			);
 			name = PerferencesWindowController;
+			sourceTree = "<group>";
+		};
+		06C9B18C149C0D3B0076AE15 /* PrivilegedHelper */ = {
+			isa = PBXGroup;
+			children = (
+				06C9B18D149C0D3B0076AE15 /* FortunateSon-Info.plist */,
+				06C9B18E149C0D3B0076AE15 /* FortunateSon-Launchd.plist */,
+				06C9B18F149C0D3B0076AE15 /* FortunateSon.defs */,
+				06C9B191149C0D3B0076AE15 /* FortunateSonServerImpl.c */,
+				06C9B192149C0D3B0076AE15 /* main.cpp */,
+			);
+			name = PrivilegedHelper;
+			path = helper_subprocess;
+			sourceTree = "<group>";
+		};
+		06C9B198149C114B0076AE15 /* PrivilegedHelperConnection */ = {
+			isa = PBXGroup;
+			children = (
+				06C9B199149C11EC0076AE15 /* HelperProcessSharedCode.h */,
+				06C9B19A149C312F0076AE15 /* PrivilegedHelperConnection.h */,
+				06C9B19B149C312F0076AE15 /* PrivilegedHelperConnection.m */,
+			);
+			name = PrivilegedHelperConnection;
 			sourceTree = "<group>";
 		};
 		06FA416B1499F0590099D483 /* MainWindowController */ = {
@@ -214,6 +288,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				06C9B19D149C32EC0076AE15 /* ServiceManagement.framework */,
 				0632823C1499E08600ACD725 /* Carbon.framework */,
 				06FF499B1498A85C005753CE /* AudioToolbox.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
@@ -237,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				8D15AC370486D014006FF6A4 /* iHaxGamez.app */,
+				06C9B17F149C0C710076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -256,6 +332,8 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				06C9B18C149C0D3B0076AE15 /* PrivilegedHelper */,
+				06C9B198149C114B0076AE15 /* PrivilegedHelperConnection */,
 				06FA416B1499F0590099D483 /* MainWindowController */,
 				06FA41A9149B43D40099D483 /* SearchWindowController */,
 				0601FF9C1499BCBD0049A768 /* PerferencesWindowController */,
@@ -302,6 +380,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		06C9B17E149C0C710076AE15 /* FortunateSon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 06C9B186149C0C710076AE15 /* Build configuration list for PBXNativeTarget "FortunateSon" */;
+			buildPhases = (
+				06C9B17B149C0C710076AE15 /* Sources */,
+				06C9B17C149C0C710076AE15 /* Frameworks */,
+				06C9B17D149C0C710076AE15 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FortunateSon;
+			productName = FortunateSon;
+			productReference = 06C9B17F149C0C710076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper */;
+			productType = "com.apple.product-type.tool";
+		};
 		8D15AC270486D014006FF6A4 /* iHaxGamez */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "iHaxGamez" */;
@@ -310,11 +405,13 @@
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
+				06C9B19F149C34E80076AE15 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				06FA41C6149B51160099D483 /* PBXTargetDependency */,
+				06C9B1A2149C35030076AE15 /* PBXTargetDependency */,
 			);
 			name = iHaxGamez;
 			productInstallPath = "$(HOME)/Applications";
@@ -352,6 +449,7 @@
 			projectRoot = "";
 			targets = (
 				8D15AC270486D014006FF6A4 /* iHaxGamez */,
+				06C9B17E149C0C710076AE15 /* FortunateSon */,
 			);
 		};
 /* End PBXProject section */
@@ -412,6 +510,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		06C9B17B149C0C710076AE15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06C9B193149C0D3B0076AE15 /* FortunateSon.defs in Sources */,
+				06C9B194149C0D3B0076AE15 /* FortunateSonServerImpl.c in Sources */,
+				06C9B195149C0D3B0076AE15 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC300486D014006FF6A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -427,12 +535,19 @@
 				0601FF9B1499BCB70049A768 /* PreferencesWindowController.m in Sources */,
 				063282361499C2FC00ACD725 /* ConfigManager.m in Sources */,
 				06FA41A8149B2EF80099D483 /* MLogger.c in Sources */,
+				06C9B197149C10E60076AE15 /* FortunateSon.defs in Sources */,
+				06C9B19C149C312F0076AE15 /* PrivilegedHelperConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		06C9B1A2149C35030076AE15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 06C9B17E149C0C710076AE15 /* FortunateSon */;
+			targetProxy = 06C9B1A1149C35030076AE15 /* PBXContainerItemProxy */;
+		};
 		06FA41C6149B51160099D483 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = HexFiend_Framework;
@@ -468,11 +583,77 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		06C9B187149C0C710076AE15 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CODE_SIGN_IDENTITY = iHaxGamez;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				INFOPLIST_FILE = "helper_subprocess/FortunateSon-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"helper_subprocess/FortunateSon-Info.plist",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"helper_subprocess/FortunateSon-Launchd.plist",
+				);
+				PRODUCT_NAME = com.github.xlc.iHaxGamez.PrivilegedHelper;
+				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFind/framework/sources";
+			};
+			name = Debug;
+		};
+		06C9B188149C0C710076AE15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CODE_SIGN_IDENTITY = iHaxGamez;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				INFOPLIST_FILE = "helper_subprocess/FortunateSon-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"helper_subprocess/FortunateSon-Info.plist",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"helper_subprocess/FortunateSon-Launchd.plist",
+				);
+				PRODUCT_NAME = com.github.xlc.iHaxGamez.PrivilegedHelper;
+				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFind/framework/sources";
+			};
+			name = Release;
+		};
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = iHaxGamez;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -485,6 +666,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_NAME = iHaxGamez;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFind/framework/sources";
 			};
@@ -495,6 +677,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = iHaxGamez;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -505,6 +688,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = iHaxGamez;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFind/framework/sources";
 			};
@@ -546,6 +730,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		06C9B186149C0C710076AE15 /* Build configuration list for PBXNativeTarget "FortunateSon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				06C9B187149C0C710076AE15 /* Debug */,
+				06C9B188149C0C710076AE15 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "iHaxGamez" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

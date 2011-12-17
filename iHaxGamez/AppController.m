@@ -23,12 +23,14 @@
 #import "PreferencesWindowController.h"
 #import "ConfigManager.h"
 #import "MainWindowController.h"
+#import "PrivilegedHelperConnection.h"
 
 @implementation AppController
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {    
     [ConfigManager installHotKeys];
     [[MainWindowController sharedController] showWindow:nil];
+    MASSERT_SOFT([[PrivilegedHelperConnection sharedConnection] sayHello]);
 }
 
 
