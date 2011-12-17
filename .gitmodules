@@ -1,0 +1,3 @@
+[submodule "lib/HexFind"]
+	path = lib/HexFind
+	url = git://github.com/ridiculousfish/HexFiend.git
