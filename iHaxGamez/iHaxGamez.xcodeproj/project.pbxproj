@@ -11,6 +11,8 @@
 		0601FF9B1499BCB70049A768 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0601FF9A1499BCB70049A768 /* PreferencesWindowController.m */; };
 		063282361499C2FC00ACD725 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 063282351499C2FC00ACD725 /* ConfigManager.m */; };
 		0632823D1499E08600ACD725 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632823C1499E08600ACD725 /* Carbon.framework */; };
+		063919D4149D9D2C005E255E /* VariableValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 063919D3149D9D2C005E255E /* VariableValue.m */; };
+		066ED944149DD9B30092484B /* VirtualMemoryAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 066ED943149DD9B30092484B /* VirtualMemoryAddress.m */; };
 		06C9B193149C0D3B0076AE15 /* FortunateSon.defs in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B18F149C0D3B0076AE15 /* FortunateSon.defs */; settings = {ATTRIBUTES = (Server, ); }; };
 		06C9B194149C0D3B0076AE15 /* FortunateSonServerImpl.c in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B191149C0D3B0076AE15 /* FortunateSonServerImpl.c */; };
 		06C9B195149C0D3B0076AE15 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B192149C0D3B0076AE15 /* main.cpp */; };
@@ -113,6 +115,10 @@
 		063282341499C2FC00ACD725 /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
 		063282351499C2FC00ACD725 /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
 		0632823C1499E08600ACD725 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		063919D2149D9D2C005E255E /* VariableValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariableValue.h; sourceTree = "<group>"; };
+		063919D3149D9D2C005E255E /* VariableValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VariableValue.m; sourceTree = "<group>"; };
+		066ED942149DD9B30092484B /* VirtualMemoryAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualMemoryAddress.h; sourceTree = "<group>"; };
+		066ED943149DD9B30092484B /* VirtualMemoryAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VirtualMemoryAddress.m; sourceTree = "<group>"; };
 		06C9B17F149C0C710076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.github.xlc.iHaxGamez.PrivilegedHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		06C9B18D149C0D3B0076AE15 /* FortunateSon-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FortunateSon-Info.plist"; sourceTree = "<group>"; };
 		06C9B18E149C0D3B0076AE15 /* FortunateSon-Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FortunateSon-Launchd.plist"; sourceTree = "<group>"; };
@@ -263,6 +269,10 @@
 			children = (
 				5B8F6F2A113CA5CF0097B6AE /* MemoryAccess.h */,
 				5B8F6F2B113CA5CF0097B6AE /* MemoryAccess.m */,
+				063919D2149D9D2C005E255E /* VariableValue.h */,
+				063919D3149D9D2C005E255E /* VariableValue.m */,
+				066ED942149DD9B30092484B /* VirtualMemoryAddress.h */,
+				066ED943149DD9B30092484B /* VirtualMemoryAddress.m */,
 			);
 			name = MemoryAccess;
 			sourceTree = "<group>";
@@ -316,9 +326,9 @@
 			children = (
 				06C9B18C149C0D3B0076AE15 /* PrivilegedHelper */,
 				06C9B198149C114B0076AE15 /* PrivilegedHelperConnection */,
+				0601FF9C1499BCBD0049A768 /* PerferencesWindowController */,
 				06FA416B1499F0590099D483 /* MainWindowController */,
 				06FA41A9149B43D40099D483 /* SearchWindowController */,
-				0601FF9C1499BCBD0049A768 /* PerferencesWindowController */,
 				06FA41AA149B43F60099D483 /* MemoryAccess */,
 				5B8F6F23113CA4490097B6AE /* AppController.h */,
 				5B8F6F24113CA4490097B6AE /* AppController.m */,
@@ -517,6 +527,8 @@
 				06FA41A8149B2EF80099D483 /* MLogger.c in Sources */,
 				06C9B197149C10E60076AE15 /* FortunateSon.defs in Sources */,
 				06C9B19C149C312F0076AE15 /* PrivilegedHelperConnection.m in Sources */,
+				063919D4149D9D2C005E255E /* VariableValue.m in Sources */,
+				066ED944149DD9B30092484B /* VirtualMemoryAddress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

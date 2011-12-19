@@ -142,7 +142,7 @@ static PrivilegedHelperConnection *sharedConnection;
     if (! [self connectIfNecessary]) return NO;
     int result = -1;
     kern_return_t kr = _GratefulFatherSayHey([childReceiveMachPort machPort], &result);
-    MASSERT_SOFT(kr == KERN_SUCCESS);
+    MASSERT_KERN(kr);
     return kr == KERN_SUCCESS;
 }
 
@@ -154,14 +154,14 @@ kern_return_t helper_vm_region(pid_t pid, mach_vm_address_t *address, mach_vm_si
     return _GratefulFatherVMRegion(port, pid, address, size);
 }
 
-kern_return_t helper_vm_read(pid_t pid, mach_vm_address_t address, size_t size, Byte **data, mach_msg_type_number_t *dataSize) {
+kern_return_t helper_vm_read(pid_t pid, mach_vm_address_t address, size_t size, void **data, mach_msg_type_number_t *dataSize) {
     mach_port_t port;
     if (![[PrivilegedHelperConnection sharedConnection] getMachPort:&port]) return KERN_FAILURE;
-    kern_return_t kr = _GratefulFatherVMRead(port, pid, address, size, data, dataSize);
+    kern_return_t kr = _GratefulFatherVMRead(port, pid, address, size, (VarData_t *)data, dataSize);
     return kr;    
 }
 
-kern_return_t helper_vm_write(pid_t pid, mach_vm_address_t address, Byte *data, mach_msg_type_number_t size) {
+kern_return_t helper_vm_write(pid_t pid, mach_vm_address_t address, void *data, mach_msg_type_number_t size) {
     mach_port_t port;
     if (![[PrivilegedHelperConnection sharedConnection] getMachPort:&port]) return KERN_FAILURE;
     kern_return_t kr;
@@ -169,6 +169,6 @@ kern_return_t helper_vm_write(pid_t pid, mach_vm_address_t address, Byte *data, 
     return kr;
 }
 
-void helper_vm_free(Byte *data, size_t size) {
-    MASSERT_SOFT(mach_vm_deallocate(mach_task_self(), (vm_offset_t)data, size) == KERN_SUCCESS);
+void helper_vm_free(void *data, size_t size) {
+    MASSERT_KERN(mach_vm_deallocate(mach_task_self(), (vm_offset_t)data, size));
 }

@@ -26,6 +26,8 @@
 
 #import "AppAddressData.h"
 #import "PrivilegedHelperConnection.h"
+#import "VariableValue.h"
+#import "VirtualMemoryAddress.h"
 
 @implementation MemoryAccess
 - (id)init
@@ -206,6 +208,7 @@
 
 - (NSMutableArray *)getSearchArray:(Byte *)Value ByteSize:(int)Bytes SoughtValueString:(NSString *)ValueString PrgBar:(NSProgressIndicator *)pBar
 {
+    if (![self checkProcessAlive]) return [NSArray array];
     NSMutableArray *AddrList = [[NSMutableArray alloc] initWithCapacity:1000];
 	
         // First we need a Task based on our pid
@@ -233,7 +236,7 @@
         }
         
         
-        Byte *readBuffer = 0;
+        void *readBuffer = 0;
         mach_msg_type_number_t bufferSize;
         
         if (KERN_SUCCESS == helper_vm_read(AppPid, SourceAddress, SourceSize, &readBuffer, &bufferSize))
@@ -268,16 +271,7 @@
         SourceAddress += SourceSize;
     }
     [pBar setHidden:true];
-#if 0
-	{
-		NSAlert *MyAlert = [NSAlert alertWithMessageText:@"The external process could not be accessed."
-										   defaultButton:nil
-										 alternateButton:nil
-											 otherButton:nil 
-							   informativeTextWithFormat:@"You may not have rights to access this process, or this process may have ended."];
-		[MyAlert runModal];
-	}
-#endif
+    
 	
     return AddrList;
 }
@@ -310,7 +304,7 @@
         x--;
         MyAddrRec = [Addrs objectAtIndex:x];
         MyAddrRecAddress = [MyAddrRec address];
-        Byte *buffer;
+        void *buffer;
         mach_msg_type_number_t bufferSize;
         @try {
             if ( (KERN_SUCCESS == helper_vm_read(AppPid, MyAddrRecAddress, Bytes, &buffer, &bufferSize)) &&
@@ -346,14 +340,14 @@
     return Addrs;
 }
 
-- (bool)saveDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(int)Bytes
+- (BOOL)saveDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(int)Bytes
 {	    
     return helper_vm_write(AppPid, Address, DataBuffer, Bytes) == KERN_SUCCESS;
 }
 
-- (bool)loadDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(vm_size_t)Bytes
+- (BOOL)loadDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(vm_size_t)Bytes
 {
-    Byte *buffer;
+    void *buffer;
     mach_msg_type_number_t bufferSize;
 	kern_return_t kr = helper_vm_read(AppPid, Address, Bytes, &buffer, &bufferSize);
     if (kr == KERN_SUCCESS && bufferSize == Bytes) {
@@ -362,6 +356,121 @@
         return YES;
     }
     return NO;
+}
+
+#pragma mark -
+
+- (void)searchValue:(VariableValue *)value option:(SearchOption)option callback:(void (^)(double percent, NSArray *result, BOOL done))callback {
+    if (![self checkProcessAlive]) return;
+    callback = [callback copy];
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:1000];
+    mach_vm_address_t address = 0;
+    mach_vm_size_t size = 0;
+    __block dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+    __block int count = 0;
+    __block int totalCount = 0;
+    __block BOOL totalCountValid = NO;
+    size_t minSize;
+    if (option == SearchOptionLimitSizeRange) {
+        minSize = sizeof(int32_t);
+    } else {
+        minSize = sizeof(int8_t);
+    }
+    while (helper_vm_region(AppPid, &address, &size) == KERN_SUCCESS) {
+        totalCount++;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            void *buffer = NULL;
+            mach_msg_type_name_t bufferSize;
+            NSMutableArray *localResult;
+            if (helper_vm_read(AppPid, address, size, &buffer, &bufferSize) == KERN_SUCCESS) {
+                localResult = [NSMutableArray arrayWithCapacity:100];
+                size_t remain = size - value.size;
+                void *endAddress = buffer + remain;
+                for (void *localAddress = buffer; localAddress <= endAddress; localAddress++) {
+                    VariableType type;
+                    if ([value compareAtAddress:buffer minSize:minSize maxSize:remain matchedType:&type]) {
+                        VariableValue *newValue = [[VariableValue alloc] initWithValue:value type: type];
+                        VirtualMemoryAddress *vmAddr = [[VirtualMemoryAddress alloc] initWithPID:AppPid address:address+localAddress-buffer value:newValue];
+                        [localResult addObject:vmAddr];
+                    }
+                    remain--;
+                }
+                
+            }
+            if (buffer)
+                helper_vm_free(buffer, bufferSize);
+            
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            count++;
+            if (localResult)
+                [result addObjectsFromArray:localResult];
+            dispatch_semaphore_signal(semaphore);
+            
+            if (totalCountValid) {
+                BOOL done = count == totalCount;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    callback((double)count/(double)totalCount, result, done);
+                });
+                if (done) {
+                    @synchronized(result) { // make sure semaphore only get free once
+                        if (semaphore) {
+                            dispatch_release(semaphore);
+                            semaphore = NULL;
+                        }
+                    }
+                }
+            }
+        });
+    }
+    totalCountValid = YES;
+    
+}
+
+- (void)filterDatas:(NSArray *)datas withValue:(VariableValue *)value callback:(void (^)(double percent, NSArray *result, BOOL done))callback {
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[datas count] / 100 + 10];
+    __block dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+    __block NSUInteger count = 0;
+    NSUInteger totalCount = [result count];
+    dispatch_apply([datas count], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(size_t i) {
+        VirtualMemoryAddress *vmAddr = [datas objectAtIndex:i];
+        [vmAddr reflashValue];
+        VariableType matchedType;
+        if ([value compareAtAddress:vmAddr.value.data minSize:vmAddr.value.size maxSize:vmAddr.value.maxSize matchedType:&matchedType]) {
+            if (matchedType != vmAddr.value.type)   // update type if need
+                vmAddr.value = [[VariableValue alloc] initWithValue:vmAddr.value type:matchedType];
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            [result addObject:vmAddr];
+            count++;
+            dispatch_semaphore_signal(semaphore);
+            BOOL done = count == totalCount;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback((double)count/(double)totalCount, result, done);
+            });
+            if (done) {
+                @synchronized(result) {
+                    if (semaphore) {
+                        dispatch_release(semaphore);
+                        semaphore = NULL;
+                    }
+                }
+            }
+        }
+    });
+}
+
+- (BOOL)checkProcessAlive {
+    ProcessSerialNumber psn;
+    if (GetProcessForPID(AppPid, &psn) == 0) {
+        return YES;
+    } else {
+        NSAlert *MyAlert = [NSAlert alertWithMessageText:@"The external process could not be accessed."
+										   defaultButton:nil
+										 alternateButton:nil
+											 otherButton:nil 
+							   informativeTextWithFormat:@"You may not have rights to access this process, or this process may have ended."];
+		[MyAlert runModal];
+        return NO;
+    }
 }
 
 @end

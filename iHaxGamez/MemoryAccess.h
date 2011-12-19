@@ -22,6 +22,13 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/Appkit.h>
 
+typedef enum {
+    SearchOptionLimitSizeRange,
+    SearchOptionNormal,
+} SearchOption;
+
+@class VariableValue;
+
 @interface MemoryAccess : NSObject
 {
     pid_t AppPid;
@@ -32,9 +39,14 @@
 - (NSMutableArray *)getFilteredArray:(Byte *)Value ByteSize:(size_t)Bytes SoughtValueString:(NSString *)ValueString Addresses:(NSMutableArray *)Addrs PrgBar:(NSProgressIndicator *)pBar;
 
 // save record to application addresses
-- (bool)saveDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(int)Bytes;
+- (BOOL)saveDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(int)Bytes;
 
 // load record from application addresses
-- (bool)loadDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(vm_size_t)Bytes;
+- (BOOL)loadDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(vm_size_t)Bytes;
+
+- (void)searchValue:(VariableValue *)value option:(SearchOption)option callback:(void (^)(double percent, NSArray *result, BOOL done))callback;
+- (void)filterDatas:(NSArray *)datas withValue:(VariableValue *)value callback:(void (^)(double percent, NSArray *result, BOOL done))callback;
+
+- (BOOL)checkProcessAlive;
 
 @end

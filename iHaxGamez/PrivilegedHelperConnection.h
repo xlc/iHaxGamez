@@ -21,6 +21,6 @@
 @end
 
 kern_return_t helper_vm_region(pid_t pid, mach_vm_address_t *address, mach_vm_size_t *size);
-kern_return_t helper_vm_read(pid_t pid, mach_vm_address_t address, size_t size, Byte **data, mach_msg_type_number_t *dataSize);
-kern_return_t helper_vm_write(pid_t pid, mach_vm_address_t address, Byte *data, mach_msg_type_number_t size);
-void helper_vm_free(Byte *data, size_t size);
+kern_return_t helper_vm_read(pid_t pid, mach_vm_address_t address, size_t size, void **data, mach_msg_type_number_t *dataSize);
+kern_return_t helper_vm_write(pid_t pid, mach_vm_address_t address, void *data, mach_msg_type_number_t size);
+void helper_vm_free(void *data, size_t size);
