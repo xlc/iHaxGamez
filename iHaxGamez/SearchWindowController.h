@@ -1,73 +1,45 @@
-/*
- iHaxGamez - External process memory search-and-replace tool for MAC OS X
- Copyright (C) <2007>  <Raymond Wilfong and Glenn Hartmann>
- 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- 
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- 
- You may contact Raymond Wilfong by email at rwilfong@rewnet.com
- */
+//
+//  SearchWindowController.h
+//  iHaxGamez
+//
+//  Created by Xiliang Chen on 11-12-20.
+//  Copyright (c) 2011年 Xiliang Chen. All rights reserved.
+//
 
 #import <Cocoa/Cocoa.h>
 
-@class AppAddressDataSource;
-@class MemoryAccess;
+#import "PSMTabBarControl.h"
 
-@interface SearchWindowController : NSWindowController {
-    IBOutlet NSButton *btnReset;
-    IBOutlet NSButton *btnSearchOriginal;
-    IBOutlet NSButton *btnSearchFilter;
-    IBOutlet NSPopUpButton *popupDataType;
-    IBOutlet NSTableView *tblResults;
-    IBOutlet NSTextField *textAppTitle;
-    IBOutlet NSTextField *textFilterValue;
-    IBOutlet NSTextField *textReplaceAllValue;
-    IBOutlet NSTextField *textSearchValue;
-    IBOutlet NSBox *boxResults;
-    IBOutlet NSProgressIndicator *progressInd;
-    IBOutlet NSProgressIndicator *progressBar;
-    IBOutlet NSButton *btnAutoRefresh;
-    IBOutlet NSButton *btnManualRefresh;
-	IBOutlet NSButton *btnFlashTimesEightMode;
-    IBOutlet NSButton *btnReplaceAll;
+@class SearchResultViewController, PSMTabBarControl;
+
+@interface SearchWindowController : NSWindowController <PSMTabBarControlDelegate> {
+@private
+    __weak NSPopUpButton *_typeButton;
+    __weak NSProgressIndicator *_progressIndicator;
+    __weak NSSearchField *_searchField;
+    __weak NSButton *_timesEightModeButton;
+    __weak PSMTabBarControl *_tabBarControl;
     
-    NSString *applicationName;
-    AppAddressDataSource *appAddressDS;
-    pid_t AppPid;
-    MemoryAccess *AttachedMemory;
-    NSTextField *CurrentSearchField;
+    pid_t _pid;
+    NSString *_title;
+    NSMutableArray *_resultControllers;
+    SearchResultViewController *_currentController;
 }
 
-@property (nonatomic, strong) NSString *applicationName;
-@property (nonatomic, strong) AppAddressDataSource *appAddressDS;
-@property (nonatomic) pid_t appPID;
+@property (weak) IBOutlet NSProgressIndicator *_progressIndicator;
+@property (weak) IBOutlet NSPopUpButton *_typeButton;
+@property (weak) IBOutlet NSSearchField *_searchField;
+@property (weak) IBOutlet NSButton *_timesEightModeButton;
+@property (weak) IBOutlet PSMTabBarControl *_tabBarControl;
 
-- (id)initWithAppName:(NSString *)AppName PID:(pid_t)PID;
+@property (nonatomic, readonly) pid_t pid;
 
-- (void)refreshResults:(bool)Forced;
-- (void)changeValueAtRow:(NSInteger)row Value:(NSString*)val;
-- (void)valueChangedAtRow:(NSInteger)row;
+- (id)initWithTitle:(NSString *)title pid:(pid_t)pid;
 
-- (IBAction)RefreshChecked:(id)sender;
-- (IBAction)RefreshClicked:(id)sender;
-- (IBAction)FilterStart:(id)sender;
-- (IBAction)SearchReset:(id)sender;
-- (IBAction)SearchStart:(id)sender;
-- (IBAction)SearchTypeChanged:(id)sender;
-- (IBAction)ReplaceAllClicked:(id)sender;
-- (void)setEditMode:(BOOL)isEditMode;
-- (void)searchAndFilter:(bool)isFilterMode;
-- (void)adjustFilterStringLength;
+- (IBAction)clearSearchResult:(NSButtonCell *)sender;
+- (IBAction)showSettings:(NSButtonCell *)sender;
+
+- (void)searchValue:(id)sender;
+- (void)addNewSearch;
 
 @end

@@ -185,7 +185,9 @@
             _data[3] = malloc(sizeof(double));
             *(double *)_data[3] = *(double *)value->_data[3];
         }
-        
+        if (type == VariableTypeASCII) {
+            MASSERT(_data[0], @"ascii value have no data");
+        }
     }
     return self;
 }
@@ -221,6 +223,10 @@
     }
         // TODO a better way?
     VariableValue *value = [[VariableValue alloc] initWithStringValue:string isTextType:text];
+    if (value.type != type) {
+        if (type == VariableTypeASCII)
+            type = value.type;
+    }
     return [self initWithValue:value type:type];
 }
 
@@ -236,16 +242,22 @@
 - (void *)data {
     switch (_type) {
         case VariableTypeUnsignedInteger:
+            MASSERT(_data[0], @"return a nil data");
             return _data[0];
         case VariableTypeInteger:
+            MASSERT(_data[1], @"return a nil data");
             return _data[1];
         case VariableTypeFloat:
+            MASSERT(_data[2], @"return a nil data");
             return _data[2];
         case VariableTypeDouble:
+            MASSERT(_data[3], @"return a nil data");
             return _data[3];
         case VariableTypeASCII:
+            MASSERT(_data[0], @"return a nil data");
             return _data[0];
         case VariableTypeUnicode:
+            MASSERT(_data[1], @"return a nil data");
             return _data[1];
     }
 }
@@ -262,7 +274,7 @@
                 size_t compareSize = MAX(minSize, _dataSize[i]);
                 if (compareSize > maxSize)
                     continue;
-                if (memcmp(_data[i], address, compareSize)) {
+                if (memcmp(_data[i], address, compareSize) == 0) {
                     if (matchedType)
                         *matchedType = i == 0 ? VariableTypeUnsignedInteger : VariableTypeInteger;
                     return YES;
@@ -292,7 +304,7 @@
             
             for (int i = 0; i < 2; i++) {
                 if (_data[i]) {
-                    if (memcmp(_data, address, _dataSize[i])) {
+                    if (memcmp(_data[i], address, _dataSize[i]) == 0) {
                         if (matchedType)
                             *matchedType = i == 0 ? VariableTypeASCII : VariableTypeUnicode;
                         return YES;

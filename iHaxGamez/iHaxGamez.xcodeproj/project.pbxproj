@@ -12,6 +12,8 @@
 		063282361499C2FC00ACD725 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 063282351499C2FC00ACD725 /* ConfigManager.m */; };
 		0632823D1499E08600ACD725 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632823C1499E08600ACD725 /* Carbon.framework */; };
 		063919D4149D9D2C005E255E /* VariableValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 063919D3149D9D2C005E255E /* VariableValue.m */; };
+		066CA725149F3B1600361693 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 066CA723149F3B1600361693 /* SearchResultViewController.m */; };
+		066CA726149F3B1600361693 /* SearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 066CA724149F3B1600361693 /* SearchResultViewController.xib */; };
 		066ED944149DD9B30092484B /* VirtualMemoryAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 066ED943149DD9B30092484B /* VirtualMemoryAddress.m */; };
 		06C9B193149C0D3B0076AE15 /* FortunateSon.defs in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B18F149C0D3B0076AE15 /* FortunateSon.defs */; settings = {ATTRIBUTES = (Server, ); }; };
 		06C9B194149C0D3B0076AE15 /* FortunateSonServerImpl.c in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B191149C0D3B0076AE15 /* FortunateSonServerImpl.c */; };
@@ -20,6 +22,8 @@
 		06C9B19C149C312F0076AE15 /* PrivilegedHelperConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B19B149C312F0076AE15 /* PrivilegedHelperConnection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		06C9B19E149C32EC0076AE15 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06C9B19D149C32EC0076AE15 /* ServiceManagement.framework */; };
 		06C9B1A0149C34FB0076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper in CopyFiles */ = {isa = PBXBuildFile; fileRef = 06C9B17F149C0C710076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper */; };
+		06D64AC814A0839F00FA5716 /* PSMTabBarControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06D64AAB14A0837100FA5716 /* PSMTabBarControl.framework */; };
+		06D64ACF14A0874200FA5716 /* SearchWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D64ACE14A0874200FA5716 /* SearchWindowController.m */; };
 		06FA416D1499F06F0099D483 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06FA416C1499F06F0099D483 /* MainWindowController.xib */; };
 		06FA41A8149B2EF80099D483 /* MLogger.c in Sources */ = {isa = PBXBuildFile; fileRef = 06FA41A7149B2EF80099D483 /* MLogger.c */; };
 		06FF499C1498A85C005753CE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06FF499B1498A85C005753CE /* AudioToolbox.framework */; };
@@ -29,12 +33,9 @@
 		5B8F6F30113CA5CF0097B6AE /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F29113CA5CF0097B6AE /* MainWindowController.m */; };
 		5B8F6F31113CA5CF0097B6AE /* MemoryAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F2B113CA5CF0097B6AE /* MemoryAccess.m */; };
 		5B8F6F32113CA5CF0097B6AE /* MyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F2D113CA5CF0097B6AE /* MyTableView.m */; };
-		5B8F6F33113CA5CF0097B6AE /* SearchWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F2F113CA5CF0097B6AE /* SearchWindowController.m */; };
 		5B8F6F35113CA61F0097B6AE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8F6F34113CA61F0097B6AE /* Security.framework */; };
 		5B8F6F37113CA61F0097B6AE /* SecurityFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8F6F36113CA61F0097B6AE /* SecurityFoundation.framework */; };
 		5B8F6F90113CAA190097B6AE /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F24113CA4490097B6AE /* AppController.m */; };
-		5B8F6F91113CAA1A0097B6AE /* AppAddressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F22113CA4490097B6AE /* AppAddressDataSource.m */; };
-		5B8F6F92113CAA1B0097B6AE /* AppAddressData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F6F20113CA4490097B6AE /* AppAddressData.m */; };
 		5B8F6FA4113CAAFF0097B6AE /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5B8F6FA3113CAAFF0097B6AE /* License.txt */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -84,6 +85,34 @@
 			remoteGlobalIDString = 06C9B17E149C0C710076AE15;
 			remoteInfo = FortunateSon;
 		};
+		06D64AA814A0837100FA5716 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 06D64AA214A0837100FA5716 /* PSMTabBarControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A251BEA00959BB5B0058BC7F;
+			remoteInfo = TabBarControlDemo;
+		};
+		06D64AAA14A0837100FA5716 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 06D64AA214A0837100FA5716 /* PSMTabBarControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53DF68FD067E5B5A0090B5B0;
+			remoteInfo = PSMTabBarControlFramework;
+		};
+		06D64AC914A083C700FA5716 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D01E7BB70CDC530C00943F9E;
+			remoteInfo = HexFiend_Framework;
+		};
+		06D64ACB14A083CA00FA5716 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 06D64AA214A0837100FA5716 /* PSMTabBarControl.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 53DF68FC067E5B5A0090B5B0;
+			remoteInfo = PSMTabBarControlFramework;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -117,6 +146,9 @@
 		0632823C1499E08600ACD725 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		063919D2149D9D2C005E255E /* VariableValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariableValue.h; sourceTree = "<group>"; };
 		063919D3149D9D2C005E255E /* VariableValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VariableValue.m; sourceTree = "<group>"; };
+		066CA722149F3B1600361693 /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
+		066CA723149F3B1600361693 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
+		066CA724149F3B1600361693 /* SearchResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultViewController.xib; sourceTree = "<group>"; };
 		066ED942149DD9B30092484B /* VirtualMemoryAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualMemoryAddress.h; sourceTree = "<group>"; };
 		066ED943149DD9B30092484B /* VirtualMemoryAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VirtualMemoryAddress.m; sourceTree = "<group>"; };
 		06C9B17F149C0C710076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.github.xlc.iHaxGamez.PrivilegedHelper; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +161,9 @@
 		06C9B19A149C312F0076AE15 /* PrivilegedHelperConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivilegedHelperConnection.h; sourceTree = "<group>"; };
 		06C9B19B149C312F0076AE15 /* PrivilegedHelperConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivilegedHelperConnection.m; sourceTree = "<group>"; };
 		06C9B19D149C32EC0076AE15 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		06D64AA214A0837100FA5716 /* PSMTabBarControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PSMTabBarControl.xcodeproj; path = ../lib/PSMTabBarControl/PSMTabBarControl.xcodeproj; sourceTree = "<group>"; };
+		06D64ACD14A0874200FA5716 /* SearchWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWindowController.h; sourceTree = "<group>"; };
+		06D64ACE14A0874200FA5716 /* SearchWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWindowController.m; sourceTree = "<group>"; };
 		06F2D7C5149C92EC00FDF516 /* FortunateSonIPCTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FortunateSonIPCTypes.h; sourceTree = "<group>"; };
 		06FA416C1499F06F0099D483 /* MainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindowController.xib; sourceTree = "<group>"; };
 		06FA4170149B17900099D483 /* MLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLogger.h; sourceTree = "<group>"; };
@@ -144,10 +179,6 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		5B26614511980D26000AA8BB /* iHaxGamez.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iHaxGamez.icns; sourceTree = "<group>"; };
-		5B8F6F1F113CA4490097B6AE /* AppAddressData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppAddressData.h; sourceTree = "<group>"; };
-		5B8F6F20113CA4490097B6AE /* AppAddressData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppAddressData.m; sourceTree = "<group>"; };
-		5B8F6F21113CA4490097B6AE /* AppAddressDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppAddressDataSource.h; sourceTree = "<group>"; };
-		5B8F6F22113CA4490097B6AE /* AppAddressDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppAddressDataSource.m; sourceTree = "<group>"; };
 		5B8F6F23113CA4490097B6AE /* AppController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5B8F6F24113CA4490097B6AE /* AppController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
 		5B8F6F26113CA4D80097B6AE /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SearchWindow.xib; sourceTree = "<group>"; };
@@ -157,8 +188,6 @@
 		5B8F6F2B113CA5CF0097B6AE /* MemoryAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryAccess.m; sourceTree = "<group>"; };
 		5B8F6F2C113CA5CF0097B6AE /* MyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableView.h; sourceTree = "<group>"; };
 		5B8F6F2D113CA5CF0097B6AE /* MyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableView.m; sourceTree = "<group>"; };
-		5B8F6F2E113CA5CF0097B6AE /* SearchWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWindowController.h; sourceTree = "<group>"; };
-		5B8F6F2F113CA5CF0097B6AE /* SearchWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWindowController.m; sourceTree = "<group>"; };
 		5B8F6F34113CA61F0097B6AE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5B8F6F36113CA61F0097B6AE /* SecurityFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityFoundation.framework; path = System/Library/Frameworks/SecurityFoundation.framework; sourceTree = SDKROOT; };
 		5B8F6FA3113CAAFF0097B6AE /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
@@ -178,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06D64AC814A0839F00FA5716 /* PSMTabBarControl.framework in Frameworks */,
 				06C9B19E149C32EC0076AE15 /* ServiceManagement.framework in Frameworks */,
 				0632823D1499E08600ACD725 /* Carbon.framework in Frameworks */,
 				06FF499C1498A85C005753CE /* AudioToolbox.framework in Frameworks */,
@@ -238,6 +268,15 @@
 			name = PrivilegedHelperConnection;
 			sourceTree = "<group>";
 		};
+		06D64AA314A0837100FA5716 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				06D64AA914A0837100FA5716 /* TabBarControlDemo.app */,
+				06D64AAB14A0837100FA5716 /* PSMTabBarControl.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		06FA416B1499F0590099D483 /* MainWindowController */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,15 +290,14 @@
 		06FA41A9149B43D40099D483 /* SearchWindowController */ = {
 			isa = PBXGroup;
 			children = (
-				5B8F6F2E113CA5CF0097B6AE /* SearchWindowController.h */,
-				5B8F6F2F113CA5CF0097B6AE /* SearchWindowController.m */,
+				06D64ACD14A0874200FA5716 /* SearchWindowController.h */,
+				06D64ACE14A0874200FA5716 /* SearchWindowController.m */,
 				5B8F6F25113CA4D80097B6AE /* SearchWindow.xib */,
 				5B8F6F2C113CA5CF0097B6AE /* MyTableView.h */,
 				5B8F6F2D113CA5CF0097B6AE /* MyTableView.m */,
-				5B8F6F1F113CA4490097B6AE /* AppAddressData.h */,
-				5B8F6F20113CA4490097B6AE /* AppAddressData.m */,
-				5B8F6F21113CA4490097B6AE /* AppAddressDataSource.h */,
-				5B8F6F22113CA4490097B6AE /* AppAddressDataSource.m */,
+				066CA722149F3B1600361693 /* SearchResultViewController.h */,
+				066CA723149F3B1600361693 /* SearchResultViewController.m */,
+				066CA724149F3B1600361693 /* SearchResultViewController.xib */,
 			);
 			name = SearchWindowController;
 			sourceTree = "<group>";
@@ -362,6 +400,7 @@
 		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				06D64AA214A0837100FA5716 /* PSMTabBarControl.xcodeproj */,
 				06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */,
 				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
@@ -401,6 +440,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				06D64ACC14A083CA00FA5716 /* PBXTargetDependency */,
+				06D64ACA14A083C700FA5716 /* PBXTargetDependency */,
 				06C9B1A2149C35030076AE15 /* PBXTargetDependency */,
 			);
 			name = iHaxGamez;
@@ -434,6 +475,10 @@
 				{
 					ProductGroup = 069094D4149C99E2009B1C58 /* Products */;
 					ProjectRef = 06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */;
+				},
+				{
+					ProductGroup = 06D64AA314A0837100FA5716 /* Products */;
+					ProjectRef = 06D64AA214A0837100FA5716 /* PSMTabBarControl.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -480,6 +525,20 @@
 			remoteRef = 069094E4149C99E2009B1C58 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		06D64AA914A0837100FA5716 /* TabBarControlDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = TabBarControlDemo.app;
+			remoteRef = 06D64AA814A0837100FA5716 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		06D64AAB14A0837100FA5716 /* PSMTabBarControl.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PSMTabBarControl.framework;
+			remoteRef = 06D64AAA14A0837100FA5716 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -494,6 +553,7 @@
 				5B26614611980D26000AA8BB /* iHaxGamez.icns in Resources */,
 				0601FF971499BC950049A768 /* PreferencesWindow.xib in Resources */,
 				06FA416D1499F06F0099D483 /* MainWindowController.xib in Resources */,
+				066CA726149F3B1600361693 /* SearchResultViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,10 +578,7 @@
 				5B8F6F30113CA5CF0097B6AE /* MainWindowController.m in Sources */,
 				5B8F6F31113CA5CF0097B6AE /* MemoryAccess.m in Sources */,
 				5B8F6F32113CA5CF0097B6AE /* MyTableView.m in Sources */,
-				5B8F6F33113CA5CF0097B6AE /* SearchWindowController.m in Sources */,
 				5B8F6F90113CAA190097B6AE /* AppController.m in Sources */,
-				5B8F6F91113CAA1A0097B6AE /* AppAddressDataSource.m in Sources */,
-				5B8F6F92113CAA1B0097B6AE /* AppAddressData.m in Sources */,
 				0601FF9B1499BCB70049A768 /* PreferencesWindowController.m in Sources */,
 				063282361499C2FC00ACD725 /* ConfigManager.m in Sources */,
 				06FA41A8149B2EF80099D483 /* MLogger.c in Sources */,
@@ -529,6 +586,8 @@
 				06C9B19C149C312F0076AE15 /* PrivilegedHelperConnection.m in Sources */,
 				063919D4149D9D2C005E255E /* VariableValue.m in Sources */,
 				066ED944149DD9B30092484B /* VirtualMemoryAddress.m in Sources */,
+				066CA725149F3B1600361693 /* SearchResultViewController.m in Sources */,
+				06D64ACF14A0874200FA5716 /* SearchWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +598,16 @@
 			isa = PBXTargetDependency;
 			target = 06C9B17E149C0C710076AE15 /* FortunateSon */;
 			targetProxy = 06C9B1A1149C35030076AE15 /* PBXContainerItemProxy */;
+		};
+		06D64ACA14A083C700FA5716 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HexFiend_Framework;
+			targetProxy = 06D64AC914A083C700FA5716 /* PBXContainerItemProxy */;
+		};
+		06D64ACC14A083CA00FA5716 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PSMTabBarControlFramework;
+			targetProxy = 06D64ACB14A083CA00FA5716 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -663,7 +732,7 @@
 				PRODUCT_NAME = iHaxGamez;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFiend/framework/sources";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/PSMTabBarControl/source $(SRCROOT)/../lib/HexFiend/framework/sources";
 			};
 			name = Debug;
 		};
@@ -685,7 +754,7 @@
 				PRODUCT_NAME = iHaxGamez;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/HexFiend/framework/sources";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../lib/PSMTabBarControl/source $(SRCROOT)/../lib/HexFiend/framework/sources";
 			};
 			name = Release;
 		};

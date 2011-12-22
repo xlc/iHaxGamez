@@ -50,22 +50,6 @@ static MainWindowController *sharedController;
     return self;
 }
 
-- (void)windowDidBecomeKey:(NSNotification *)aNotification
-{
-        // List is already activated by awakeFromNib when this fires for the first time, so save a few milliseconds.
-        // The reason for letting awakeFromNib handle this first is to keep popup list from flashing original value
-        // when the window appears.
-    static bool firstTime = true;
-    if (firstTime)
-    {
-        firstTime = false;
-    }
-    else
-    {
-        [self resetProcessList];
-    }
-}
-
 - (void)awakeFromNib
 {
     [self resetProcessList];
@@ -88,7 +72,7 @@ static MainWindowController *sharedController;
 }
 
 - (void)openSearchWindowWithTitle:(NSString *)title pid:(pid_t)pid {
-    SearchWindowController *searchWindowController = [[SearchWindowController alloc] initWithAppName:title PID:pid];
+    SearchWindowController *searchWindowController = [[SearchWindowController alloc] initWithTitle:title pid:pid];
     searchWindowController.window.delegate = self;
     [searchWindowController showWindow:nil];
     [_searchWindowControllers setObject:searchWindowController forKey:[NSNumber numberWithInt:pid]];
@@ -160,15 +144,40 @@ static MainWindowController *sharedController;
 #pragma mark - NSWindowDelegate
 
 - (void)windowWillClose:(NSNotification *)notification {
-    SearchWindowController *controller = [(NSWindow *)[notification object] windowController];
-    
-    [_searchWindowControllers removeObjectForKey:[NSNumber numberWithInt:controller.appPID]];
-    
-    [self updateSearchWindowCount];
+    NSWindow *window = [notification object];
+    if (window != self.window) {
+        SearchWindowController *controller = [(NSWindow *)[notification object] windowController];
+        
+        [_searchWindowControllers removeObjectForKey:[NSNumber numberWithInt:controller.pid]];
+        
+        [self updateSearchWindowCount];
+    }
 }
 
 - (BOOL)windowShouldClose:(id)sender {
     return YES; // TODO ask user to conform close window or just hide it
+}
+
+- (void)windowDidBecomeKey:(NSNotification *)aNotification
+{
+        // List is already activated by awakeFromNib when this fires for the first time, so save a few milliseconds.
+        // The reason for letting awakeFromNib handle this first is to keep popup list from flashing original value
+        // when the window appears.
+    NSWindow *window = [aNotification object];
+    if (window == self.window) {
+        static bool firstTime = true;
+        if (firstTime)
+        {
+            firstTime = false;
+        }
+        else
+        {
+            [self resetProcessList];
+        }
+    } else {
+        SearchWindowController *controller = window.windowController;
+        [controller._searchField becomeFirstResponder];
+    }
 }
 
 @end

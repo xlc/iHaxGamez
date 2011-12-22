@@ -30,6 +30,12 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {    
     [ConfigManager installHotKeys];
     [[MainWindowController sharedController] showWindow:nil];
+    
+//    char c = 'a';
+//    NSString *str = [[NSString alloc] initWithBytes:&c length:1 encoding:NSASCIIStringEncoding];
+//    NSLog(@"%d", [str canBeConvertedToEncoding:NSASCIIStringEncoding]);
+//    str = [[NSString alloc] initWithBytes:&c length:1 encoding:NSUTF8StringEncoding];
+//    NSLog(@"%d", [str canBeConvertedToEncoding:NSASCIIStringEncoding]);    
     MASSERT_SOFT([[PrivilegedHelperConnection sharedConnection] sayHello]);
 }
 

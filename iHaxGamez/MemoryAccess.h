@@ -1,52 +1,27 @@
-/*
- iHaxGamez - External process memory search-and-replace tool for MAC OS X
- Copyright (C) <2007>  <Raymond Wilfong and Glenn Hartmann>
- 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- 
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- 
- You may contact Raymond Wilfong by email at rwilfong@rewnet.com
- */
+//
+//  MemoryAccess.h
+//  iHaxGamez
+//
+//  Created by Xiliang Chen on 11-12-20.
+//  Copyright (c) 2011年 Xiliang Chen. All rights reserved.
+//
 
 #import <Foundation/Foundation.h>
 #import <AppKit/Appkit.h>
 
-typedef enum {
-    SearchOptionLimitSizeRange,
-    SearchOptionNormal,
-} SearchOption;
+enum {
+    SearchOptionNormal = 0,
+    SearchOptionLimitSizeRange = 1,
+    SearchOptionEightTimesMode = 1 << 1,
+};
 
 @class VariableValue;
 
 @interface MemoryAccess : NSObject
-{
-    pid_t AppPid;
-}
 
-- (id)initWithPID:(pid_t)PID;
-- (NSMutableArray *)getSearchArray:(Byte *)Value ByteSize:(int)Bytes SoughtValueString:(NSString *)ValueString PrgBar:(NSProgressIndicator *)pBar;
-- (NSMutableArray *)getFilteredArray:(Byte *)Value ByteSize:(size_t)Bytes SoughtValueString:(NSString *)ValueString Addresses:(NSMutableArray *)Addrs PrgBar:(NSProgressIndicator *)pBar;
++ (void)searchValue:(VariableValue *)value pid:(pid_t)pid option:(NSInteger)option callback:(void (^)(double percent, NSArray *result, BOOL done))callback;
++ (void)filterDatas:(NSArray *)datas withValue:(VariableValue *)value callback:(void (^)(double percent, NSArray *result, BOOL done))callback;
 
-// save record to application addresses
-- (BOOL)saveDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(int)Bytes;
-
-// load record from application addresses
-- (BOOL)loadDataForAddress:(vm_address_t)Address Buffer:(Byte *)DataBuffer BufLength:(vm_size_t)Bytes;
-
-- (void)searchValue:(VariableValue *)value option:(SearchOption)option callback:(void (^)(double percent, NSArray *result, BOOL done))callback;
-- (void)filterDatas:(NSArray *)datas withValue:(VariableValue *)value callback:(void (^)(double percent, NSArray *result, BOOL done))callback;
-
-- (BOOL)checkProcessAlive;
++ (BOOL)checkProcessAlive:(pid_t)pid;
 
 @end
