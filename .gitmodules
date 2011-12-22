@@ -1,3 +1,6 @@
 [submodule "lib/HexFiend"]
 	path = lib/HexFiend
 	url = git://github.com/ridiculousfish/HexFiend.git
+[submodule "lib/PSMTabBarControl"]
+	path = lib/PSMTabBarControl
+	url = git@github.com:xlc/PSMTabBarControl.git
