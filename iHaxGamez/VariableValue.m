@@ -133,7 +133,7 @@
             _dataSize[1] = _maxSize;
             size_t size = _maxSize + sizeof(unichar);
             _data[1] = malloc(size);
-            MASSERT_SOFT([_stringValue getCString:_data[1] maxLength:size encoding:NSUTF8StringEncoding]);
+            MASSERT_SOFT([_stringValue getCString:_data[1] maxLength:size encoding:NSUnicodeStringEncoding]);
         }
         
     }
@@ -218,7 +218,7 @@
             break;
         case VariableTypeUnicode:
             text = YES;
-            string = [[NSString alloc] initWithBytes:data length:size encoding:NSUTF8StringEncoding];
+            string = [[NSString alloc] initWithBytes:data length:size encoding:NSUnicodeStringEncoding];
             break;
     }
         // TODO a better way?

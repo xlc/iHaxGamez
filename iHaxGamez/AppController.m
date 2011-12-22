@@ -34,7 +34,7 @@
 //    char c = 'a';
 //    NSString *str = [[NSString alloc] initWithBytes:&c length:1 encoding:NSASCIIStringEncoding];
 //    NSLog(@"%d", [str canBeConvertedToEncoding:NSASCIIStringEncoding]);
-//    str = [[NSString alloc] initWithBytes:&c length:1 encoding:NSUTF8StringEncoding];
+//    str = [[NSString alloc] initWithBytes:&c length:1 encoding:NSUnicodeStringEncoding];
 //    NSLog(@"%d", [str canBeConvertedToEncoding:NSASCIIStringEncoding]);    
     MASSERT_SOFT([[PrivilegedHelperConnection sharedConnection] sayHello]);
 }

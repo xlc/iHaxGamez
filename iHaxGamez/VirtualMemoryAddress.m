@@ -111,10 +111,7 @@
     mach_msg_type_number_t returnedSize;
     MASSERT_KERN(helper_vm_read(_pid, _address, maxLength, (void **)&data, &returnedSize));
     data[returnedSize-1] = '\0';    // so it is a null terminated c string
-    @try {
-        value = [[NSString alloc] initWithCString:data encoding:NSASCIIStringEncoding];
-    }
-    @catch (NSException *exception) { MILOG(@"ignored exception %@", exception); }
+    value = [[NSString alloc] initWithCString:data encoding:NSASCIIStringEncoding];
     helper_vm_free(data, returnedSize);
     return value;
 }
@@ -128,10 +125,7 @@
     mach_msg_type_number_t returnedSize;
     MASSERT_KERN(helper_vm_read(_pid, _address, maxLength, (void **)&data, &returnedSize));
     data[returnedSize-1] = '\0';    // so it is a null terminated c string
-    @try {
-        value = [[NSString alloc] initWithCString:data encoding:NSUTF8StringEncoding];
-    }
-    @catch (NSException *exception) { MILOG(@"ignored exception %@", exception); }
+    value = [[NSString alloc] initWithCString:data encoding:NSUnicodeStringEncoding];
     helper_vm_free(data, returnedSize);
     return value;
 }
