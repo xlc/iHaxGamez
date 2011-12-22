@@ -82,6 +82,6 @@ MWLOG(@"fail soft assertion: '%s'", #e); \
 #define MASSERT_KERN(e) do { \
 kern_return_t __kr = (e);\
 if (__kr != KERN_SUCCESS) { \
-MWLOG(@"kernal function: '%s' returned with error: %s", #e, mach_error_string(__kr)); \
+MFAIL(@"kernal function: '%s' returned with error: %s", #e, mach_error_string(__kr)); \
 } \
 } while (0)

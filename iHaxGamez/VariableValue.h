@@ -25,6 +25,7 @@ typedef enum {
     NSString *_stringValue;
     void *_data[4];
     size_t _dataSize[2];
+    BOOL _eightTimes;
 }
 
 @property (nonatomic, readonly) VariableType type;
@@ -32,12 +33,15 @@ typedef enum {
 @property (nonatomic, readonly) size_t maxSize;
 @property (nonatomic, strong, readonly) NSString *stringValue;
 @property (nonatomic, readonly) void *data;
+@property (nonatomic, readonly) BOOL eightTimes;
 
 - (id)initWithStringValue:(NSString *)str isTextType:(BOOL)textType;
 - (id)initWithValue:(VariableValue *)value type:(VariableType)type;
 - (id)initWithData:(void *)data size:(size_t)size type:(VariableType)type;
 
 - (BOOL)compareAtAddress:(void *)address minSize:(size_t)minSize maxSize:(size_t)maxSize matchedType:(VariableType *)matchedType;
+
+- (VariableValue *)eightTimesValue;
 
 @end
 

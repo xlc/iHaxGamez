@@ -33,6 +33,9 @@
     } else {
         minSize = sizeof(int8_t);
     }
+    if (option & SearchOptionEightTimesMode) {
+        value = [value eightTimesValue];
+    }
     while (helper_vm_region(pid, &address, &size) == KERN_SUCCESS) {
         totalCount++;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -88,28 +91,31 @@
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:[datas count] / 100 + 10];
     __block dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
     __block NSUInteger count = 0;
-    NSUInteger totalCount = [result count];
+    NSUInteger totalCount = [result count] - 1;
     dispatch_apply([datas count], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
         VirtualMemoryAddress *vmAddr = [datas objectAtIndex:i];
         [vmAddr reflashValue];
         VariableType matchedType;
+        BOOL found = NO;
         if ([value compareAtAddress:vmAddr.value.data minSize:vmAddr.value.size maxSize:vmAddr.value.maxSize matchedType:&matchedType]) {
             if (matchedType != vmAddr.value.type)   // update type if need
                 vmAddr.value = [[VariableValue alloc] initWithValue:vmAddr.value type:matchedType];
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            found = YES;
+        }
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        if (found)
             [result addObject:vmAddr];
-            count++;
-            dispatch_semaphore_signal(semaphore);
-            BOOL done = count == totalCount;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                callback((double)count/(double)totalCount, result, done);
-            });
-            if (done) {
-                @synchronized(result) {
-                    if (semaphore) {
-                        dispatch_release(semaphore);
-                        semaphore = NULL;
-                    }
+        count++;
+        dispatch_semaphore_signal(semaphore);
+        BOOL done = count == totalCount;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callback((double)count/(double)totalCount, result, done);
+        });
+        if (done) {
+            @synchronized(result) {
+                if (semaphore) {
+                    dispatch_release(semaphore);
+                    semaphore = NULL;
                 }
             }
         }

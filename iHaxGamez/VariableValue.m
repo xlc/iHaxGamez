@@ -10,7 +10,7 @@
 
 @implementation VariableValue
 
-@synthesize type = _type, size = _size, maxSize = _maxSize, stringValue = __stringValue;
+@synthesize type = _type, size = _size, maxSize = _maxSize, stringValue = _stringValue, eightTimes = _eightTimes;
 
 - (id)initWithStringValue:(NSString *)str isTextType:(BOOL)textType {
     self = [super init];
@@ -20,7 +20,9 @@
         _data[0] = NULL;
         _data[1] = NULL;
         
-        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        static NSNumberFormatter *formatter = nil;
+        if (!formatter)
+            formatter = [[NSNumberFormatter alloc] init];
         if (!textType && [formatter numberFromString:_stringValue]) {
             NSRange range = [_stringValue rangeOfString:@"."];
             if (range.location == NSNotFound) {
@@ -135,7 +137,10 @@
             _data[1] = malloc(size);
             MASSERT_SOFT([_stringValue getCString:_data[1] maxLength:size encoding:NSUnicodeStringEncoding]);
         }
-        
+        if (VariableTypeIsNumeric(_type)) {
+            MASSERT(_data[2] != NULL, @"float value not initilized");
+            MASSERT(_data[3] != NULL, @"double value not initilized");
+        }
     }
     return self;
 }
@@ -143,6 +148,7 @@
 - (id)initWithValue:(VariableValue *)value type:(VariableType)type {
     self = [super init];
     if (self) {
+        _eightTimes = value->_eightTimes;
         _type = type;
         if (value.type != type) {
             switch (type) {
@@ -164,7 +170,8 @@
             _size = value.size;
         }
         _maxSize = value.maxSize;
-        if (value.type == VariableTypeFloat && type != VariableTypeFloat) {
+        if ((value.type == VariableTypeFloat || value.type == VariableTypeDouble) &&
+            (type == VariableTypeInteger || type == VariableTypeUnsignedInteger)) {
                 // convert float string to int string
             _stringValue = [NSString stringWithFormat:@"%lld", [value.stringValue longLongValue]];
         } else {
@@ -185,8 +192,9 @@
             _data[3] = malloc(sizeof(double));
             *(double *)_data[3] = *(double *)value->_data[3];
         }
-        if (type == VariableTypeASCII) {
-            MASSERT(_data[0], @"ascii value have no data");
+        if (VariableTypeIsNumeric(_type)) {
+            MASSERT(_data[2] != NULL, @"float value not initilized");
+            MASSERT(_data[3] != NULL, @"double value not initilized");
         }
     }
     return self;
@@ -203,7 +211,7 @@
             // assume little endian
             // so don't have to deal with different size of int
             memcpy(&llValue, data, size);
-            string = [NSString stringWithFormat:@"%ull", llValue];
+            string = [NSString stringWithFormat:@"%llu", llValue];
         }
             break;
         case VariableTypeFloat:
@@ -228,6 +236,41 @@
             type = value.type;
     }
     return [self initWithValue:value type:type];
+}
+
+- (VariableValue *)eightTimesValue {
+    VariableValue *value;
+    switch (_type) {
+        case VariableTypeUnsignedInteger:
+        case VariableTypeInteger:
+        {
+            long long llValue = 0;
+            memcpy(&llValue, _data[1], _dataSize[1]);
+            llValue *= 8;
+            value = [[VariableValue alloc] initWithData:&llValue size:sizeof(llValue) type:_type];
+            break;
+        }
+        case VariableTypeFloat:
+        {
+            float fValue = *(float *)_data[2];
+            fValue *= 8;
+            value = [[VariableValue alloc] initWithData:&fValue size:sizeof(fValue) type:_type];
+            break;
+        }
+        case VariableTypeDouble:
+        {
+            float dValue = *(double *)_data[3];
+            dValue *= 8;
+            value = [[VariableValue alloc] initWithData:&dValue size:sizeof(dValue) type:_type];
+            break;
+        }
+        case VariableTypeASCII:
+        case VariableTypeUnicode:
+            return self;
+    }
+    value->_eightTimes = YES;
+    value->_stringValue = _stringValue;
+    return value;
 }
 
 - (void)dealloc {
@@ -283,7 +326,10 @@
                 // continue to float checking
             
         case VariableTypeFloat:
-            if (fabsf(*(float *)address - *(float *)_data[2]) < 0.001) {
+            if (maxSize < sizeof(float))
+                return NO;
+            float fValue = *(float *)address;
+            if (!isnan(fValue) && fabsf(fValue - *(float *)_data[2]) < 0.001) {
                 if (matchedType)
                     *matchedType = VariableTypeFloat;
                 return YES;
@@ -292,7 +338,10 @@
                 // continue to double checking
             
         case VariableTypeDouble:
-            if (fabs(*(double *)address - *(double *)_data[3]) < 0.001) {
+            if (maxSize < sizeof(double))
+                return NO;
+            double dValue = *(double *)address;
+            if (!isnan(dValue) && fabs(dValue - *(double *)_data[3]) < 0.001) {
                 if (matchedType)
                     *matchedType = VariableTypeDouble;
                 return YES;

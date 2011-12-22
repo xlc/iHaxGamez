@@ -9,6 +9,7 @@
 #import "SearchWindowController.h"
 
 #import "SearchResultViewController.h"
+#import "MemoryAccess.h"
 #import "PSMTabBarControl.h"
 #import "PSMRolloverButton.h"
 
@@ -82,6 +83,11 @@
     NSString *value = [_searchField stringValue];
     if ([value length] == 0)
         return;
+    if (_timesEightModeButton.state == NSOnState) {
+        _currentController.option |= SearchOptionEightTimesMode;
+    } else {
+        _currentController.option &= ~SearchOptionEightTimesMode;
+    }
     [_currentController searchValue:value];
 }
 

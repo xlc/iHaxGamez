@@ -52,6 +52,8 @@
     MASSERT_KERN(helper_vm_read(_pid, _address, size, &data, &returnedSize));
     memcpy(&value, data, MIN(returnedSize, size));   // assume little endian
     helper_vm_free(data, returnedSize);
+    if (_value.eightTimes)
+        value /= 8;
     return value;
 }
 
@@ -71,6 +73,8 @@
     MASSERT_KERN(helper_vm_read(_pid, _address, size, &data, &returnedSize));
     memcpy(&value, data, returnedSize);   // assume little endian
     helper_vm_free(data, returnedSize);
+    if (_value.eightTimes)
+        value /= 8;
     return value;
 }
 
@@ -85,6 +89,8 @@
     MASSERT_KERN(helper_vm_read(_pid, _address, size, &data, &returnedSize));
     memcpy(&value, data, returnedSize);
     helper_vm_free(data, returnedSize);
+    if (_value.eightTimes)
+        value /= 8;
     return value;
 }
 
@@ -99,6 +105,8 @@
     MASSERT_KERN(helper_vm_read(_pid, _address, size, &data, &returnedSize));
     memcpy(&value, data, returnedSize);
     helper_vm_free(data, returnedSize);
+    if (_value.eightTimes)
+        value /= 8;
     return value;
 }
 
@@ -163,7 +171,11 @@
                 break;
         }
     }
+    BOOL eightTimes = _value.eightTimes;
     _value = [[VariableValue alloc] initWithValue:newValue type:newType];
+    if (eightTimes) {
+        _value = [_value eightTimesValue];
+    }
     MASSERT_KERN(helper_vm_write(_pid, _address, _value.data, (mach_msg_type_number_t)_value.size));
     return YES;
 }

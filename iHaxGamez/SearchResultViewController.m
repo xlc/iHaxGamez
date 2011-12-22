@@ -25,7 +25,7 @@
     if (self) {
         _pid = pid;
         _processing = NO;
-        _option = SearchOptionNormal;
+        _option = SearchOptionLimitSizeRange;
         _textType = NO;
         _searchCount = 0;
     }
@@ -83,6 +83,11 @@
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    ProcessSerialNumber psn;
+    if (GetProcessForPID(_pid, &psn) != 0) {
+        MILOG(@"cannot access process for pid %d", _pid);
+        return nil; // TODO 
+    }
     VirtualMemoryAddress *address = [_results objectAtIndex:row];
     if ([tableColumn.identifier isEqualToString:@"Address"]) {
         return [NSString stringWithFormat:@"0x%qX", address.address];
