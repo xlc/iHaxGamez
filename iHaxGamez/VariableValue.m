@@ -215,10 +215,20 @@
         }
             break;
         case VariableTypeFloat:
-            string = [NSString stringWithFormat:@"%f", *(float *)data];
+        {
+            float fValue = *(float *)data;
+            if (isnan(fValue))
+                return nil;
+            string = [NSString stringWithFormat:@"%f", fValue];
+        }
             break;
         case VariableTypeDouble:
+        {
+            double dValue = *(double *)data;
+            if (isnan(dValue))
+                return nil;
             string = [NSString stringWithFormat:@"%lf", *(double *)data];
+        }
             break;
         case VariableTypeASCII:
             text = YES;

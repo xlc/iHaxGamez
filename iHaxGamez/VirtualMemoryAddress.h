@@ -37,7 +37,7 @@
              size:(mach_vm_size_t)size
             value:(VariableValue *)value;
 
-- (void)reflashValue;
+- (BOOL)reflashValue;
 - (BOOL)updateValue:(VariableValue *)newValue;
 
 @end

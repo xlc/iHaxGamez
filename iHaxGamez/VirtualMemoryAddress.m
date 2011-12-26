@@ -140,13 +140,17 @@
 
 #pragma mark -
 
-- (void)reflashValue {
+- (BOOL)reflashValue {
     void *data = NULL;
     mach_msg_type_number_t size;
-    MASSERT_KERN(helper_vm_read(_pid, _address, _value.size, &data, &size));
-    _value = [[VariableValue alloc] initWithData:data size:size type:_value.type];
-    if (data)
+    kern_return_t kr = helper_vm_read(_pid, _address, _value.size, &data, &size);
+    if (kr == KERN_SUCCESS) {
+        _value = [[VariableValue alloc] initWithData:data size:size type:_value.type];
         helper_vm_free(data, size);
+        return _value != nil;
+    }
+    MDLOG(@"relash filed with error: %s", mach_error_string(kr));
+    return NO;
 }
 
 - (BOOL)updateValue:(VariableValue *)newValue {

@@ -94,10 +94,9 @@
     NSUInteger totalCount = [result count] - 1;
     dispatch_apply([datas count], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
         VirtualMemoryAddress *vmAddr = [datas objectAtIndex:i];
-        [vmAddr reflashValue];
         VariableType matchedType;
         BOOL found = NO;
-        if ([value compareAtAddress:vmAddr.value.data minSize:vmAddr.value.size maxSize:vmAddr.value.maxSize matchedType:&matchedType]) {
+        if ([vmAddr reflashValue] && [value compareAtAddress:vmAddr.value.data minSize:vmAddr.value.size maxSize:vmAddr.value.maxSize matchedType:&matchedType]) {
             if (matchedType != vmAddr.value.type)   // update type if need
                 vmAddr.value = [[VariableValue alloc] initWithValue:vmAddr.value type:matchedType];
             found = YES;
