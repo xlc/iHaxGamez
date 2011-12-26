@@ -8,9 +8,11 @@
 
 #import "VirtualMemoryAddress.h"
 
+#import <mach/mach_error.h>
+
 #import "VariableValue.h"
 #import "PrivilegedHelperConnection.h"
-#import <mach/mach_error.h>
+#import "VirtualMemoryException.h"
 
 @implementation VirtualMemoryAddress
 
@@ -40,7 +42,9 @@
     size_t size = MIN(sizeof(value), _size - _offset);
     void *data;
     mach_msg_type_number_t returnedSize;
-    MASSERT_KERN(helper_vm_read(_pid, _address, size, &data, &returnedSize));
+    kern_return_t kr = helper_vm_read(_pid, _address, size, &data, &returnedSize);
+    if (kr != KERN_SUCCESS)
+        @throw [VirtualMemoryException exceptionWithPID:_pid address:_address kernReturn:kr];
     memcpy(&value, data, MIN(returnedSize, size));   // assume little endian
     helper_vm_free(data, returnedSize);
     if (_value.eightTimes)
@@ -53,7 +57,9 @@
     size_t size = MIN(sizeof(value), _size - _offset);
     void *data;
     mach_msg_type_number_t returnedSize;
-    MASSERT_KERN(helper_vm_read(_pid, _address, size, &data, &returnedSize));
+    kern_return_t kr = helper_vm_read(_pid, _address, size, &data, &returnedSize);
+    if (kr != KERN_SUCCESS)
+        @throw [VirtualMemoryException exceptionWithPID:_pid address:_address kernReturn:kr];
     memcpy(&value, data, returnedSize);   // assume little endian
     helper_vm_free(data, returnedSize);
     if (_value.eightTimes)
@@ -69,7 +75,9 @@
     }
     void *data;
     mach_msg_type_number_t returnedSize;
-    MASSERT_KERN(helper_vm_read(_pid, _address, size, &data, &returnedSize));
+    kern_return_t kr = helper_vm_read(_pid, _address, size, &data, &returnedSize);
+    if (kr != KERN_SUCCESS)
+        @throw [VirtualMemoryException exceptionWithPID:_pid address:_address kernReturn:kr];
     memcpy(&value, data, returnedSize);
     helper_vm_free(data, returnedSize);
     if (_value.eightTimes)
@@ -85,7 +93,9 @@
     }
     void *data;
     mach_msg_type_number_t returnedSize;
-    MASSERT_KERN(helper_vm_read(_pid, _address, size, &data, &returnedSize));
+    kern_return_t kr = helper_vm_read(_pid, _address, size, &data, &returnedSize);
+    if (kr != KERN_SUCCESS)
+        @throw [VirtualMemoryException exceptionWithPID:_pid address:_address kernReturn:kr];
     memcpy(&value, data, returnedSize);
     helper_vm_free(data, returnedSize);
     if (_value.eightTimes)
@@ -100,7 +110,9 @@
     NSString *value = @"";
     char *data;
     mach_msg_type_number_t returnedSize;
-    MASSERT_KERN(helper_vm_read(_pid, _address, maxLength, (void **)&data, &returnedSize));
+    kern_return_t kr = helper_vm_read(_pid, _address, maxLength, (void **)&data, &returnedSize);
+    if (kr != KERN_SUCCESS)
+        @throw [VirtualMemoryException exceptionWithPID:_pid address:_address kernReturn:kr];
     data[returnedSize-1] = '\0';    // so it is a null terminated c string
     value = [[NSString alloc] initWithCString:data encoding:NSASCIIStringEncoding];
     helper_vm_free(data, returnedSize);
@@ -114,7 +126,9 @@
     NSString *value = @"";
     char *data;
     mach_msg_type_number_t returnedSize;
-    MASSERT_KERN(helper_vm_read(_pid, _address, maxLength, (void **)&data, &returnedSize));
+    kern_return_t kr = helper_vm_read(_pid, _address, maxLength, (void **)&data, &returnedSize);
+    if (kr != KERN_SUCCESS)
+        @throw [VirtualMemoryException exceptionWithPID:_pid address:_address kernReturn:kr];
     data[returnedSize-1] = '\0';    // so it is a null terminated c string
     value = [[NSString alloc] initWithCString:data encoding:NSUnicodeStringEncoding];
     helper_vm_free(data, returnedSize);
@@ -133,7 +147,7 @@
         helper_vm_free(data, size);
         return _value != nil;
     }
-    MDLOG(@"relash filed with error: %s", mach_error_string(kr));
+    MDLOG(@"refresh filed with error: %s", mach_error_string(kr));
     return NO;
 }
 

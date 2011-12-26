@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0601FF971499BC950049A768 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0601FF961499BC950049A768 /* PreferencesWindow.xib */; };
 		0601FF9B1499BCB70049A768 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0601FF9A1499BCB70049A768 /* PreferencesWindowController.m */; };
+		062C33AB14A83159009B667C /* VirtualMemoryException.m in Sources */ = {isa = PBXBuildFile; fileRef = 062C33AA14A83159009B667C /* VirtualMemoryException.m */; };
 		063282361499C2FC00ACD725 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 063282351499C2FC00ACD725 /* ConfigManager.m */; };
 		0632823D1499E08600ACD725 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632823C1499E08600ACD725 /* Carbon.framework */; };
 		063919D4149D9D2C005E255E /* VariableValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 063919D3149D9D2C005E255E /* VariableValue.m */; };
@@ -147,6 +148,8 @@
 		0601FF961499BC950049A768 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 		0601FF991499BCB70049A768 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		0601FF9A1499BCB70049A768 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		062C33A914A83159009B667C /* VirtualMemoryException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualMemoryException.h; sourceTree = "<group>"; };
+		062C33AA14A83159009B667C /* VirtualMemoryException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VirtualMemoryException.m; sourceTree = "<group>"; };
 		063282341499C2FC00ACD725 /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
 		063282351499C2FC00ACD725 /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
 		0632823C1499E08600ACD725 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -358,6 +361,8 @@
 				063919D3149D9D2C005E255E /* VariableValue.m */,
 				066ED942149DD9B30092484B /* VirtualMemoryAddress.h */,
 				066ED943149DD9B30092484B /* VirtualMemoryAddress.m */,
+				062C33A914A83159009B667C /* VirtualMemoryException.h */,
+				062C33AA14A83159009B667C /* VirtualMemoryException.m */,
 			);
 			name = MemoryAccess;
 			sourceTree = "<group>";
@@ -676,6 +681,7 @@
 				066ED944149DD9B30092484B /* VirtualMemoryAddress.m in Sources */,
 				066CA725149F3B1600361693 /* SearchResultViewController.m in Sources */,
 				06D64ACF14A0874200FA5716 /* SearchWindowController.m in Sources */,
+				062C33AB14A83159009B667C /* VirtualMemoryException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@
 #import "MemoryAccess.h"
 #import "VirtualMemoryAddress.h"
 #import "VariableValue.h"
+#import "VirtualMemoryException.h"
 
 @implementation SearchResultViewController
 @synthesize _tableView;
@@ -83,27 +84,29 @@
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    ProcessSerialNumber psn;
-    if (GetProcessForPID(_pid, &psn) != 0) {
-        MILOG(@"cannot access process for pid %d", _pid);
-        return nil; // TODO 
+    @try {
+        VirtualMemoryAddress *address = [_results objectAtIndex:row];
+        if ([tableColumn.identifier isEqualToString:@"Address"]) {
+            return [NSString stringWithFormat:@"0x%qX", address.address];
+        } else if ([tableColumn.identifier isEqualToString:@"SignedInteger"]) {
+            return [NSString stringWithFormat:@"%lld", address.signedIntegerValue];
+        } else if ([tableColumn.identifier isEqualToString:@"UnsignedInteger"]) {
+            return [NSString stringWithFormat:@"%llu", address.unsignedIntegerValue];
+        } else if ([tableColumn.identifier isEqualToString:@"Float"]) {
+            return [NSString stringWithFormat:@"%f", address.floatValue];
+        } else if ([tableColumn.identifier isEqualToString:@"Double"]) {
+            return [NSString stringWithFormat:@"%lf", address.doubleValue];
+        } else if ([tableColumn.identifier isEqualToString:@"ASCIIText"]) {
+            return address.asciiValue;
+        } else if ([tableColumn.identifier isEqualToString:@"UnicodeText"]) {
+            return address.unicodeValue;
+        }
     }
-    VirtualMemoryAddress *address = [_results objectAtIndex:row];
-    if ([tableColumn.identifier isEqualToString:@"Address"]) {
-        return [NSString stringWithFormat:@"0x%qX", address.address];
-    } else if ([tableColumn.identifier isEqualToString:@"SignedInteger"]) {
-        return [NSString stringWithFormat:@"%lld", address.signedIntegerValue];
-    } else if ([tableColumn.identifier isEqualToString:@"UnsignedInteger"]) {
-        return [NSString stringWithFormat:@"%llu", address.unsignedIntegerValue];
-    } else if ([tableColumn.identifier isEqualToString:@"Float"]) {
-        return [NSString stringWithFormat:@"%f", address.floatValue];
-    } else if ([tableColumn.identifier isEqualToString:@"Double"]) {
-        return [NSString stringWithFormat:@"%lf", address.doubleValue];
-    } else if ([tableColumn.identifier isEqualToString:@"ASCIIText"]) {
-        return address.asciiValue;
-    } else if ([tableColumn.identifier isEqualToString:@"UnicodeText"]) {
-        return address.unicodeValue;
+    @catch (VirtualMemoryException *exception) {
+        MILOG(@"ignore exception: %@", exception);
+        return nil;
     }
+    
     return nil;
 }
 
