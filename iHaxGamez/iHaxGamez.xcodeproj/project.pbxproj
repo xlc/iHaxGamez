@@ -15,6 +15,12 @@
 		066CA725149F3B1600361693 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 066CA723149F3B1600361693 /* SearchResultViewController.m */; };
 		066CA726149F3B1600361693 /* SearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 066CA724149F3B1600361693 /* SearchResultViewController.xib */; };
 		066ED944149DD9B30092484B /* VirtualMemoryAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 066ED943149DD9B30092484B /* VirtualMemoryAddress.m */; };
+		0690288A14A6957800833B83 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0690288914A6957800833B83 /* Cocoa.framework */; };
+		0690289014A6957900833B83 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0690288E14A6957800833B83 /* InfoPlist.strings */; };
+		0690289214A6957900833B83 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0690289114A6957900833B83 /* main.m */; };
+		0690289614A6957900833B83 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0690289414A6957900833B83 /* Credits.rtf */; };
+		0690289914A6957900833B83 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0690289814A6957900833B83 /* AppDelegate.m */; };
+		0690289C14A6957900833B83 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0690289A14A6957900833B83 /* MainMenu.xib */; };
 		06C9B193149C0D3B0076AE15 /* FortunateSon.defs in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B18F149C0D3B0076AE15 /* FortunateSon.defs */; settings = {ATTRIBUTES = (Server, ); }; };
 		06C9B194149C0D3B0076AE15 /* FortunateSonServerImpl.c in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B191149C0D3B0076AE15 /* FortunateSonServerImpl.c */; };
 		06C9B195149C0D3B0076AE15 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B192149C0D3B0076AE15 /* main.cpp */; };
@@ -151,6 +157,16 @@
 		066CA724149F3B1600361693 /* SearchResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultViewController.xib; sourceTree = "<group>"; };
 		066ED942149DD9B30092484B /* VirtualMemoryAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualMemoryAddress.h; sourceTree = "<group>"; };
 		066ED943149DD9B30092484B /* VirtualMemoryAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VirtualMemoryAddress.m; sourceTree = "<group>"; };
+		0690288714A6957800833B83 /* TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0690288914A6957800833B83 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		0690288D14A6957800833B83 /* TestApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TestApp-Info.plist"; sourceTree = "<group>"; };
+		0690288F14A6957900833B83 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0690289114A6957900833B83 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0690289314A6957900833B83 /* TestApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestApp-Prefix.pch"; sourceTree = "<group>"; };
+		0690289514A6957900833B83 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		0690289714A6957900833B83 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0690289814A6957900833B83 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0690289B14A6957900833B83 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		06C9B17F149C0C710076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.github.xlc.iHaxGamez.PrivilegedHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		06C9B18D149C0D3B0076AE15 /* FortunateSon-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FortunateSon-Info.plist"; sourceTree = "<group>"; };
 		06C9B18E149C0D3B0076AE15 /* FortunateSon-Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FortunateSon-Launchd.plist"; sourceTree = "<group>"; };
@@ -196,6 +212,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0690288414A6957800833B83 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0690288A14A6957800833B83 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		06C9B17C149C0C710076AE15 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -230,6 +254,29 @@
 				063282351499C2FC00ACD725 /* ConfigManager.m */,
 			);
 			name = PerferencesWindowController;
+			sourceTree = "<group>";
+		};
+		0690288B14A6957800833B83 /* TestApp */ = {
+			isa = PBXGroup;
+			children = (
+				0690289714A6957900833B83 /* AppDelegate.h */,
+				0690289814A6957900833B83 /* AppDelegate.m */,
+				0690289A14A6957900833B83 /* MainMenu.xib */,
+				0690288C14A6957800833B83 /* Supporting Files */,
+			);
+			path = TestApp;
+			sourceTree = "<group>";
+		};
+		0690288C14A6957800833B83 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0690288D14A6957800833B83 /* TestApp-Info.plist */,
+				0690288E14A6957800833B83 /* InfoPlist.strings */,
+				0690289114A6957900833B83 /* main.m */,
+				0690289314A6957900833B83 /* TestApp-Prefix.pch */,
+				0690289414A6957900833B83 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		069094D4149C99E2009B1C58 /* Products */ = {
@@ -343,6 +390,7 @@
 			children = (
 				8D15AC370486D014006FF6A4 /* iHaxGamez.app */,
 				06C9B17F149C0C710076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper */,
+				0690288714A6957800833B83 /* TestApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -351,6 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
+				0690288B14A6957800833B83 /* TestApp */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
@@ -403,6 +452,7 @@
 				06D64AA214A0837100FA5716 /* PSMTabBarControl.xcodeproj */,
 				06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */,
 				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
+				0690288914A6957800833B83 /* Cocoa.framework */,
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -411,6 +461,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0690288614A6957800833B83 /* TestApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0690289D14A6957900833B83 /* Build configuration list for PBXNativeTarget "TestApp" */;
+			buildPhases = (
+				0690288314A6957800833B83 /* Sources */,
+				0690288414A6957800833B83 /* Frameworks */,
+				0690288514A6957800833B83 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestApp;
+			productName = TestApp;
+			productReference = 0690288714A6957800833B83 /* TestApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 		06C9B17E149C0C710076AE15 /* FortunateSon */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 06C9B186149C0C710076AE15 /* Build configuration list for PBXNativeTarget "FortunateSon" */;
@@ -468,6 +535,7 @@
 				Japanese,
 				French,
 				German,
+				en,
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* iHaxGamez */;
 			projectDirPath = "";
@@ -485,6 +553,7 @@
 			targets = (
 				8D15AC270486D014006FF6A4 /* iHaxGamez */,
 				06C9B17E149C0C710076AE15 /* FortunateSon */,
+				0690288614A6957800833B83 /* TestApp */,
 			);
 		};
 /* End PBXProject section */
@@ -542,6 +611,16 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0690288514A6957800833B83 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0690289014A6957900833B83 /* InfoPlist.strings in Resources */,
+				0690289614A6957900833B83 /* Credits.rtf in Resources */,
+				0690289C14A6957900833B83 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC2B0486D014006FF6A4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -560,6 +639,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0690288314A6957800833B83 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0690289214A6957900833B83 /* main.m in Sources */,
+				0690289914A6957900833B83 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		06C9B17B149C0C710076AE15 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -612,6 +700,30 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0690288E14A6957800833B83 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0690288F14A6957900833B83 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0690289414A6957900833B83 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0690289514A6957900833B83 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		0690289A14A6957900833B83 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0690289B14A6957900833B83 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -639,6 +751,53 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0690289E14A6957900833B83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestApp/TestApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				INFOPLIST_FILE = "TestApp/TestApp-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0690289F14A6957900833B83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestApp/TestApp-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				INFOPLIST_FILE = "TestApp/TestApp-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		06C9B187149C0C710076AE15 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -794,6 +953,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0690289D14A6957900833B83 /* Build configuration list for PBXNativeTarget "TestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0690289E14A6957900833B83 /* Debug */,
+				0690289F14A6957900833B83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		06C9B186149C0C710076AE15 /* Build configuration list for PBXNativeTarget "FortunateSon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
