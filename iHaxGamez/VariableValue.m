@@ -220,6 +220,7 @@
 - (VariableValue *)eightTimesValue {
     if (_eightTimes)
         return self;
+
     VariableValue *value;
     switch (_type) {
         case VariableTypeUnsignedInteger:
@@ -294,13 +295,15 @@
         case VariableTypeUnsignedInteger:
         case VariableTypeInteger:
             for (int i = 0; i < 2; i++) {
-                size_t compareSize = MAX(minSize, _dataSize[i]);
-                if (compareSize > maxSize)
-                    continue;
-                if (memcmp(_data[i], address, compareSize) == 0) {
-                    if (matchedType)
-                        *matchedType = i == 0 ? VariableTypeUnsignedInteger : VariableTypeInteger;
-                    return YES;
+                if (_data[i]){
+                    size_t compareSize = MAX(minSize, _dataSize[i]);
+                    if (compareSize > maxSize)
+                        continue;
+                    if (memcmp(_data[i], address, compareSize) == 0) {
+                        if (matchedType)
+                            *matchedType = i == 0 ? VariableTypeUnsignedInteger : VariableTypeInteger;
+                        return YES;
+                    }
                 }
             }
                 // continue to float checking

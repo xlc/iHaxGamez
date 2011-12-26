@@ -22,7 +22,7 @@
 }
 
 @property (nonatomic, readonly) mach_vm_address_t address;
-@property (nonatomic, readonly) VariableValue *value;
+@property (nonatomic, strong) VariableValue *value;
 @property (nonatomic, readonly) int64_t signedIntegerValue;
 @property (nonatomic, readonly) uint64_t unsignedIntegerValue;
 @property (nonatomic, readonly) double doubleValue;
