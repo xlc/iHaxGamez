@@ -10,12 +10,11 @@
 
 @implementation VariableValue
 
-@synthesize type = _type, size = _size, maxSize = _maxSize, stringValue = _stringValue, eightTimes = _eightTimes;
+@synthesize type = _type, size = _size, maxSize = _maxSize, eightTimes = _eightTimes;
 
-- (id)initWithStringValue:(NSString *)str isTextType:(BOOL)textType {
+- (id)initWithStringValue:(NSString *)stringValue isTextType:(BOOL)textType {
     self = [super init];
     if (self) {
-        _stringValue = str;
         
         _data[0] = NULL;
         _data[1] = NULL;
@@ -23,35 +22,36 @@
         static NSNumberFormatter *formatter = nil;
         if (!formatter)
             formatter = [[NSNumberFormatter alloc] init];
-        if (!textType && [formatter numberFromString:_stringValue]) {
-            NSRange range = [_stringValue rangeOfString:@"."];
+        if (!textType && [formatter numberFromString:stringValue]) {
+            NSRange range = [stringValue rangeOfString:@"."];
             if (range.location == NSNotFound) {
                     // it is very unlikely user will search anything larger than signed long long max
                     // so this is the maximum interget value can be handled
-                long long llValue = [_stringValue longLongValue];
+                long long llValue = [stringValue longLongValue];
+                _maxSize = sizeof(int64_t);
+                _data[1] = malloc(_maxSize);
+                memset(_data[1], 0, _maxSize);
                 
-                range = [_stringValue rangeOfString:@"-"];
+                range = [stringValue rangeOfString:@"-"];
                 if (range.location == NSNotFound) {
                         // assume it is unsigned for now
                         // unsigned can change to signed later but signed (negative) can never be unsigned
                     _type = VariableTypeUnsignedInteger;
                     
                         // prepare unsigned data
+                    _data[0] = malloc(_maxSize);
+                    memset(_data[0], 0, _maxSize);
                     if (llValue <= UINT8_MAX) {
                         _size = sizeof(uint8_t);
-                        _data[0] = malloc(_size);
                         *(uint8_t *)_data[0] = (uint8_t)llValue;
                     } else if (llValue <= UINT16_MAX) {
                         _size = sizeof(uint16_t);
-                        _data[0] = malloc(_size);
                         *(uint16_t *)_data[0] = (uint16_t)llValue;
                     } else if (llValue <= UINT32_MAX) {
                         _size = sizeof(uint32_t);
-                        _data[0] = malloc(_size);
                         *(uint32_t *)_data[0] = (uint32_t)llValue;
                     } else {
                         _size = sizeof(uint64_t);
-                        _data[0] = malloc(_size);
                         *(uint64_t *)_data[0] = (uint64_t)llValue;
                     }
                     _dataSize[0] = _size;
@@ -98,15 +98,13 @@
                     _dataSize[1] = _size;
                 }
                 
-                _maxSize = sizeof(int64_t);
-                
                 _data[2] = malloc(sizeof(float));
                 *(float *)_data[2] = (float)llValue;
                 _data[3] = malloc(sizeof(double));
                 *(double *)_data[3] = (double)llValue;
                 
             } else {
-                double dValue = [_stringValue doubleValue];
+                double dValue = [stringValue doubleValue];
                 _type = VariableTypeFloat;
                 _size = sizeof(float);
                 _maxSize = sizeof(double);
@@ -119,23 +117,23 @@
             }
             
         } else {
-            if ([_stringValue canBeConvertedToEncoding:NSASCIIStringEncoding]) {
+            if ([stringValue canBeConvertedToEncoding:NSASCIIStringEncoding]) {
                 _type = VariableTypeASCII;
-                _size = [_stringValue length] * sizeof(char);
-                _maxSize = [_stringValue length] * sizeof(unichar);
+                _size = [stringValue length] * sizeof(char);
+                _maxSize = [stringValue length] * sizeof(unichar);
                 
                 _dataSize[0] = _size;
                 size_t size = _size + sizeof(char);
                 _data[0] = malloc(size);
-                MASSERT_SOFT([_stringValue getCString:_data[0] maxLength:size encoding:NSASCIIStringEncoding]);
+                MASSERT_SOFT([stringValue getCString:_data[0] maxLength:size encoding:NSASCIIStringEncoding]);
             } else {
                 _type = VariableTypeUnicode;
-                _maxSize = _size = [_stringValue length] * sizeof(unichar);
+                _maxSize = _size = [stringValue length] * sizeof(unichar);
             }
             _dataSize[1] = _maxSize;
             size_t size = _maxSize + sizeof(unichar);
             _data[1] = malloc(size);
-            MASSERT_SOFT([_stringValue getCString:_data[1] maxLength:size encoding:NSUnicodeStringEncoding]);
+            MASSERT_SOFT([stringValue getCString:_data[1] maxLength:size encoding:NSUnicodeStringEncoding]);
         }
         if (VariableTypeIsNumeric(_type)) {
             MASSERT(_data[2] != NULL, @"float value not initilized");
@@ -170,13 +168,6 @@
             _size = value.size;
         }
         _maxSize = value.maxSize;
-        if ((value.type == VariableTypeFloat || value.type == VariableTypeDouble) &&
-            (type == VariableTypeInteger || type == VariableTypeUnsignedInteger)) {
-                // convert float string to int string
-            _stringValue = [NSString stringWithFormat:@"%lld", [value.stringValue longLongValue]];
-        } else {
-            _stringValue = value.stringValue;
-        }
         
         for (int i = 0; i < 2; i++)
             if (value->_data[i]) {
@@ -201,54 +192,34 @@
 }
 
 - (id)initWithData:(void *)data size:(size_t)size type:(VariableType)type {
-    NSString *string;
-    BOOL text = NO;
-    switch (type) {
-        case VariableTypeUnsignedInteger:
-        case VariableTypeInteger:
-        {
-            long long llValue;
-            // assume little endian
-            // so don't have to deal with different size of int
-            memcpy(&llValue, data, size);
-            string = [NSString stringWithFormat:@"%llu", llValue];
+    return [self initWithData:data size:size maxSize:size type:type];
+}
+- (id)initWithData:(void *)data size:(size_t)size maxSize:(size_t)maxSize type:(VariableType)type {
+    MASSERT(maxSize >= size, @"max size (%lu) less than size (%lu)", maxSize, size);
+    self = [super init];
+    if (self) {
+        _eightTimes = NO;
+        _type = type;
+        _size = size;
+        _maxSize = maxSize;
+        _data[0] = malloc(maxSize);
+        memcpy(_data[0], data, maxSize);
+        _data[1] = malloc(maxSize);
+        memcpy(_data[1], data, maxSize);
+        _dataSize[0] = _dataSize[1] = maxSize;
+        if (VariableTypeIsNumeric(type)) {
+            _data[2] = malloc(sizeof(float));
+            memcpy(_data[2], data, sizeof(float));
+            _data[3] = malloc(sizeof(double));
+            memcpy(_data[3], data, sizeof(double));
         }
-            break;
-        case VariableTypeFloat:
-        {
-            float fValue = *(float *)data;
-            if (isnan(fValue))
-                return nil;
-            string = [NSString stringWithFormat:@"%f", fValue];
-        }
-            break;
-        case VariableTypeDouble:
-        {
-            double dValue = *(double *)data;
-            if (isnan(dValue))
-                return nil;
-            string = [NSString stringWithFormat:@"%lf", *(double *)data];
-        }
-            break;
-        case VariableTypeASCII:
-            text = YES;
-            string = [[NSString alloc] initWithBytes:data length:size encoding:NSASCIIStringEncoding];
-            break;
-        case VariableTypeUnicode:
-            text = YES;
-            string = [[NSString alloc] initWithBytes:data length:size encoding:NSUnicodeStringEncoding];
-            break;
     }
-        // TODO a better way?
-    VariableValue *value = [[VariableValue alloc] initWithStringValue:string isTextType:text];
-    if (value.type != type) {
-        if (type == VariableTypeASCII)
-            type = value.type;
-    }
-    return [self initWithValue:value type:type];
+    return self;
 }
 
 - (VariableValue *)eightTimesValue {
+    if (_eightTimes)
+        return self;
     VariableValue *value;
     switch (_type) {
         case VariableTypeUnsignedInteger:
@@ -279,7 +250,6 @@
             return self;
     }
     value->_eightTimes = YES;
-    value->_stringValue = _stringValue;
     return value;
 }
 
@@ -318,7 +288,7 @@
 #pragma mark -
 
 - (BOOL)compareAtAddress:(void *)address minSize:(size_t)minSize maxSize:(size_t)maxSize matchedType:(VariableType *)matchedType {
-    if (maxSize < _size)
+    if (maxSize < _size || minSize > _maxSize)
         return NO;
     switch (_type) {
         case VariableTypeUnsignedInteger:

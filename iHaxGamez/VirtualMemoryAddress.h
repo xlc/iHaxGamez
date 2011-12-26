@@ -17,7 +17,6 @@
     mach_vm_offset_t _offset;
     mach_vm_size_t _size;
     mach_vm_address_t _address;
-    mach_vm_address_t _lastAddress;
     
     VariableValue *_value;
 }
@@ -37,7 +36,7 @@
              size:(mach_vm_size_t)size
             value:(VariableValue *)value;
 
-- (BOOL)reflashValue;
+- (BOOL)refreshValue;
 - (BOOL)updateValue:(VariableValue *)newValue;
 
 @end

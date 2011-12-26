@@ -29,7 +29,6 @@
         _pid = pid;
         _value = value;
         _address = _startAddress + _offset;
-        _lastAddress = _startAddress + _size + 1;   // first invalid address
     }
     return self;
 }
@@ -38,15 +37,7 @@
 
 - (int64_t)signedIntegerValue {
     int64_t value = 0;
-    size_t size = sizeof(int64_t);
-    if (_address+size > _lastAddress) {
-        size = sizeof(int32_t);
-        if (_address+size > _lastAddress) {
-            size = sizeof(int16_t);
-            if (_address+size > _lastAddress)
-                size = sizeof(int8_t);
-        }
-    }
+    size_t size = MIN(sizeof(value), _size - _offset);
     void *data;
     mach_msg_type_number_t returnedSize;
     MASSERT_KERN(helper_vm_read(_pid, _address, size, &data, &returnedSize));
@@ -59,15 +50,7 @@
 
 - (uint64_t)unsignedIntegerValue {  // TODO shouldn't copy paste code
     uint64_t value = 0;
-    size_t size = sizeof(int64_t);
-    if (_address+size > _lastAddress) {
-        size = sizeof(int32_t);
-        if (_address+size > _lastAddress) {
-            size = sizeof(int16_t);
-            if (_address+size > _lastAddress)
-                size = sizeof(int8_t);
-        }
-    }
+    size_t size = MIN(sizeof(value), _size - _offset);
     void *data;
     mach_msg_type_number_t returnedSize;
     MASSERT_KERN(helper_vm_read(_pid, _address, size, &data, &returnedSize));
@@ -81,7 +64,7 @@
 - (double)doubleValue {
     double value = 0;
     size_t size = sizeof(value);
-    if (_address+size > _lastAddress) {
+    if (_size - _offset < size) {
         return NAN;
     }
     void *data;
@@ -97,7 +80,7 @@
 - (float)floatValue {   // TODO shouldn't copy paste code
     float value = 0;
     size_t size = sizeof(value);
-    if (_address+size > _lastAddress) {
+    if (_size - _offset < size) {
         return NAN;
     }
     void *data;
@@ -140,12 +123,13 @@
 
 #pragma mark -
 
-- (BOOL)reflashValue {
+- (BOOL)refreshValue {
     void *data = NULL;
     mach_msg_type_number_t size;
-    kern_return_t kr = helper_vm_read(_pid, _address, _value.size, &data, &size);
+    size_t maxSize = MIN(_value.maxSize, _size - _offset);
+    kern_return_t kr = helper_vm_read(_pid, _address, maxSize, &data, &size);
     if (kr == KERN_SUCCESS) {
-        _value = [[VariableValue alloc] initWithData:data size:size type:_value.type];
+        _value = [[VariableValue alloc] initWithData:data size:_value.size maxSize:size type:_value.type];
         helper_vm_free(data, size);
         return _value != nil;
     }

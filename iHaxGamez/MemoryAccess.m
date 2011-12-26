@@ -96,7 +96,7 @@
         VirtualMemoryAddress *vmAddr = [datas objectAtIndex:i];
         VariableType matchedType;
         BOOL found = NO;
-        if ([vmAddr reflashValue] && [value compareAtAddress:vmAddr.value.data minSize:vmAddr.value.size maxSize:vmAddr.value.maxSize matchedType:&matchedType]) {
+        if ([vmAddr refreshValue] && [value compareAtAddress:vmAddr.value.data minSize:vmAddr.value.size maxSize:vmAddr.value.maxSize matchedType:&matchedType]) {
             if (matchedType != vmAddr.value.type)   // update type if need
                 vmAddr.value = [[VariableValue alloc] initWithValue:vmAddr.value type:matchedType];
             found = YES;
