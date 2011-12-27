@@ -91,33 +91,37 @@
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:[datas count] / 100 + 10];
     __block dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
     __block NSUInteger count = 0;
-    NSUInteger totalCount = [result count] - 1;
-    dispatch_apply([datas count], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
-        VirtualMemoryAddress *vmAddr = [datas objectAtIndex:i];
-        VariableType matchedType;
-        BOOL found = NO;
-        if ([vmAddr refreshValue] && [value compareAtAddress:vmAddr.value.data minSize:vmAddr.value.size maxSize:vmAddr.value.maxSize matchedType:&matchedType]) {
-            if (matchedType != vmAddr.value.type)   // update type if need
-                vmAddr.value = [[VariableValue alloc] initWithValue:vmAddr.value type:matchedType];
-            found = YES;
-        }
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        if (found)
-            [result addObject:vmAddr];
-        count++;
-        dispatch_semaphore_signal(semaphore);
-        BOOL done = count == totalCount;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            callback((double)count/(double)totalCount, result, done);
-        });
-        if (done) {
-            @synchronized(result) {
-                if (semaphore) {
-                    dispatch_release(semaphore);
-                    semaphore = NULL;
+    NSUInteger totalCount = [datas count];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_apply([datas count], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
+            VirtualMemoryAddress *vmAddr = [datas objectAtIndex:i];
+            VariableType matchedType;
+            BOOL found = NO;
+            if (vmAddr.locked) {
+                found = YES;
+            } else if ([vmAddr refreshValue] && [value compareAtAddress:vmAddr.value.data minSize:vmAddr.value.size maxSize:vmAddr.value.maxSize matchedType:&matchedType]) {
+                if (matchedType != vmAddr.value.type)   // update type if need
+                    vmAddr.value = [[VariableValue alloc] initWithValue:vmAddr.value type:matchedType];
+                found = YES;
+            }
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            if (found)
+                [result addObject:vmAddr];
+            count++;
+            dispatch_semaphore_signal(semaphore);
+            BOOL done = count == totalCount;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback((double)count/(double)totalCount, result, done);
+            });
+            if (done) {
+                @synchronized(result) {
+                    if (semaphore) {
+                        dispatch_release(semaphore);
+                        semaphore = NULL;
+                    }
                 }
             }
-        }
+        });
     });
 }
 

@@ -60,6 +60,7 @@
 #pragma mark -
 
 - (IBAction)clearSearchResult:(NSButtonCell *)sender {
+    [_currentController clearResult];
 }
 
 - (IBAction)showSettings:(NSButtonCell *)sender {

@@ -196,10 +196,35 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
         memcpy(_data[1], data, maxSize);
         _dataSize[0] = _dataSize[1] = maxSize;
         if (VariableTypeIsNumeric(type)) {
-            _data[2] = malloc(sizeof(float));
-            memcpy(_data[2], data, sizeof(float));
-            _data[3] = malloc(sizeof(double));
-            memcpy(_data[3], data, sizeof(double));
+            if (_maxSize >= sizeof(float)) {
+                _data[2] = malloc(sizeof(float));
+                memcpy(_data[2], data, sizeof(float));
+                float fValue = *(float *)_data[2];
+                if (isnan(fValue)) {
+                    free(_data[2]);
+                    _data[2] = NULL;
+                    if (_type == VariableTypeFloat) {
+                        _type = VariableTypeDouble;
+                    }
+                }
+            }
+            if (_maxSize >= sizeof(double)) {
+                _data[3] = malloc(sizeof(double));
+                memcpy(_data[3], data, sizeof(double));
+                double dValue = *(double *)_data[3];
+                if (isnan(dValue)) {
+                    free(_data[3]);
+                    _data[3] = NULL;
+                    if (_type == VariableTypeDouble) {
+                        if (_data[2]) {
+                            _type = VariableTypeFloat;
+                        } else {
+                            self = nil;
+                            return nil;
+                        }
+                    }
+                }
+            }
         }
     }
     return self;
@@ -208,7 +233,7 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
 - (VariableValue *)eightTimesValue {
     if (_eightTimes)
         return self;
-
+    
     VariableValue *value;
     switch (_type) {
         case VariableTypeUnsignedInteger:
@@ -297,26 +322,31 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
                 // continue to float checking
             
         case VariableTypeFloat:
-            if (maxSize < sizeof(float))
-                return NO;
-            float fValue = *(float *)address;
-            if (!isnan(fValue) && fabsf(fValue - *(float *)_data[2]) < 0.001) {
-                if (matchedType)
-                    *matchedType = VariableTypeFloat;
-                return YES;
+            if (_data[2]) {
+                if (maxSize < sizeof(float))
+                    return NO;
+                float fValue = *(float *)address;
+                if (!isnan(fValue) && fabsf(fValue - *(float *)_data[2]) < 0.001) {
+                    if (matchedType)
+                        *matchedType = VariableTypeFloat;
+                    return YES;
+                }
             }
             
                 // continue to double checking
             
         case VariableTypeDouble:
-            if (maxSize < sizeof(double))
-                return NO;
-            double dValue = *(double *)address;
-            if (!isnan(dValue) && fabs(dValue - *(double *)_data[3]) < 0.001) {
-                if (matchedType)
-                    *matchedType = VariableTypeDouble;
-                return YES;
+            if (_data[3]) {
+                if (maxSize < sizeof(double))
+                    return NO;
+                double dValue = *(double *)address;
+                if (!isnan(dValue) && fabs(dValue - *(double *)_data[3]) < 0.001) {
+                    if (matchedType)
+                        *matchedType = VariableTypeDouble;
+                    return YES;
+                }
             }
+            
             return NO;
             
         case VariableTypeASCII:
@@ -333,7 +363,6 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
             }
             return NO;
     }
-    
     
     return NO;
 }

@@ -18,7 +18,9 @@
     mach_vm_size_t _size;
     mach_vm_address_t _address;
     
+    BOOL _locked;
     VariableValue *_value;
+    NSTimer *_timer;
 }
 
 @property (nonatomic, readonly) mach_vm_address_t address;
@@ -29,6 +31,7 @@
 @property (nonatomic, readonly) float floatValue;
 @property (nonatomic, readonly) NSString *asciiValue;
 @property (nonatomic, readonly) NSString *unicodeValue;
+@property (nonatomic) BOOL locked;
 
 - (id)initWithPID:(pid_t)pid
      startAddress:(mach_vm_address_t)startAddress

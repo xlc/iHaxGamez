@@ -14,15 +14,21 @@
 #import "PrivilegedHelperConnection.h"
 #import "VirtualMemoryException.h"
 
+@interface VirtualMemoryAddress ()
+
+- (void)updateValueTimer:(NSTimer *)timer;
+
+@end
+
 @implementation VirtualMemoryAddress
 
-@synthesize address = _address, value = _value;
+@synthesize address = _address, value = _value, locked = _locked;
 
 - (id)initWithPID:(pid_t)pid
      startAddress:(mach_vm_address_t)startAddress
            offset:(mach_vm_offset_t)offset
              size:(mach_vm_size_t)size
-            value:(VariableValue *)value; {
+            value:(VariableValue *)value {
     self = [super init];
     if (self) {
         _startAddress = startAddress;
@@ -31,6 +37,7 @@
         _pid = pid;
         _value = value;
         _address = _startAddress + _offset;
+        _locked = NO;
     }
     return self;
 }
@@ -149,6 +156,26 @@
 
 #pragma mark -
 
+- (void)setLocked:(BOOL)locked {
+    _locked = locked;
+    [_timer invalidate];
+    _timer = nil;
+    if (_locked) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateValueTimer:) userInfo:_value repeats:YES];
+    }
+}
+
+- (void)updateValueTimer:(NSTimer *)timer {
+    if (![self refreshValue]) {
+        self.locked = NO;
+        return;
+    }
+    VariableValue *lockedValue = timer.userInfo;
+        // TODO unlock if the current value is not "same type" as locked value
+    if (![self updateValue:lockedValue])
+        self.locked = NO;
+}
+
 - (BOOL)refreshValue {
     void *data = NULL;
     mach_msg_type_number_t size;
@@ -191,6 +218,10 @@
         _value = [_value eightTimesValue];
     }
     MASSERT_KERN(helper_vm_write(_pid, _address, _value.data, (mach_msg_type_number_t)_value.size));
+    if (_locked) {
+            // reset locked value that saved in timer
+        self.locked = YES;
+    }
     return YES;
 }
 

@@ -86,7 +86,9 @@
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     @try {
         VirtualMemoryAddress *address = [_results objectAtIndex:row];
-        if ([tableColumn.identifier isEqualToString:@"Address"]) {
+        if ([tableColumn.identifier isEqualToString:@"Locked"]) {
+            return [NSNumber numberWithBool:address.locked];
+        } else if ([tableColumn.identifier isEqualToString:@"Address"]) {
             return [NSString stringWithFormat:@"0x%qX", address.address];
         } else if ([tableColumn.identifier isEqualToString:@"SignedInteger"]) {
             return [NSString stringWithFormat:@"%lld", address.signedIntegerValue];
@@ -112,9 +114,14 @@
 
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     VirtualMemoryAddress *address = [_results objectAtIndex:row];
-    NSString *stringValue = object;
-    VariableValue *value = [[VariableValue alloc] initWithStringValue:stringValue isTextType:!VariableTypeIsNumeric(address.value.type)];
-    [address updateValue:value];
+    if ([tableColumn.identifier isEqualToString:@"Locked"]) {
+        NSNumber *number = object;
+        address.locked = [number boolValue];
+    } else {
+        NSString *stringValue = object;
+        VariableValue *value = [[VariableValue alloc] initWithStringValue:stringValue isTextType:!VariableTypeIsNumeric(address.value.type)];
+        [address updateValue:value];
+    }
 }
 
 
