@@ -35,6 +35,7 @@ typedef enum {
 
 - (id)initWithStringValue:(NSString *)stringValue isTextType:(BOOL)textType;
 - (id)initWithValue:(VariableValue *)value type:(VariableType)type;
+- (id)initWithValue:(VariableValue *)value size:(size_t)size type:(VariableType)type;
 - (id)initWithData:(void *)data size:(size_t)size type:(VariableType)type;
 - (id)initWithData:(void *)data size:(size_t)size maxSize:(size_t)maxSize type:(VariableType)type;
 

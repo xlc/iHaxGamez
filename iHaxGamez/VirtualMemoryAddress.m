@@ -45,7 +45,18 @@
     kern_return_t kr = helper_vm_read(_pid, _address, size, &data, &returnedSize);
     if (kr != KERN_SUCCESS)
         @throw [VirtualMemoryException exceptionWithPID:_pid address:_address kernReturn:kr];
-    memcpy(&value, data, MIN(returnedSize, size));   // assume little endian
+    MASSERT(returnedSize >= size, @"returned size %ld less than expected size %ld", returnedSize, size);
+    if (_value.type == VariableTypeUnsignedInteger || _value.type == VariableTypeInteger) {
+        size = MIN(_value.size, size);
+    }
+    memcpy(&value, data, size);   // assume little endian
+    if (size != sizeof(value)) {
+        if (value >> CHAR_BIT * size - 1 & 1) { // if is negative, we need sign extend	
+            int64_t mask = 0;
+            mask = ~mask << CHAR_BIT * size;
+            value |= mask;
+        }
+    }
     helper_vm_free(data, returnedSize);
     if (_value.eightTimes)
         value /= 8;
@@ -60,7 +71,8 @@
     kern_return_t kr = helper_vm_read(_pid, _address, size, &data, &returnedSize);
     if (kr != KERN_SUCCESS)
         @throw [VirtualMemoryException exceptionWithPID:_pid address:_address kernReturn:kr];
-    memcpy(&value, data, returnedSize);   // assume little endian
+    MASSERT(returnedSize >= size, @"returned size %ld less than expected size %ld", returnedSize, size);
+    memcpy(&value, data, MIN(_value.size, size));   // assume little endian
     helper_vm_free(data, returnedSize);
     if (_value.eightTimes)
         value /= 8;
@@ -174,7 +186,7 @@
         }
     }
     BOOL eightTimes = _value.eightTimes;
-    _value = [[VariableValue alloc] initWithValue:newValue type:newType];
+    _value = [[VariableValue alloc] initWithValue:newValue size:MAX(_value.size, newValue.size) type:newType];
     if (eightTimes) {
         _value = [_value eightTimesValue];
     }

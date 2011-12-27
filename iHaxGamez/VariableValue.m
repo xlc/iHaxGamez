@@ -8,6 +8,8 @@
 
 #import "VariableValue.h"
 
+static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer size
+
 @implementation VariableValue
 
 @synthesize type = _type, size = _size, maxSize = _maxSize, eightTimes = _eightTimes;
@@ -26,11 +28,10 @@
             NSRange range = [stringValue rangeOfString:@"."];
             if (range.location == NSNotFound) {
                     // it is very unlikely user will search anything larger than signed long long max
-                    // so this is the maximum interget value can be handled
+                    // so this is the maximum integer value can be handled
                 long long llValue = [stringValue longLongValue];
                 _maxSize = sizeof(int64_t);
                 _data[1] = malloc(_maxSize);
-                memset(_data[1], 0, _maxSize);
                 
                 range = [stringValue rangeOfString:@"-"];
                 if (range.location == NSNotFound) {
@@ -40,61 +41,44 @@
                     
                         // prepare unsigned data
                     _data[0] = malloc(_maxSize);
-                    memset(_data[0], 0, _maxSize);
                     if (llValue <= UINT8_MAX) {
                         _size = sizeof(uint8_t);
-                        *(uint8_t *)_data[0] = (uint8_t)llValue;
                     } else if (llValue <= UINT16_MAX) {
                         _size = sizeof(uint16_t);
-                        *(uint16_t *)_data[0] = (uint16_t)llValue;
                     } else if (llValue <= UINT32_MAX) {
                         _size = sizeof(uint32_t);
-                        *(uint32_t *)_data[0] = (uint32_t)llValue;
                     } else {
                         _size = sizeof(uint64_t);
-                        *(uint64_t *)_data[0] = (uint64_t)llValue;
                     }
+                    *(uint64_t *)_data[0] = (uint64_t)llValue;
                     _dataSize[0] = _size;
+                    _size = MAX(_size, minIntSize);
                     
                         // prepare signed data
                     if (llValue <= INT8_MAX) {
                         _dataSize[1] = sizeof(int8_t);
-                        _data[1] = malloc(_dataSize[1]);
-                        *(int8_t *)_data[1] = (int8_t)llValue;
                     } else if (llValue <= INT16_MAX) {
                         _dataSize[1] = sizeof(int16_t);
-                        _data[1] = malloc(_dataSize[1]);
-                        *(int16_t *)_data[1] = (int16_t)llValue;
                     } else if (llValue <= INT32_MAX) {
                         _dataSize[1] = sizeof(int32_t);
-                        _data[1] = malloc(_dataSize[1]);
-                        *(int32_t *)_data[1] = (int32_t)llValue;
                     } else {
                         _dataSize[1] = sizeof(int64_t);
-                        _data[1] = malloc(_dataSize[1]);
-                        *(int64_t *)_data[1] = (int64_t)llValue;
                     }
+                    *(int64_t *)_data[1] = (int64_t)llValue;
                     
                 } else {    // negative value
                     _type = VariableTypeInteger;
                     
                     if (llValue >= INT8_MIN) {
                         _size = sizeof(int8_t);
-                        _data[1] = malloc(_size);
-                        *(int8_t *)_data[1] = (int8_t)llValue;
                     } else if (llValue >= INT16_MIN) {
                         _size = sizeof(int16_t);
-                        _data[1] = malloc(_size);
-                        *(int16_t *)_data[1] = (int16_t)llValue;
                     } else if (llValue >= INT32_MIN) {
                         _size = sizeof(int32_t);
-                        _data[1] = malloc(_size);
-                        *(int32_t *)_data[1] = (int32_t)llValue;
                     } else {
                         _size = sizeof(int64_t);
-                        _data[1] = malloc(_size);
-                        *(int64_t *)_data[1] = (int64_t)llValue;
                     }
+                    *(int64_t *)_data[1] = (int64_t)llValue;
                     _dataSize[1] = _size;
                 }
                 
@@ -144,6 +128,10 @@
 }
 
 - (id)initWithValue:(VariableValue *)value type:(VariableType)type {
+    return [self initWithValue:value size:value.size type:type];
+}
+
+- (id)initWithValue:(VariableValue *)value size:(size_t)size type:(VariableType)type {
     self = [super init];
     if (self) {
         _eightTimes = value->_eightTimes;
@@ -165,15 +153,15 @@
                     break;
             } 
         } else {
-            _size = value.size;
+            _size = size;
         }
         _maxSize = value.maxSize;
         
         for (int i = 0; i < 2; i++)
             if (value->_data[i]) {
                 _dataSize[i] = value->_dataSize[i];
-                _data[i] = malloc(_dataSize[i]);
-                memcpy(_data[i], value->_data[i], _dataSize[i]);
+                _data[i] = malloc(_maxSize);
+                memcpy(_data[i], value->_data[i], _maxSize);
             }
         if (value->_data[2]) {
             _data[2] = malloc(sizeof(float));
@@ -227,7 +215,7 @@
         case VariableTypeInteger:
         {
             long long llValue = 0;
-            memcpy(&llValue, _data[1], _dataSize[1]);
+            memcpy(&llValue, _data[1], _dataSize[1]);   // TODO handle negative number
             llValue *= 8;
             value = [[VariableValue alloc] initWithData:&llValue size:sizeof(llValue) type:_type];
             break;
