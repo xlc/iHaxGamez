@@ -39,7 +39,4 @@
 - (IBAction)clearSearchResult:(NSButtonCell *)sender;
 - (IBAction)showSettings:(NSButtonCell *)sender;
 
-- (void)searchValue:(id)sender;
-- (void)addNewSearch;
-
 @end

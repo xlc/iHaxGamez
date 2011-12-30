@@ -13,6 +13,14 @@
 #import "PSMTabBarControl.h"
 #import "PSMRolloverButton.h"
 
+@interface SearchWindowController ()
+
+- (void)searchValue:(id)sender;
+- (void)addNewSearch;
+- (void)changeSearchType:(id)sender;
+
+@end
+
 @implementation SearchWindowController
 @synthesize _tabBarControl;
 @synthesize _timesEightModeButton;
@@ -51,6 +59,9 @@
     [_searchField setTarget:self];
     [_searchField setAction:@selector(searchValue:)];
     
+    [_typeButton setTarget:self];
+    [_typeButton setAction:@selector(changeSearchType:)];
+    
     self.window.title = _title;
     [self addNewSearch];
 }
@@ -61,6 +72,7 @@
 
 - (IBAction)clearSearchResult:(NSButtonCell *)sender {
     [_currentController clearResult];
+    [_typeButton setEnabled:YES];
 }
 
 - (IBAction)showSettings:(NSButtonCell *)sender {
@@ -90,6 +102,11 @@
         _currentController.option &= ~SearchOptionEightTimesMode;
     }
     [_currentController searchValue:value];
+    [_typeButton setEnabled:NO];
+}
+
+- (void)changeSearchType:(id)sender {
+    _currentController.textType = _typeButton.indexOfSelectedItem == 1;
 }
 
 #pragma mark - PSMTabBarControlDelegate
