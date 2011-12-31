@@ -1,5 +1,7 @@
 This is my fork of iHexGamez which is adopted from [http://sourceforge.net/projects/ihaxgamez/](http://sourceforge.net/projects/ihaxgamez/)
 
+It was originally designed to have backward capability but I dropped it to make things easier so my version currently only support 64bits Lion.
+
 ### Changes/Further update
 
 The initial commit is import from the Google doc svn repo but I rewrite most of the code:
