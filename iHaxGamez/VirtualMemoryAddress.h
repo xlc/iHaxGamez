@@ -23,6 +23,9 @@
     NSTimer *_timer;
 }
 
+@property (nonatomic, readonly) mach_vm_address_t startAddress;
+@property (nonatomic, readonly) mach_vm_offset_t offset;
+@property (nonatomic, readonly) mach_vm_size_t size;
 @property (nonatomic, readonly) mach_vm_address_t address;
 @property (nonatomic, strong) VariableValue *value;
 @property (nonatomic, readonly) int64_t signedIntegerValue;

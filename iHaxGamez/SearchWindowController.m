@@ -12,21 +12,24 @@
 #import "MemoryAccess.h"
 #import "PSMTabBarControl.h"
 #import "PSMRolloverButton.h"
+#import "HexViewerController.h"
+#import "VirtualMemoryAddress.h"
 
 @interface SearchWindowController ()
 
 - (void)searchValue:(id)sender;
 - (void)addNewSearch;
+- (void)addViewer;
 - (void)changeSearchType:(id)sender;
 
 @end
 
 @implementation SearchWindowController
-@synthesize _tabBarControl;
+@synthesize _searchTabBarControl;
+@synthesize _viewerTabBarControl;
 @synthesize _timesEightModeButton;
 @synthesize _searchField;
 @synthesize _typeButton;
-@synthesize _progressIndicator;
 
 @synthesize pid = _pid;
 
@@ -36,6 +39,7 @@
         _title = [title copy];
         _pid = pid;
         _resultControllers = [NSMutableArray array];
+        _viewerControllers = [NSMutableArray array];
     }
     return self;
 }
@@ -44,17 +48,28 @@
 {
     [super windowDidLoad];
     
-    _tabBarControl.canCloseOnlyTab = NO;
-    _tabBarControl.disableTabClose = NO;
-    _tabBarControl.hideForSingleTab = NO;
-    _tabBarControl.showAddTabButton = YES;
-    _tabBarControl.useOverflowMenu = YES;
-    _tabBarControl.allowsBackgroundTabClosing = YES;
-    _tabBarControl.tearOffStyle = PSMTabBarTearOffMiniwindow;
+    _searchTabBarControl.canCloseOnlyTab = NO;
+    _searchTabBarControl.disableTabClose = NO;
+    _searchTabBarControl.hideForSingleTab = NO;
+    _searchTabBarControl.showAddTabButton = YES;
+    _searchTabBarControl.useOverflowMenu = YES;
+    _searchTabBarControl.allowsBackgroundTabClosing = YES;
+    _searchTabBarControl.tearOffStyle = PSMTabBarTearOffMiniwindow;
+        
+    [[_searchTabBarControl addTabButton] setTarget:self];
+    [[_searchTabBarControl addTabButton] setAction:@selector(addNewSearch)];
+    _searchTabBarControl.delegate = self;
     
-    [[_tabBarControl addTabButton] setTarget:self];
-    [[_tabBarControl addTabButton] setAction:@selector(addNewSearch)];
-    _tabBarControl.delegate = self;
+    _viewerTabBarControl.canCloseOnlyTab = NO;
+    _viewerTabBarControl.disableTabClose = NO;
+    _viewerTabBarControl.hideForSingleTab = NO;
+    _viewerTabBarControl.showAddTabButton = NO;
+    _viewerTabBarControl.useOverflowMenu = YES;
+    _viewerTabBarControl.allowsBackgroundTabClosing = YES;
+    _viewerTabBarControl.tearOffStyle = PSMTabBarTearOffMiniwindow;
+    
+    [[_viewerTabBarControl addTabButton] setTarget:self];
+    [[_viewerTabBarControl addTabButton] setAction:@selector(addViewer)];
     
     [_searchField setTarget:self];
     [_searchField setAction:@selector(searchValue:)];
@@ -64,18 +79,35 @@
     
     self.window.title = _title;
     [self addNewSearch];
+    [self showSearch:nil];
 }
 
 
 
-#pragma mark -
+#pragma mark - IBAction
 
 - (IBAction)clearSearchResult:(NSButtonCell *)sender {
-    [_currentController clearResult];
+    [_currentSearchController clearResult];
     [_typeButton setEnabled:YES];
 }
 
-- (IBAction)showSettings:(NSButtonCell *)sender {
+- (IBAction)showSearch:(id)sender {
+    [_searchTabBarControl setHidden:NO];
+    [_searchTabBarControl.tabView setHidden:NO];
+    [_viewerTabBarControl setHidden:YES];
+    [_viewerTabBarControl.tabView setHidden:YES];
+    [[self.window toolbar] setSelectedItemIdentifier:@"Search"];
+}
+
+- (IBAction)showHexViewer:(id)sender {
+    [_searchTabBarControl setHidden:YES];
+    [_searchTabBarControl.tabView setHidden:YES];
+    [_viewerTabBarControl setHidden:NO];
+    [_viewerTabBarControl.tabView setHidden:NO];
+    [[self.window toolbar] setSelectedItemIdentifier:@"HexViewer"];
+}
+
+- (IBAction)showSettings:(id)sender {
         // TODO
 }
 
@@ -88,8 +120,18 @@
     NSTabViewItem *item = [[NSTabViewItem alloc] initWithIdentifier:resultController];
     item.label = resultController.title;
     item.view = resultController.view;
-    [_tabBarControl.tabView addTabViewItem:item];
-    [_tabBarControl.tabView selectTabViewItem:item];
+    [_searchTabBarControl.tabView addTabViewItem:item];
+    [_searchTabBarControl.tabView selectTabViewItem:item];
+}
+
+- (void)addViewer {
+    HexViewerController *viewerController = [[HexViewerController alloc] init];
+    [_viewerControllers addObject:viewerController];
+    NSTabViewItem *item = [[NSTabViewItem alloc] initWithIdentifier:viewerController];
+    item.label = viewerController.title;
+    item.view = viewerController.view;
+    [_viewerTabBarControl.tabView addTabViewItem:item];
+    [_viewerTabBarControl.tabView selectTabViewItem:item];
 }
 
 - (void)searchValue:(id)sender {
@@ -97,22 +139,34 @@
     if ([value length] == 0)
         return;
     if (_timesEightModeButton.state == NSOnState) {
-        _currentController.option |= SearchOptionEightTimesMode;
+        _currentSearchController.option |= SearchOptionEightTimesMode;
     } else {
-        _currentController.option &= ~SearchOptionEightTimesMode;
+        _currentSearchController.option &= ~SearchOptionEightTimesMode;
     }
-    [_currentController searchValue:value];
+    [_currentSearchController searchValue:value];
     [_typeButton setEnabled:NO];
 }
 
 - (void)changeSearchType:(id)sender {
-    _currentController.textType = _typeButton.indexOfSelectedItem == 1;
+    _currentSearchController.textType = _typeButton.indexOfSelectedItem == 1;
+}
+
+- (void)openViewerForAddress:(VirtualMemoryAddress *)address {
+    HexViewerController *viewerController = [[HexViewerController alloc] init];
+    [viewerController setPID:_pid address:address.startAddress offset:address.offset size:address.size];
+    [_viewerControllers addObject:viewerController];
+    NSTabViewItem *item = [[NSTabViewItem alloc] initWithIdentifier:viewerController];
+    item.label = viewerController.title;
+    item.view = viewerController.view;
+    [_viewerTabBarControl.tabView addTabViewItem:item];
+    [_viewerTabBarControl.tabView selectTabViewItem:item];
+    [self showHexViewer:nil];
 }
 
 #pragma mark - PSMTabBarControlDelegate
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {
-    _currentController = tabViewItem.identifier;
+    _currentSearchController = tabViewItem.identifier;
 }
 
 - (void)tabView:(NSTabView *)aTabView didCloseTabViewItem:(NSTabViewItem *)tabViewItem {

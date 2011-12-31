@@ -12,6 +12,7 @@
 #import "VirtualMemoryAddress.h"
 #import "VariableValue.h"
 #import "VirtualMemoryException.h"
+#import "SearchWindowController.h"
 
 @implementation SearchResultViewController
 @synthesize _tableView;
@@ -41,6 +42,8 @@
 #pragma mark -
 
 - (void)searchValue:(NSString *)stringValue {
+    if (_processing)
+        return; // TODO say something?
     VariableValue *value = [[VariableValue alloc] initWithStringValue:stringValue isTextType:_textType];
     _processing = YES;
     [_infoLabel setHidden:YES];
@@ -77,7 +80,16 @@
     }
 }
 
-#pragma mark -
+#pragma mark - IBAction
+
+- (IBAction)doubleClick:(id)sender {
+    SearchWindowController *controller = (SearchWindowController *)self.view.window.windowController;
+    NSUInteger row = [_tableView selectedRow];
+    VirtualMemoryAddress *address = [_results objectAtIndex:row];
+    [controller openViewerForAddress:address];
+}
+
+#pragma mark - NSTableViewDataSource
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     return [_results count];
@@ -117,7 +129,7 @@
     if ([tableColumn.identifier isEqualToString:@"Locked"]) {
         NSNumber *number = object;
         address.locked = [number boolValue];
-    } else {
+    } else {    // TODO add number foramtter to table text field cell
         NSString *stringValue = object;
         VariableValue *value = [[VariableValue alloc] initWithStringValue:stringValue isTextType:!VariableTypeIsNumeric(address.value.type)];
         [address updateValue:value];

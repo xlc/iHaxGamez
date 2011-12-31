@@ -22,7 +22,7 @@
 
 @implementation VirtualMemoryAddress
 
-@synthesize address = _address, value = _value, locked = _locked;
+@synthesize address = _address, value = _value, locked = _locked, startAddress = _startAddress, offset = _offset, size = _size;
 
 - (id)initWithPID:(pid_t)pid
      startAddress:(mach_vm_address_t)startAddress
