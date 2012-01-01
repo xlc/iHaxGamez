@@ -24,17 +24,21 @@
         HFHexTextRepresenter *hexRep = [[HFHexTextRepresenter alloc] init];
         HFStringEncodingTextRepresenter *asciiRep = [[HFStringEncodingTextRepresenter alloc] init];
         HFVerticalScrollerRepresenter *scrollRep = [[HFVerticalScrollerRepresenter alloc] init];
+        HFLineCountingRepresenter *lineRep = [[HFLineCountingRepresenter alloc] init];
         
         [_controller addRepresenter:layoutRep];
         [_controller addRepresenter:hexRep];
         [_controller addRepresenter:asciiRep];
         [_controller addRepresenter:scrollRep];
+        [_controller addRepresenter:lineRep];
         
         [layoutRep addRepresenter:hexRep];
         [layoutRep addRepresenter:asciiRep];
         [layoutRep addRepresenter:scrollRep];
+        [layoutRep addRepresenter:lineRep];
         
         _view = layoutRep.view;
+        _view.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
     }
     return self;
 }
