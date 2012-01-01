@@ -64,48 +64,51 @@ static PrivilegedHelperConnection *sharedConnection;
         CFRelease(existingJob);
     }
     
-    /* Decide what rights to authorize with. If the helper is not installed, we only need the privileged helper; if it is installed we need ModifySystemDaemons too, to uninstall it. */
-	AuthorizationItem authItems[2] = {{ kSMRightBlessPrivilegedHelper, 0, NULL, 0 }, { kSMRightModifySystemDaemons, 0, NULL, 0 }};
-	AuthorizationRights authRights = { (helperIsAlreadyInstalled ? 2 : 1), authItems };
-	AuthorizationFlags flags = kAuthorizationFlagDefaults | kAuthorizationFlagInteractionAllowed | kAuthorizationFlagPreAuthorize | kAuthorizationFlagExtendRights;
-	AuthorizationRef authRef = NULL;
-	
-	/* Now authorize. */
-	err = AuthorizationCreate(&authRights, kAuthorizationEmptyEnvironment, flags, &authRef);
-	if (err != errAuthorizationSuccess) {
-        if (error) {
-            if (err == errAuthorizationCanceled) {
-                *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil];
-            } else {
-                NSString *description = [NSString stringWithFormat:@"Failed to create AuthorizationRef (error code %ld).", (long)err];
-                *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoPermissionError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:description, NSLocalizedDescriptionKey, nil]];
+    if (!helperIsAlreadyInstalled) {
+        
+        /* Decide what rights to authorize with. If the helper is not installed, we only need the privileged helper; if it is installed we need ModifySystemDaemons too, to uninstall it. */
+        AuthorizationItem authItems[2] = {{ kSMRightBlessPrivilegedHelper, 0, NULL, 0 }, { kSMRightModifySystemDaemons, 0, NULL, 0 }};
+        AuthorizationRights authRights = { (helperIsAlreadyInstalled ? 2 : 1), authItems };
+        AuthorizationFlags flags = kAuthorizationFlagDefaults | kAuthorizationFlagInteractionAllowed | kAuthorizationFlagPreAuthorize | kAuthorizationFlagExtendRights;
+        AuthorizationRef authRef = NULL;
+        
+        /* Now authorize. */
+        err = AuthorizationCreate(&authRights, kAuthorizationEmptyEnvironment, flags, &authRef);
+        if (err != errAuthorizationSuccess) {
+            if (error) {
+                if (err == errAuthorizationCanceled) {
+                    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil];
+                } else {
+                    NSString *description = [NSString stringWithFormat:@"Failed to create AuthorizationRef (error code %ld).", (long)err];
+                    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoPermissionError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:description, NSLocalizedDescriptionKey, nil]];
+                }
             }
         }
+        
+        /* Remove the existing helper. If this fails it's not a fatal error (SMJobBless can handle the case when a job is already installed). */
+        if (! err && helperIsAlreadyInstalled) {
+            CFErrorRef localError = NULL;
+            SMJobRemove(kSMDomainSystemLaunchd, label, authRef, true /* wait */, &localError);
+            if (localError) {
+                NSLog(@"SMJobRemove() failed with error %@", localError);
+                CFRelease(localError);
+            }
+        }
+        
+        /* Bless the job */
+        if (! err) {
+            CFErrorRef localError = NULL;
+            err = ! SMJobBless(kSMDomainSystemLaunchd, label, authRef, (CFErrorRef *)&localError);
+            if (localError) {
+                if (error) *error = [[(id)localError retain] autorelease];
+                CFRelease(localError);
+            }
+        }
+        
+        /* Done with any AuthRef */
+        if (authRef) AuthorizationFree(authRef, kAuthorizationFlagDestroyRights);
 	}
     
-    /* Remove the existing helper. If this fails it's not a fatal error (SMJobBless can handle the case when a job is already installed). */
-    if (! err && helperIsAlreadyInstalled) {
-        CFErrorRef localError = NULL;
-        SMJobRemove(kSMDomainSystemLaunchd, label, authRef, true /* wait */, &localError);
-        if (localError) {
-            NSLog(@"SMJobRemove() failed with error %@", localError);
-            CFRelease(localError);
-        }
-    }
-    
-    /* Bless the job */
-    if (! err) {
-        CFErrorRef localError = NULL;
-		err = ! SMJobBless(kSMDomainSystemLaunchd, label, authRef, (CFErrorRef *)&localError);
-        if (localError) {
-            if (error) *error = [[(id)localError retain] autorelease];
-            CFRelease(localError);
-        }
-	}
-    
-    /* Done with any AuthRef */
-    if (authRef) AuthorizationFree(authRef, kAuthorizationFlagDestroyRights);
-	
     /* Get the port for our helper as provided by launchd */
     NSMachPort *helperLaunchdPort = nil;
     if (! err) {
