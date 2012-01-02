@@ -65,7 +65,8 @@
         HFFPRange range = [_controller displayedLineRange];
         range.location = lineOffset;
         [_controller setDisplayedLineRange:range];
-            // TODO highlight address
+        [_controller beginSelectionWithEvent:nil forByteIndex:offset];
+        [_controller endSelectionWithEvent:nil forByteIndex:offset+1];
         
     }
 }

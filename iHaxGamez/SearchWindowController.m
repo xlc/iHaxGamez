@@ -154,13 +154,13 @@
 
 - (void)openViewerForAddress:(VirtualMemoryAddress *)address {
     HexViewerController *viewerController = [[HexViewerController alloc] init];
-    [viewerController setPID:_pid address:address.startAddress offset:address.offset size:address.size];
     [_viewerControllers addObject:viewerController];
     NSTabViewItem *item = [[NSTabViewItem alloc] initWithIdentifier:viewerController];
     item.label = viewerController.title;
     item.view = viewerController.view;
     [_viewerTabBarControl.tabView addTabViewItem:item];
     [_viewerTabBarControl.tabView selectTabViewItem:item];
+    [viewerController setPID:_pid address:address.startAddress offset:address.offset size:address.size];
     [self showHexViewer:nil];
 }
 
