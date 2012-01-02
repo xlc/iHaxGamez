@@ -11,6 +11,7 @@
 #import <HexFiend/HexFiend.h>
 
 #import "VirtualMemoryByteArray.h"
+#import "MemoryLineCountingRepresenter.h"
 
 @implementation HexViewerController
 
@@ -24,7 +25,10 @@
         HFHexTextRepresenter *hexRep = [[HFHexTextRepresenter alloc] init];
         HFStringEncodingTextRepresenter *asciiRep = [[HFStringEncodingTextRepresenter alloc] init];
         HFVerticalScrollerRepresenter *scrollRep = [[HFVerticalScrollerRepresenter alloc] init];
-        HFLineCountingRepresenter *lineRep = [[HFLineCountingRepresenter alloc] init];
+        MemoryLineCountingRepresenter *lineRep = [[MemoryLineCountingRepresenter alloc] init];
+        [lineRep setLineNumberFormat:HFLineNumberFormatHexadecimal];
+        [lineRep setMinimumDigitCount:12];
+        _lineRep = lineRep;
         
         [_controller addRepresenter:layoutRep];
         [_controller addRepresenter:hexRep];
@@ -50,11 +54,19 @@
 }
 
 - (void)setPID:(pid_t)pid address:(vm_address_t)address offset:(vm_offset_t)offset size:(vm_offset_t)size {
-    self.title = [NSString stringWithFormat:@"%p", (void *)address+offset];
+    self.title = [NSString stringWithFormat:@"0x%qX", (void *)address+offset];
         // TODO use 0 for offset and set display range to show it on screen
-    VirtualMemoryByteArray *byteArray = [[VirtualMemoryByteArray alloc] initWithPID:pid address:address offset:offset size:size];
+    VirtualMemoryByteArray *byteArray = [[VirtualMemoryByteArray alloc] initWithPID:pid address:address offset:0 size:size];
     if (byteArray) {
         [_controller setByteArray:byteArray];
+        _lineRep.begainAddress = address;
+        NSInteger bytesPerLine = [_controller bytesPerLine];
+        NSInteger lineOffset = offset / bytesPerLine;
+        HFFPRange range = [_controller displayedLineRange];
+        range.location = lineOffset;
+        [_controller setDisplayedLineRange:range];
+            // TODO highlight address
+        
     }
 }
 

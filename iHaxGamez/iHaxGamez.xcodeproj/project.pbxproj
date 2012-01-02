@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0601FF971499BC950049A768 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0601FF961499BC950049A768 /* PreferencesWindow.xib */; };
 		0601FF9B1499BCB70049A768 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0601FF9A1499BCB70049A768 /* PreferencesWindowController.m */; };
+		061223E914B071F200398C92 /* MemoryLineCountingRepresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 061223E814B071F200398C92 /* MemoryLineCountingRepresenter.m */; };
+		061223EC14B19B5500398C92 /* MemoryLineCountingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 061223EB14B19B5400398C92 /* MemoryLineCountingView.m */; };
 		062C33AB14A83159009B667C /* VirtualMemoryException.m in Sources */ = {isa = PBXBuildFile; fileRef = 062C33AA14A83159009B667C /* VirtualMemoryException.m */; };
 		063282361499C2FC00ACD725 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 063282351499C2FC00ACD725 /* ConfigManager.m */; };
 		0632823D1499E08600ACD725 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632823C1499E08600ACD725 /* Carbon.framework */; };
@@ -152,6 +154,10 @@
 		0601FF961499BC950049A768 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 		0601FF991499BCB70049A768 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		0601FF9A1499BCB70049A768 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		061223E714B071F200398C92 /* MemoryLineCountingRepresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryLineCountingRepresenter.h; sourceTree = "<group>"; };
+		061223E814B071F200398C92 /* MemoryLineCountingRepresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryLineCountingRepresenter.m; sourceTree = "<group>"; };
+		061223EA14B19B5400398C92 /* MemoryLineCountingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryLineCountingView.h; sourceTree = "<group>"; };
+		061223EB14B19B5400398C92 /* MemoryLineCountingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryLineCountingView.m; sourceTree = "<group>"; };
 		062C33A914A83159009B667C /* VirtualMemoryException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualMemoryException.h; sourceTree = "<group>"; };
 		062C33AA14A83159009B667C /* VirtualMemoryException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VirtualMemoryException.m; sourceTree = "<group>"; };
 		063282341499C2FC00ACD725 /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
@@ -312,6 +318,10 @@
 				065F1E1F14AEBB6C0044F65E /* HexViewerController.xib */,
 				069EBE9314AE9C63005DAB98 /* VirtualMemoryByteArray.h */,
 				069EBE9414AE9C63005DAB98 /* VirtualMemoryByteArray.m */,
+				061223E714B071F200398C92 /* MemoryLineCountingRepresenter.h */,
+				061223E814B071F200398C92 /* MemoryLineCountingRepresenter.m */,
+				061223EA14B19B5400398C92 /* MemoryLineCountingView.h */,
+				061223EB14B19B5400398C92 /* MemoryLineCountingView.m */,
 			);
 			name = HexViewController;
 			sourceTree = "<group>";
@@ -701,6 +711,7 @@
 				06FA41A8149B2EF80099D483 /* MLogger.c in Sources */,
 				06C9B197149C10E60076AE15 /* FortunateSon.defs in Sources */,
 				06C9B19C149C312F0076AE15 /* PrivilegedHelperConnection.m in Sources */,
+				061223EC14B19B5500398C92 /* MemoryLineCountingView.m in Sources */,
 				063919D4149D9D2C005E255E /* VariableValue.m in Sources */,
 				066ED944149DD9B30092484B /* VirtualMemoryAddress.m in Sources */,
 				066CA725149F3B1600361693 /* SearchResultViewController.m in Sources */,
@@ -708,6 +719,7 @@
 				062C33AB14A83159009B667C /* VirtualMemoryException.m in Sources */,
 				069EBE8D14ADD961005DAB98 /* HexViewerController.m in Sources */,
 				069EBE9514AE9C63005DAB98 /* VirtualMemoryByteArray.m in Sources */,
+				061223E914B071F200398C92 /* MemoryLineCountingRepresenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

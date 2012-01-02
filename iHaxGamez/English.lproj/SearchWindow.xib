@@ -50,7 +50,7 @@
 			<object class="NSWindowTemplate" id="284070704">
 				<int key="NSWindowStyleMask">271</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{852, 484}, {875, 511}}</string>
+				<string key="NSWindowRect">{{852, 484}, {910, 511}}</string>
 				<int key="NSWTFlags">1886912512</int>
 				<string key="NSWindowTitle">iHaxGamez Search Navigator</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -525,7 +525,7 @@
 						<object class="NSTabView" id="386916330">
 							<reference key="NSNextResponder" ref="1009577416"/>
 							<int key="NSvFlags">18</int>
-							<string key="NSFrameSize">{875, 491}</string>
+							<string key="NSFrameSize">{910, 490}</string>
 							<reference key="NSSuperview" ref="1009577416"/>
 							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:608</string>
@@ -537,7 +537,7 @@
 						<object class="NSCustomView" id="887172722">
 							<reference key="NSNextResponder" ref="1009577416"/>
 							<int key="NSvFlags">266</int>
-							<string key="NSFrame">{{0, 489}, {875, 22}}</string>
+							<string key="NSFrame">{{0, 489}, {910, 22}}</string>
 							<reference key="NSSuperview" ref="1009577416"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1058302739"/>
@@ -547,7 +547,7 @@
 						<object class="NSTabView" id="168570457">
 							<reference key="NSNextResponder" ref="1009577416"/>
 							<int key="NSvFlags">18</int>
-							<string key="NSFrameSize">{875, 491}</string>
+							<string key="NSFrameSize">{910, 490}</string>
 							<reference key="NSSuperview" ref="1009577416"/>
 							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:608</string>
@@ -559,7 +559,7 @@
 						<object class="NSCustomView" id="1058302739">
 							<reference key="NSNextResponder" ref="1009577416"/>
 							<int key="NSvFlags">-2147483382</int>
-							<string key="NSFrame">{{0, 489}, {875, 22}}</string>
+							<string key="NSFrame">{{0, 489}, {910, 22}}</string>
 							<reference key="NSSuperview" ref="1009577416"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="386916330"/>
@@ -567,12 +567,12 @@
 							<string key="NSClassName">PSMTabBarControl</string>
 						</object>
 					</array>
-					<string key="NSFrameSize">{875, 511}</string>
+					<string key="NSFrameSize">{910, 511}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="887172722"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1440}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMinSize">{780, 478}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -727,10 +727,10 @@
 						<int key="objectID">5</int>
 						<reference key="object" ref="1009577416"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="386916330"/>
-							<reference ref="168570457"/>
 							<reference ref="887172722"/>
 							<reference ref="1058302739"/>
+							<reference ref="386916330"/>
+							<reference ref="168570457"/>
 						</array>
 						<reference key="parent" ref="284070704"/>
 					</object>

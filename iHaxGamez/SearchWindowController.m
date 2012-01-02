@@ -135,6 +135,7 @@
 }
 
 - (void)searchValue:(id)sender {
+    [self showSearch:nil];
     NSString *value = [_searchField stringValue];
     if ([value length] == 0)
         return;
