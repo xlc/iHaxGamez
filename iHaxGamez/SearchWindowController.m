@@ -154,6 +154,7 @@
 
 - (void)openViewerForAddress:(VirtualMemoryAddress *)address {
     HexViewerController *viewerController = [[HexViewerController alloc] init];
+    viewerController.title = [NSString stringWithFormat:@"0x%qX", (void *)address.address];
     [_viewerControllers addObject:viewerController];
     NSTabViewItem *item = [[NSTabViewItem alloc] initWithIdentifier:viewerController];
     item.label = viewerController.title;

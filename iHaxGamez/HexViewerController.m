@@ -54,7 +54,6 @@
 }
 
 - (void)setPID:(pid_t)pid address:(vm_address_t)address offset:(vm_offset_t)offset size:(vm_offset_t)size {
-    self.title = [NSString stringWithFormat:@"0x%qX", (void *)address+offset];
         // TODO use 0 for offset and set display range to show it on screen
     VirtualMemoryByteArray *byteArray = [[VirtualMemoryByteArray alloc] initWithPID:pid address:address offset:0 size:size];
     if (byteArray) {
