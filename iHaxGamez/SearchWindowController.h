@@ -38,7 +38,8 @@
 
 - (id)initWithTitle:(NSString *)title pid:(pid_t)pid;
 
-- (IBAction)clearSearchResult:(NSButtonCell *)sender;
+- (IBAction)clearSearchResult:(id)sender;
+- (IBAction)refresh:(id)sender;
 - (IBAction)showSearch:(id)sender;
 - (IBAction)showHexViewer:(id)sender;
 - (IBAction)showSettings:(id)sender;

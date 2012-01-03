@@ -76,4 +76,19 @@
     free(buff); 
 }
 
+#pragma mark -
+
+- (void)reload {
+    void *data;
+    mach_msg_type_number_t returnedSize;
+    kern_return_t kr = helper_vm_read(_pid, _startAddress, [_buffer length], &data, &returnedSize);
+    if (kr != KERN_SUCCESS) {
+        MILOG(@"fail to reload byte array for pid: %d, error: %s", _pid, mach_error_string(kr));
+        [_buffer setLength:0];
+        return;
+    }
+    [_buffer replaceBytesInRange:NSMakeRange(0, returnedSize) withBytes:data];
+    helper_vm_free(data, returnedSize);
+}
+
 @end

@@ -34,6 +34,7 @@
 - (id)initWithPID:(pid_t)pid;
 - (void)searchValue:(NSString *)stringValue;
 - (void)clearResult;
+- (void)refresh;
 - (IBAction)doubleClick:(id)sender;
 
 @end

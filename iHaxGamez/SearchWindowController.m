@@ -86,9 +86,17 @@
 
 #pragma mark - IBAction
 
-- (IBAction)clearSearchResult:(NSButtonCell *)sender {
+- (IBAction)clearSearchResult:(id)sender {
     [_currentSearchController clearResult];
     [_typeButton setEnabled:YES];
+}
+
+- (IBAction)refresh:(id)sender {
+    if (![_searchTabBarControl isHidden]) {
+        [_currentSearchController refresh];
+    } else {
+        [_currentViewerController refresh];
+    }
 }
 
 - (IBAction)showSearch:(id)sender {
@@ -168,12 +176,17 @@
 #pragma mark - PSMTabBarControlDelegate
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {
-    _currentSearchController = tabViewItem.identifier;
+    if (_searchTabBarControl.tabView == tabView)
+        _currentSearchController = tabViewItem.identifier;
+    else
+        _currentViewerController = tabViewItem.identifier;
 }
 
-- (void)tabView:(NSTabView *)aTabView didCloseTabViewItem:(NSTabViewItem *)tabViewItem {
-    SearchWindowController *resultController = tabViewItem.identifier;
-    [_resultControllers removeObject:resultController];
+- (void)tabView:(NSTabView *)tabView didCloseTabViewItem:(NSTabViewItem *)tabViewItem {
+    if (_searchTabBarControl.tabView == tabView)
+        [_resultControllers removeObject:tabViewItem.identifier];
+    else
+        [_viewerControllers removeObject:tabViewItem.identifier];
 }
 
 @end

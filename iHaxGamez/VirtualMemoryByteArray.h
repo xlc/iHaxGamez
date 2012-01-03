@@ -18,4 +18,6 @@
 
 - (id)initWithPID:(pid_t)pid address:(vm_address_t)address offset:(vm_offset_t)offset size:(vm_offset_t)size;
 
+- (void)reload;
+
 @end

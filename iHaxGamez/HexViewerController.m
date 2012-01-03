@@ -69,4 +69,9 @@
     }
 }
 
+- (void)refresh {
+    [(VirtualMemoryByteArray *)[_controller byteArray] reload];
+    [_controller replaceByteArray:_controller.byteArray];
+}
+
 @end

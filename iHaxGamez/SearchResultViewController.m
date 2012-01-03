@@ -80,6 +80,10 @@
     }
 }
 
+- (void)refresh {
+    [_tableView reloadData];
+}
+
 #pragma mark - IBAction
 
 - (IBAction)doubleClick:(id)sender {
