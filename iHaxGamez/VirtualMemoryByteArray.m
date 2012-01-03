@@ -71,7 +71,8 @@
     
     void* buff = malloc(length);
     [slice copyBytes:buff range:HFRangeMake(0, length)];
-    [_buffer replaceBytesInRange:range withBytes:buff length:length];   // TODO save write into vm
+    [_buffer replaceBytesInRange:range withBytes:buff length:length];
+    helper_vm_write(_pid, _startAddress+lrange.location, buff, (mach_msg_type_number_t)lrange.length);
     free(buff); 
 }
 

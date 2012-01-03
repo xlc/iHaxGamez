@@ -19,7 +19,7 @@
     self = [super initWithNibName:@"HexViewerController" bundle:[NSBundle mainBundle]];
     if (self) {
         _controller = [[HFController alloc] init];
-        [_controller setInOverwriteMode:YES];
+        [_controller setInOverwriteMode:YES];   // TODO add a lock button so readonly by default
         
         HFLayoutRepresenter *layoutRep = [[HFLayoutRepresenter alloc] init];
         HFHexTextRepresenter *hexRep = [[HFHexTextRepresenter alloc] init];
@@ -54,7 +54,6 @@
 }
 
 - (void)setPID:(pid_t)pid address:(vm_address_t)address offset:(vm_offset_t)offset size:(vm_offset_t)size {
-        // TODO use 0 for offset and set display range to show it on screen
     VirtualMemoryByteArray *byteArray = [[VirtualMemoryByteArray alloc] initWithPID:pid address:address offset:0 size:size];
     if (byteArray) {
         [_controller setByteArray:byteArray];
