@@ -107,12 +107,14 @@ OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,
 
 - (void)setEnabled:(BOOL)enabled {
     _enabled = enabled;
-    if (hotkeyEnabled && _enabled && !_hotKeyRef) {
-        int i = (int)[hotKeyConfigs indexOfObject:self];
-        _hotKeyID.signature = 'htk0' + i;
-        _hotKeyID.id = i;
-        RegisterEventHotKey(self.key, self.modifiers, _hotKeyID, 
-                            GetApplicationEventTarget(), 0, &_hotKeyRef);
+    if (hotkeyEnabled && _enabled) {
+        if (!_hotKeyRef) {
+            int i = (int)[hotKeyConfigs indexOfObject:self];
+            _hotKeyID.signature = 'htk0' + i;
+            _hotKeyID.id = i;
+            RegisterEventHotKey(self.key, self.modifiers, _hotKeyID, 
+                                GetApplicationEventTarget(), 0, &_hotKeyRef);
+        }
     } else {
         if (_hotKeyRef)
             UnregisterEventHotKey(_hotKeyRef);
