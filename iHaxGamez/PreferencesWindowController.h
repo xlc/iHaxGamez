@@ -8,11 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PreferencesWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate> {
+@interface PreferencesWindowController : NSWindowController <NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate> {
 @private
+    __weak NSTableView *_tableView;
+    
     UInt32 _modifierKey;
     UInt32 _key;
 }
+
+@property (weak) IBOutlet NSTableView *_tableView;
 
 + (void)showWindow;
 

@@ -25,9 +25,13 @@
 		0690289614A6957900833B83 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0690289414A6957900833B83 /* Credits.rtf */; };
 		0690289914A6957900833B83 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0690289814A6957900833B83 /* AppDelegate.m */; };
 		0690289C14A6957900833B83 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0690289A14A6957900833B83 /* MainMenu.xib */; };
+		0695C44114B55FD200EC328F /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0695C44014B55FD200EC328F /* PreferencesWindow.m */; };
 		069EBE8D14ADD961005DAB98 /* HexViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 069EBE8C14ADD961005DAB98 /* HexViewerController.m */; };
 		069EBE9214AE93CF005DAB98 /* HexFiend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 069094DF149C99E2009B1C58 /* HexFiend.framework */; };
 		069EBE9514AE9C63005DAB98 /* VirtualMemoryByteArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 069EBE9414AE9C63005DAB98 /* VirtualMemoryByteArray.m */; };
+		06A08D6014B54C9F007302E6 /* SRCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A08D5714B54C9F007302E6 /* SRCommon.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		06A08D6114B54C9F007302E6 /* SRKeyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A08D5914B54C9F007302E6 /* SRKeyCodeTransformer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		06A08D6414B54C9F007302E6 /* SRValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A08D5F14B54C9F007302E6 /* SRValidator.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		06C9B193149C0D3B0076AE15 /* FortunateSon.defs in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B18F149C0D3B0076AE15 /* FortunateSon.defs */; settings = {ATTRIBUTES = (Server, ); }; };
 		06C9B194149C0D3B0076AE15 /* FortunateSonServerImpl.c in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B191149C0D3B0076AE15 /* FortunateSonServerImpl.c */; };
 		06C9B195149C0D3B0076AE15 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06C9B192149C0D3B0076AE15 /* main.cpp */; };
@@ -181,10 +185,18 @@
 		0690289714A6957900833B83 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0690289814A6957900833B83 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0690289B14A6957900833B83 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		0695C43F14B55FD200EC328F /* PreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindow.h; sourceTree = "<group>"; };
+		0695C44014B55FD200EC328F /* PreferencesWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindow.m; sourceTree = "<group>"; };
 		069EBE8B14ADD961005DAB98 /* HexViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexViewerController.h; sourceTree = "<group>"; };
 		069EBE8C14ADD961005DAB98 /* HexViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexViewerController.m; sourceTree = "<group>"; };
 		069EBE9314AE9C63005DAB98 /* VirtualMemoryByteArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualMemoryByteArray.h; sourceTree = "<group>"; };
 		069EBE9414AE9C63005DAB98 /* VirtualMemoryByteArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VirtualMemoryByteArray.m; sourceTree = "<group>"; };
+		06A08D5614B54C9F007302E6 /* SRCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRCommon.h; sourceTree = "<group>"; };
+		06A08D5714B54C9F007302E6 /* SRCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRCommon.m; sourceTree = "<group>"; };
+		06A08D5814B54C9F007302E6 /* SRKeyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRKeyCodeTransformer.h; sourceTree = "<group>"; };
+		06A08D5914B54C9F007302E6 /* SRKeyCodeTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRKeyCodeTransformer.m; sourceTree = "<group>"; };
+		06A08D5E14B54C9F007302E6 /* SRValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRValidator.h; sourceTree = "<group>"; };
+		06A08D5F14B54C9F007302E6 /* SRValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRValidator.m; sourceTree = "<group>"; };
 		06C9B17F149C0C710076AE15 /* com.github.xlc.iHaxGamez.PrivilegedHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.github.xlc.iHaxGamez.PrivilegedHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		06C9B18D149C0D3B0076AE15 /* FortunateSon-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FortunateSon-Info.plist"; sourceTree = "<group>"; };
 		06C9B18E149C0D3B0076AE15 /* FortunateSon-Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FortunateSon-Launchd.plist"; sourceTree = "<group>"; };
@@ -268,6 +280,8 @@
 			children = (
 				0601FF991499BCB70049A768 /* PreferencesWindowController.h */,
 				0601FF9A1499BCB70049A768 /* PreferencesWindowController.m */,
+				0695C43F14B55FD200EC328F /* PreferencesWindow.h */,
+				0695C44014B55FD200EC328F /* PreferencesWindow.m */,
 				0601FF961499BC950049A768 /* PreferencesWindow.xib */,
 				063282341499C2FC00ACD725 /* ConfigManager.h */,
 				063282351499C2FC00ACD725 /* ConfigManager.m */,
@@ -324,6 +338,19 @@
 				061223EB14B19B5400398C92 /* MemoryLineCountingView.m */,
 			);
 			name = HexViewController;
+			sourceTree = "<group>";
+		};
+		06A08D5514B54C9F007302E6 /* ShortcutRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				06A08D5614B54C9F007302E6 /* SRCommon.h */,
+				06A08D5714B54C9F007302E6 /* SRCommon.m */,
+				06A08D5814B54C9F007302E6 /* SRKeyCodeTransformer.h */,
+				06A08D5914B54C9F007302E6 /* SRKeyCodeTransformer.m */,
+				06A08D5E14B54C9F007302E6 /* SRValidator.h */,
+				06A08D5F14B54C9F007302E6 /* SRValidator.m */,
+			);
+			path = ShortcutRecorder;
 			sourceTree = "<group>";
 		};
 		06C9B18C149C0D3B0076AE15 /* PrivilegedHelper */ = {
@@ -487,6 +514,7 @@
 		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				06A08D5514B54C9F007302E6 /* ShortcutRecorder */,
 				06D64AA214A0837100FA5716 /* PSMTabBarControl.xcodeproj */,
 				06FA41AB149B50980099D483 /* HexFiend_2.xcodeproj */,
 				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
@@ -720,6 +748,10 @@
 				069EBE8D14ADD961005DAB98 /* HexViewerController.m in Sources */,
 				069EBE9514AE9C63005DAB98 /* VirtualMemoryByteArray.m in Sources */,
 				061223E914B071F200398C92 /* MemoryLineCountingRepresenter.m in Sources */,
+				06A08D6014B54C9F007302E6 /* SRCommon.m in Sources */,
+				06A08D6114B54C9F007302E6 /* SRKeyCodeTransformer.m in Sources */,
+				06A08D6414B54C9F007302E6 /* SRValidator.m in Sources */,
+				0695C44114B55FD200EC328F /* PreferencesWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

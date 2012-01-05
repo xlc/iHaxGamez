@@ -12,6 +12,8 @@
 @interface ConfigManager : NSObject
 
 + (void)installHotKeys;
++ (void)disableHotKeys;
++ (void)enableHotKeys;
 
 + (NSArray *)hotKeyConfigs;
 
@@ -26,12 +28,16 @@
     BOOL _enabled;
     UInt32 _key;
     UInt32 _modifiers;
+    NSString *_keyDescription;
 }
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic) BOOL enabled;
-@property (nonatomic) UInt32 key;
-@property (nonatomic) UInt32 modifiers;
+@property (nonatomic, readonly) UInt32 key;
+@property (nonatomic, readonly) UInt32 modifiers;
 @property (nonatomic) SEL selector;
+@property (readonly) NSString *keyDescription;
+
+- (BOOL)setModifiers:(UInt32)modifiers key:(UInt32)key;
 
 @end

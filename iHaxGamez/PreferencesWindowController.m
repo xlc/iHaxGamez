@@ -9,13 +9,16 @@
 #import "PreferencesWindowController.h"
 #import "ConfigManager.h"
 
+#import "SRValidator.h"
+
 static PreferencesWindowController *sharedController;
 
 @implementation PreferencesWindowController
+@synthesize _tableView;
 
 + (void)showWindow {
     if (!sharedController) {
-        sharedController = [[self alloc] init];
+        sharedController = [[self alloc] init]; // TODO set to nil/release after window closed
     }
     [sharedController showWindow:nil];
 }
@@ -40,7 +43,27 @@ static PreferencesWindowController *sharedController;
 #pragma mark - 
 
 - (void)keyDown:(NSEvent *)theEvent {
-    
+    NSInteger row = [_tableView selectedRow];
+    if (row >= 0) {
+        UInt32 modifierKeys = 0;
+        if ([theEvent modifierFlags] & NSControlKeyMask)
+            modifierKeys |= controlKey;
+        if ([theEvent modifierFlags] & NSCommandKeyMask)
+            modifierKeys |= cmdKey;
+        if ([theEvent modifierFlags] & NSAlternateKeyMask)
+            modifierKeys |= optionKey;
+        if (modifierKeys) {
+            if ([theEvent modifierFlags] & NSShiftKeyMask)
+                modifierKeys += shiftKey;
+            HotKeyConfig *config = [[ConfigManager hotKeyConfigs] objectAtIndex:row];
+            if ([config setModifiers:modifierKeys key:[theEvent keyCode]])
+                [_tableView reloadData];
+            else
+                NSBeep();
+        } else {
+            NSBeep();
+        }
+    }
 }
 
 - (void)keyUp:(NSEvent *)theEvent {
@@ -60,7 +83,7 @@ static PreferencesWindowController *sharedController;
     } else if ([[tableColumn identifier] isEqualToString:@"name"]) {
         return config.name;
     } else if ([[tableColumn identifier] isEqualToString:@"hotkey"]) {
-        return @"cmd + shift + 1";
+        return config.keyDescription;
     }
     return nil;
 }
@@ -70,8 +93,18 @@ static PreferencesWindowController *sharedController;
     if ([[tableColumn identifier] isEqualToString:@"enabled"]) {
         config.enabled = [object boolValue];
     } else if ([[tableColumn identifier] isEqualToString:@"hotkey"]) {
-
+        
     }
+}
+
+#pragma mark - NSWindowDelegate
+
+- (void)windowDidResignKey:(NSNotification *)notification {
+    [ConfigManager enableHotKeys];
+}
+
+- (void)windowDidBecomeKey:(NSNotification *)notification {
+    [ConfigManager disableHotKeys];
 }
 
 @end
