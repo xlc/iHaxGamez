@@ -48,19 +48,21 @@
     _processing = YES;
     [_infoLabel setHidden:YES];
     [_progressIndicator setHidden:NO];
-    
+    clock_t start = clock();
     void (^callback)(double percent, NSArray *result, BOOL done) =  ^(double percent, NSArray *result, BOOL done) {
         _results = result;
         _progressIndicator.doubleValue = percent;
         [_tableView reloadData];
         if (done) {
+            clock_t end = clock();
+            double diff = (end - start) / (double)CLOCKS_PER_SEC;
             _processing = NO;
-            _infoLabel.stringValue = [NSString stringWithFormat:@"Search Results: %d Times %d Found", _searchCount, [_results count]];
+            _infoLabel.stringValue = [NSString stringWithFormat:@"Search Results: %d Times %d Found (%.4lf seconds)", _searchCount, [_results count], diff];
             [_infoLabel setHidden:NO];
             [_progressIndicator setHidden:YES];
         }
     };
-    
+
     if ([_results count] == 0) {
         _searchCount = 1;
         [MemoryAccess searchValue:value pid:_pid option:_option callback:callback];

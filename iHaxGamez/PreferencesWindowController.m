@@ -14,6 +14,7 @@
 static PreferencesWindowController *sharedController;
 
 @implementation PreferencesWindowController
+@synthesize _alignmentButton;
 @synthesize _tableView;
 
 + (void)showWindow {
@@ -37,7 +38,8 @@ static PreferencesWindowController *sharedController;
 {
     [super windowDidLoad];
     
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    NSInteger alignment = [[NSUserDefaults standardUserDefaults] integerForKey:@"MemoryAlignment"];
+    [_alignmentButton selectItemWithTag:alignment];
 }
 
 #pragma mark - 
@@ -68,6 +70,14 @@ static PreferencesWindowController *sharedController;
 
 - (void)keyUp:(NSEvent *)theEvent {
     
+}
+
+#pragma mark - IBAction
+
+- (IBAction)alignmentChanged:(id)sender {
+    NSPopUpButton *button = sender;
+    NSInteger alignment = [[button selectedItem] tag];
+    [[NSUserDefaults standardUserDefaults] setInteger:alignment forKey:@"MemoryAlignment"];
 }
 
 #pragma mark - NSTableViewDelegate, NSTableViewDataSource

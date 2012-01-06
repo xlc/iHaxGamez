@@ -36,6 +36,9 @@
     if (option & SearchOptionEightTimesMode) {
         value = [value eightTimesValue];
     }
+    NSInteger alignment = [[NSUserDefaults standardUserDefaults] integerForKey:@"MemoryAlignment"];
+    if (alignment == 0)
+        alignment = 4;
     while (helper_vm_region(pid, &address, &size) == KERN_SUCCESS) {
         totalCount++;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -46,14 +49,19 @@
                 localResult = [NSMutableArray arrayWithCapacity:100];
                 size_t remain = size - value.size;
                 void *endAddress = buffer + remain;
-                for (void *localAddress = buffer; localAddress <= endAddress; localAddress++) {
+                void *localAddress = buffer;
+                    // align address
+                if ((NSUInteger)localAddress % alignment != 0) {
+                    localAddress += alignment - (NSUInteger)localAddress % alignment;
+                }
+                for ( ; localAddress <= endAddress; localAddress+=alignment) {
                     VariableType type;
                     if ([value compareAtAddress:localAddress minSize:minSize maxSize:remain matchedType:&type]) {
                         VariableValue *newValue = [[VariableValue alloc] initWithValue:value type: type];
                         VirtualMemoryAddress *vmAddr = [[VirtualMemoryAddress alloc] initWithPID:pid startAddress:address offset:localAddress-buffer size:size value:newValue];
                         [localResult addObject:vmAddr];
                     }
-                    remain--;
+                    remain-=alignment;
                 }
                 
             }

@@ -115,10 +115,6 @@
     [[self.window toolbar] setSelectedItemIdentifier:@"HexViewer"];
 }
 
-- (IBAction)showSettings:(id)sender {
-        // TODO
-}
-
 #pragma mark -
 
 - (void)addNewSearch {

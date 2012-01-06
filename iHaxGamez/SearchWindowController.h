@@ -42,7 +42,6 @@
 - (IBAction)refresh:(id)sender;
 - (IBAction)showSearch:(id)sender;
 - (IBAction)showHexViewer:(id)sender;
-- (IBAction)showSettings:(id)sender;
 
 - (void)openViewerForAddress:(VirtualMemoryAddress *)address;
 

@@ -11,13 +11,17 @@
 @interface PreferencesWindowController : NSWindowController <NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate> {
 @private
     __weak NSTableView *_tableView;
+    __weak NSPopUpButton *_alignmentButton;
     
     UInt32 _modifierKey;
     UInt32 _key;
 }
 
 @property (weak) IBOutlet NSTableView *_tableView;
+@property (weak) IBOutlet NSPopUpButton *_alignmentButton;
 
 + (void)showWindow;
+
+- (IBAction)alignmentChanged:(id)sender;
 
 @end
