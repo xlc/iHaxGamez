@@ -26,6 +26,8 @@
 		0690289914A6957900833B83 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0690289814A6957900833B83 /* AppDelegate.m */; };
 		0690289C14A6957900833B83 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0690289A14A6957900833B83 /* MainMenu.xib */; };
 		0695C44114B55FD200EC328F /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0695C44014B55FD200EC328F /* PreferencesWindow.m */; };
+		0695C44514B99DD400EC328F /* HexFiend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 069094DF149C99E2009B1C58 /* HexFiend.framework */; };
+		0695C44614B99EDD00EC328F /* PSMTabBarControl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 06D64AAB14A0837100FA5716 /* PSMTabBarControl.framework */; };
 		069EBE8D14ADD961005DAB98 /* HexViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 069EBE8C14ADD961005DAB98 /* HexViewerController.m */; };
 		069EBE9214AE93CF005DAB98 /* HexFiend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 069094DF149C99E2009B1C58 /* HexFiend.framework */; };
 		069EBE9514AE9C63005DAB98 /* VirtualMemoryByteArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 069EBE9414AE9C63005DAB98 /* VirtualMemoryByteArray.m */; };
@@ -149,6 +151,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0695C44614B99EDD00EC328F /* PSMTabBarControl.framework in CopyFiles */,
+				0695C44514B99DD400EC328F /* HexFiend.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -951,6 +955,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = iHaxGamez;
 				COPY_PHASE_STRIP = NO;
@@ -975,6 +980,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = iHaxGamez;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

@@ -70,7 +70,7 @@ if (!(e)) { \
 MELOG(@"fail assertion: '%s', %@", #e, [NSString stringWithFormat:msg, ##__VA_ARGS__]); \
 } \
 } while (0)
-#define MFAIL(msg, ...) MELog(msg, ##__VA_ARGS__)
+#define MFAIL(msg, ...) MELOG(msg, ##__VA_ARGS__)
 #endif
 
 #define MASSERT_SOFT(e) do { \
