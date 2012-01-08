@@ -18,13 +18,14 @@ typedef enum {
 } VariableType;
 
 @interface VariableValue : NSObject {
-@private
+@protected
     VariableType _type;
     size_t _size;
     size_t _maxSize;
     void *_data[4];
     size_t _dataSize[2];
     BOOL _eightTimes;
+    BOOL _fixType;
 }
 
 @property (nonatomic, readonly) VariableType type;
@@ -34,6 +35,7 @@ typedef enum {
 @property (nonatomic, readonly) BOOL eightTimes;
 
 - (id)initWithStringValue:(NSString *)stringValue isTextType:(BOOL)textType;
+- (id)initWithStringValue:(NSString *)stringValue type:(VariableType)type size:(size_t)size;
 - (id)initWithValue:(VariableValue *)value type:(VariableType)type;
 - (id)initWithValue:(VariableValue *)value size:(size_t)size type:(VariableType)type;
 - (id)initWithData:(void *)data size:(size_t)size type:(VariableType)type;

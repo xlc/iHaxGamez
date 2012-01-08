@@ -19,7 +19,7 @@
 @synthesize _progressIndicator;
 @synthesize _infoLabel;
 
-@synthesize isProcessing = _processing, textType = _textType, option = _option;
+@synthesize isProcessing = _processing, type = _type, option = _option;
 
 - (id)initWithPID:(pid_t)pid
 {
@@ -27,8 +27,8 @@
     if (self) {
         _pid = pid;
         _processing = NO;
-        _option = SearchOptionLimitSizeRange;
-        _textType = NO;
+        _option = SearchOptionNormal;
+        _type = NO;
         _searchCount = 0;
     }
     
@@ -44,7 +44,38 @@
 - (void)searchValue:(NSString *)stringValue {
     if (_processing)
         return; // TODO say something?
-    VariableValue *value = [[VariableValue alloc] initWithStringValue:stringValue isTextType:_textType];
+    NSInteger option = _option;
+    VariableValue *value;
+    switch (_type) {
+        case 0: // auto type
+            value = [[VariableValue alloc] initWithStringValue:stringValue isTextType:NO];
+            option |= SearchOptionLimitSizeRange;
+            break;
+        case 1: // text type
+            value = [[VariableValue alloc] initWithStringValue:stringValue isTextType:YES];
+            break;
+        case 2: // 1 byte int
+            value = [[VariableValue alloc] initWithStringValue:stringValue type:VariableTypeUnsignedInteger size:sizeof(uint8_t)];
+            break;
+        case 3: // 2 bypes int
+            value = [[VariableValue alloc] initWithStringValue:stringValue type:VariableTypeUnsignedInteger size:sizeof(uint16_t)];
+            break;
+        case 4: // 4 bytes int
+            value = [[VariableValue alloc] initWithStringValue:stringValue type:VariableTypeUnsignedInteger size:sizeof(uint32_t)];
+            break;
+        case 5: // 8 bytes int
+            value = [[VariableValue alloc] initWithStringValue:stringValue type:VariableTypeUnsignedInteger size:sizeof(uint64_t)];
+            break;
+        case 6: // float
+            value = [[VariableValue alloc] initWithStringValue:stringValue type:VariableTypeFloat size:sizeof(float)];
+            break;
+        case 7: // double
+            value = [[VariableValue alloc] initWithStringValue:stringValue type:VariableTypeDouble size:sizeof(double)];
+            break;
+            
+        default:
+            MFAIL(@"invalid case: %d", _type);
+    }
     _processing = YES;
     [_infoLabel setHidden:YES];
     [_progressIndicator setHidden:NO];
@@ -65,7 +96,7 @@
 
     if ([_results count] == 0) {
         _searchCount = 1;
-        [MemoryAccess searchValue:value pid:_pid option:_option callback:callback];
+        [MemoryAccess searchValue:value pid:_pid option:option callback:callback];
     } else {
         _searchCount++;
         [MemoryAccess filterDatas:_results withValue:value callback:callback];

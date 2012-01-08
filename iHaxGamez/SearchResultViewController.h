@@ -18,7 +18,7 @@
     BOOL _processing;
     NSArray *_results;
     NSInteger _option;
-    BOOL _textType;
+    NSInteger _type;
     NSInteger _searchCount;
 }
 
@@ -29,7 +29,7 @@
 @property (nonatomic, readonly) BOOL isProcessing;
 @property (nonatomic, readonly) NSInteger objectCount;
 @property (nonatomic) NSInteger option;
-@property (nonatomic) BOOL textType;
+@property (nonatomic) NSInteger type;
 
 - (id)initWithPID:(pid_t)pid;
 - (void)searchValue:(NSString *)stringValue;

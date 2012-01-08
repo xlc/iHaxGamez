@@ -17,7 +17,7 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
 - (id)initWithStringValue:(NSString *)stringValue isTextType:(BOOL)textType {
     self = [super init];
     if (self) {
-        
+        _fixType = NO;
         _data[0] = NULL;
         _data[1] = NULL;
         
@@ -119,11 +119,37 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
             _data[1] = malloc(size);
             MASSERT_SOFT([stringValue getCString:_data[1] maxLength:size encoding:NSUnicodeStringEncoding]);
         }
-        if (VariableTypeIsNumeric(_type)) {
-            MASSERT(_data[2] != NULL, @"float value not initilized");
-            MASSERT(_data[3] != NULL, @"double value not initilized");
-        }
     }
+    return self;
+}
+
+- (id)initWithStringValue:(NSString *)stringValue type:(VariableType)type size:(size_t)size {
+    void *data;
+    long long llValue;
+    float fValue;
+    double dValue;
+    unichar character[size];
+    switch (type) {
+        case VariableTypeUnsignedInteger:
+        case VariableTypeInteger:
+            llValue = [stringValue longLongValue];
+            data = &llValue;
+            break;
+        case VariableTypeFloat:
+            fValue = [stringValue floatValue];
+            data = &fValue;
+            break;
+        case VariableTypeDouble:
+            dValue = [stringValue doubleValue];
+            data = &dValue;
+            break;
+        case VariableTypeASCII:
+        case VariableTypeUnicode:
+            [stringValue getCharacters:character];
+            data = character;
+            break;
+    }
+    self = [self initWithData:data size:size type:type];   // TODO check value not exceed size limit
     return self;
 }
 
@@ -134,6 +160,7 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
 - (id)initWithValue:(VariableValue *)value size:(size_t)size type:(VariableType)type {
     self = [super init];
     if (self) {
+        _fixType = value->_fixType;
         _eightTimes = value->_eightTimes;
         _type = type;
         if (value.type != type) {
@@ -171,10 +198,6 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
             _data[3] = malloc(sizeof(double));
             *(double *)_data[3] = *(double *)value->_data[3];
         }
-        if (VariableTypeIsNumeric(_type)) {
-            MASSERT(_data[2] != NULL, @"float value not initilized");
-            MASSERT(_data[3] != NULL, @"double value not initilized");
-        }
     }
     return self;
 }
@@ -186,6 +209,7 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
     MASSERT(maxSize >= size, @"max size (%lu) less than size (%lu)", maxSize, size);
     self = [super init];
     if (self) {
+        _fixType = YES;
         _eightTimes = NO;
         _type = type;
         _size = size;
@@ -195,35 +219,23 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
         _data[1] = malloc(maxSize);
         memcpy(_data[1], data, maxSize);
         _dataSize[0] = _dataSize[1] = maxSize;
-        if (VariableTypeIsNumeric(type)) {
-            if (_maxSize >= sizeof(float)) {
-                _data[2] = malloc(sizeof(float));
-                memcpy(_data[2], data, sizeof(float));
-                float fValue = *(float *)_data[2];
-                if (isnan(fValue)) {
-                    free(_data[2]);
-                    _data[2] = NULL;
-                    if (_type == VariableTypeFloat) {
-                        _type = VariableTypeDouble;
-                    }
-                }
+        if (type == VariableTypeFloat) {
+            _data[2] = malloc(sizeof(float));
+            memcpy(_data[2], data, sizeof(float));
+            float fValue = *(float *)_data[2];
+            if (isnan(fValue)) {
+                free(_data[2]);
+                _data[2] = NULL;
+                return nil;
             }
-            if (_maxSize >= sizeof(double)) {
-                _data[3] = malloc(sizeof(double));
-                memcpy(_data[3], data, sizeof(double));
-                double dValue = *(double *)_data[3];
-                if (isnan(dValue)) {
-                    free(_data[3]);
-                    _data[3] = NULL;
-                    if (_type == VariableTypeDouble) {
-                        if (_data[2]) {
-                            _type = VariableTypeFloat;
-                        } else {
-                            self = nil;
-                            return nil;
-                        }
-                    }
-                }
+        } else if (type == VariableTypeDouble) {
+            _data[3] = malloc(sizeof(double));
+            memcpy(_data[3], data, sizeof(double));
+            double dValue = *(double *)_data[3];
+            if (isnan(dValue)) {
+                free(_data[3]);
+                _data[3] = NULL;
+                return nil;
             }
         }
     }
@@ -242,21 +254,21 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
             long long llValue = 0;
             memcpy(&llValue, _data[1], _dataSize[1]);   // TODO handle negative number
             llValue *= 8;
-            value = [[VariableValue alloc] initWithData:&llValue size:sizeof(llValue) type:_type];
+            value = [[[self class] alloc] initWithData:&llValue size:sizeof(llValue) type:_type];
             break;
         }
         case VariableTypeFloat:
         {
             float fValue = *(float *)_data[2];
             fValue *= 8;
-            value = [[VariableValue alloc] initWithData:&fValue size:sizeof(fValue) type:_type];
+            value = [[[self class] alloc] initWithData:&fValue size:sizeof(fValue) type:_type];
             break;
         }
         case VariableTypeDouble:
         {
             float dValue = *(double *)_data[3];
             dValue *= 8;
-            value = [[VariableValue alloc] initWithData:&dValue size:sizeof(dValue) type:_type];
+            value = [[[self class] alloc] initWithData:&dValue size:sizeof(dValue) type:_type];
             break;
         }
         case VariableTypeASCII:
@@ -264,6 +276,7 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
             return self;
     }
     value->_eightTimes = YES;
+    value->_fixType = _fixType;
     return value;
 }
 
@@ -319,6 +332,10 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
                     }
                 }
             }
+            
+            if (_fixType)
+                return NO;
+            
                 // continue to float checking
             
         case VariableTypeFloat:
@@ -332,6 +349,9 @@ static size_t minIntSize = sizeof(int);    // TODO configurable minimum integer 
                     return YES;
                 }
             }
+            
+            if (_fixType)
+                return NO;
             
                 // continue to double checking
             

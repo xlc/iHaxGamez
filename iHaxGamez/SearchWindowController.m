@@ -153,7 +153,7 @@
 }
 
 - (void)changeSearchType:(id)sender {
-    _currentSearchController.textType = _typeButton.indexOfSelectedItem == 1;
+    _currentSearchController.type = _typeButton.indexOfSelectedItem;
 }
 
 - (void)openViewerForAddress:(VirtualMemoryAddress *)address {
@@ -172,10 +172,13 @@
 #pragma mark - PSMTabBarControlDelegate
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {
-    if (_searchTabBarControl.tabView == tabView)
+    if (_searchTabBarControl.tabView == tabView) {
         _currentSearchController = tabViewItem.identifier;
-    else
+        [_typeButton selectItemAtIndex:_currentSearchController.type];
+        [_typeButton setEnabled:_currentSearchController.objectCount == 0];
+    } else {
         _currentViewerController = tabViewItem.identifier;
+    }
 }
 
 - (void)tabView:(NSTabView *)tabView didCloseTabViewItem:(NSTabViewItem *)tabViewItem {
